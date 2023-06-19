@@ -58,7 +58,7 @@ a{
 <sitemesh:write property="head"/>
 </head>
 <!-- Top container -->
-<div style="background-color:green;  font-family:'TheJamsil5Bold'; sans-serif; font-weight: 500;"
+<div style="background-color:#00C73C; font-family:'TheJamsil5Bold'; sans-serif; font-weight: 500;"
        class="w3-container w3-center w3-bar w3-top w3-large">
   <a href="${path}/member/main" class="w3-bar-item"><img src="${path}/image/bm.png" class="w3-image" width="13%">&nbsp;&nbsp;볼링매니아</a>
   <a href="${path}/board/bobList?boardid=1" class="w3-bar-item w3-button" >베스트게시판</a>
@@ -78,7 +78,7 @@ a{
   </span>
 </div>
 
-<body class="w3-black">
+<body class="w3-white">
 <!-- Page Content -->
 <div id="main">
 <sitemesh:write property="body"/>
