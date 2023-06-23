@@ -25,9 +25,9 @@ public class DBConfig {
 		ComboPooledDataSource ds = new ComboPooledDataSource();  //Connection Pool 객체
 		try {
 			ds.setDriverClass("org.mariadb.jdbc.Driver");
-			ds.setJdbcUrl("jdbc:mariadb://localhost:3306/gdudb");
-			ds.setUser("gdu");
-			ds.setPassword("1234");
+			ds.setJdbcUrl("jdbc:mariadb://14.36.141.71:20000/gdudb11");
+			ds.setUser("gdu11");
+			ds.setPassword("1541");
 			ds.setMaxPoolSize(20);
 			ds.setMinPoolSize(3); 
 			ds.setInitialPoolSize(5); 
