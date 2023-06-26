@@ -11,7 +11,7 @@ import dto.User;
 public interface UserMapper {
 	@Insert("insert into user (user_id, user_pass, user_name, user_age, user_gender, user_tel, "
 													+ "user_email, user_avg) values "
-													+ "(#{user_id}, #{user_pass}, #{user_name}, #{user_age}"
+													+ "(#{user_id}, #{user_pass}, #{user_name}, #{user_age}, "
 													+ " #{user_gender}, #{user_tel}, #{user_email}, #{user_avg})")
 	void insert(User user);
 
