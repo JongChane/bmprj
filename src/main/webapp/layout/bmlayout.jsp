@@ -62,7 +62,7 @@ a{
        class="w3-container w3-center w3-bar w3-top w3-large">
   <a href="${path}/member/main" class="w3-bar-item"><img src="${path}/image/bm.png" class="w3-image" width="13%">&nbsp;&nbsp;볼링매니아</a>
   <a href="${path}/board/list?boardid=1" class="w3-bar-item w3-button">볼링장정보</a>
-  <a href="${path}/board/list?boardid=2" class="w3-bar-item w3-button">소셜매치</a>
+  <a href="${path}/game/gamelist" class="w3-bar-item w3-button">소셜매치</a>
   <span class="w3-bar-item w3-right">
   <c:if test="${empty sessionScope.login}">
      <a href="${path}/user/login">로그인</a>
@@ -80,8 +80,6 @@ a{
 <!-- Page Content -->
 <div id="main">
 <sitemesh:write property="body"/>
-
-
  </div>
 </body>
 </html>
