@@ -38,4 +38,24 @@ public class UserDao {
 		param.put("user_email", user_email);
 		return template.getMapper(cls).idSearch(param);
 	}
+
+	public User idEmailSearch(String email, String user_id) {
+		param.clear();
+		param.put("user_email", email);
+		param.put("user_id", user_id);
+		return template.getMapper(cls).idEmailSearch(param);
+	}
+
+	public void chgpass(String user_id, String chgpass) {
+		param.clear();
+		param.put("user_id", user_id);
+		param.put("user_pass", chgpass);
+		template.getMapper(cls).chgpass(param);
+	}
+
+	public void delete(String user_id) {
+		param.clear();
+		param.put("user_id", user_id);
+		template.getMapper(cls).delete(param);
+	}
 }

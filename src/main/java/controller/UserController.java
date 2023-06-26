@@ -97,6 +97,20 @@ public class UserController {
 		System.out.println("이메일 인증 이메일 : " + email);
 		return mss.idSearchEmail(email);
 	}
+
+	@GetMapping("/pwMailCheck")
+	@ResponseBody
+	public String pwMailCheck(String email, String user_id) throws UnsupportedEncodingException, MessagingException {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		boolean idEmailIsEmpty = service.idEmailIsEmpty(email, user_id);
+		if(idEmailIsEmpty) {
+			return mss.pwSearchEmail(email);
+		} else {
+			return "idEmailIsEmpty";
+		}
+	}
+
 	@PostMapping("login")
 	public ModelAndView login
 	(@Valid User user, BindingResult bresult,HttpSession session) {
@@ -145,6 +159,23 @@ public class UserController {
 		mav.addObject("user",user);
 		return mav;
 	}
+	@PostMapping("delete")
+	public String idCheckdelete
+	       (String user_pass, String user_id, HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		if (!passHash(user_pass).equals(loginUser.getUser_pass())) {
+			throw new LoginException
+			     ("비밀번호를 확인하세요.", "delete?user_id="+user_id);
+		}
+		try {
+			service.userDelete(user_id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new LoginException("탈퇴시 오류발생.", "delete?user_id="+user_id);
+		}
+			session.invalidate();
+			return "redirect:login";	
+	}
 	@PostMapping("update")
 	public ModelAndView idCheckUpdate(@Valid User user,BindingResult bresult,
 			String user_id, HttpSession session) {
@@ -173,13 +204,52 @@ public class UserController {
 		}
 		return mav;
 	}
+	@PostMapping("password") 
+	public String loginCheckPasswordRtn
+	     (String user_pass,String chgpass,HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(!passHash(user_pass).equals(loginUser.getUser_pass())) {
+		  throw new LoginException("비밀번호 오류 입니다.","password");
+		}
+		try {
+			service.userChgpass(loginUser.getUser_id(),passHash(chgpass));
+			loginUser.setUser_pass(chgpass); //로그인 정보에 비밀번호 수정
+		} catch(Exception e) {
+			  throw new LoginException
+			  ("비밀번호 수정시 db 오류 입니다.","password");
+		}
+		return "redirect:mypage?user_id="+loginUser.getUser_id();
+	}
 	@PostMapping("idsearch")
-	public ModelAndView search(User user){
+	public ModelAndView idsearch(User user) {
 		ModelAndView mav = new ModelAndView();
 		User dbUser = service.idSearch(user.getUser_email());
 		String result = null;
+		String title = "아이디";
 		result = dbUser.getUser_id();
+		mav.addObject("result", result);
+		mav.addObject("title", title);
+		mav.setViewName("search");
+		return mav;
+	}
+
+	@PostMapping("pwsearch")
+	public ModelAndView pwsearch(User user) {
+		ModelAndView mav = new ModelAndView();
+		User dbUser = service.idSearch(user.getUser_email());
+		String pass = null;
+		String result = null;
+		String title = "비밀번호";
+		try {
+			pass = util.makehash(dbUser.getUser_id(), "SHA-512");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		int index = (int)(Math.random()*(pass.length()-10));
+		result = pass.substring(index, index + 6);
+		service.userChgpass(dbUser.getUser_id(), passHash(result));
 		mav.addObject("result",result);
+		mav.addObject("title",title);
 		mav.setViewName("search");
 		return mav;
 	}

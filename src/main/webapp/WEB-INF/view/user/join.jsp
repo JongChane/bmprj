@@ -55,6 +55,24 @@ $(document).on('click', 'input[type="submit"]', function(event) {
         $('#user_email').val(emailValue);
     }
 });
+
+$(document).on('keyup', '.mail-check-input', function() {
+    const inputCode = $(this).val();
+    const warnSpan = $('#mail-check-warn');
+
+    if (inputCode.length === 6) {
+        if (inputCode === code) {
+            warnSpan.text('인증번호가 일치합니다.').css('color', 'green');
+            isCodeValid = true; // 인증번호 유효함을 표시
+        } else {
+            warnSpan.text('인증번호가 다릅니다.').css('color', 'red');
+            isCodeValid = false; // 인증번호 유효하지 않음을 표시
+        }
+    } else {
+        warnSpan.text('');
+        isCodeValid = false; // 인증번호 유효하지 않음을 표시
+    }
+});
 </script>
 </head>
 <body>

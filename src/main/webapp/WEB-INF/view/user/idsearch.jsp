@@ -11,7 +11,7 @@
 </script>
 <script type="text/javascript">
 var code;
-var isCodeValid = true; // 인증번호 유효성 검사를 위한 변수, 초기값을 true로 설정
+var isCodeValid = false; // 인증번호 유효성 검사를 위한 변수, 초기값을 false로 설정
 
 $(document).on('click', '#mail-Check-Btn', function() {
     const email = $('#user_email').val(); // 입력칸의 이메일 값만 가져오기
@@ -46,6 +46,24 @@ $(document).on('click', 'input[type="submit"]', function(event) {
         // 이메일 주소값을 생성하여 필드에 설정
         const emailValue = $('#user_email').val() + $('#user_email_domain').val();
         $('#user_email').val(emailValue);
+    }
+});
+
+$(document).on('keyup', '.mail-check-input', function() {
+    const inputCode = $(this).val();
+    const warnSpan = $('#mail-check-warn');
+
+    if (inputCode.length === 6) {
+        if (inputCode === code) {
+            warnSpan.text('인증번호가 일치합니다.').css('color', 'green');
+            isCodeValid = true; // 인증번호 유효함을 표시
+        } else {
+            warnSpan.text('인증번호가 다릅니다.').css('color', 'red');
+            isCodeValid = false; // 인증번호 유효하지 않음을 표시
+        }
+    } else {
+        warnSpan.text('');
+        isCodeValid = false; // 인증번호 유효하지 않음을 표시
     }
 });
 </script>

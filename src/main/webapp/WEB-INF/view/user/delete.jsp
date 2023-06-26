@@ -20,7 +20,7 @@
 	</table>
 	<form method="post" action="delete" name="deleteForm">
   	<input type="hidden" name="user_id" value="${param.user_id}">
-  	비밀번호 : <input type="password" name="pass" class="w3-input">
+  	비밀번호 : <input type="password" name="user_pass" class="w3-input">
   	<a href="javascript:document.deleteForm.submit()">[회원탈퇴]</a>
 	</form>
 </body>

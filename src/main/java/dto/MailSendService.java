@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +59,19 @@ public class MailSendService {
 		String setFrom = "mik3533@naver.com";
 		String toMail = user_email;
 		String title = "아이디 찾기 인증 이메일 입니다."; // 이메일 제목
-		String content = "아이디 찾기 인증 번호는 <span style=\"color:green\"><strong>"
+		String content = "인증 번호는 <span style=\"color:green\"><strong>"
 				+ authNumber + "</strong></span>입니다." + "<br>" + "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+		mailSend(setFrom, toMail, title, content);
+		return Integer.toString(authNumber);
+	}
+
+	public String pwSearchEmail(String email) throws UnsupportedEncodingException, MessagingException {
+		makeRandomNumber();
+		String setFrom = "mik3533@naver.com";
+		String toMail = email;
+		String title = "비밀번호 찾기 인증 이메일 입니다."; // 이메일 제목
+		String content = "인증 번호는 <span style=\"color:green\"><strong>" + authNumber + "</strong></span>입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 		mailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNumber);
 	}
