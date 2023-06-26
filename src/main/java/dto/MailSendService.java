@@ -55,4 +55,14 @@ public class MailSendService {
 		mailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNumber);
 	}
+	public String idSearchEmail(String user_email) throws UnsupportedEncodingException, MessagingException {
+		makeRandomNumber();
+		String setFrom = "mik3533@naver.com";
+		String toMail = user_email;
+		String title = "아이디 찾기 인증 이메일 입니다."; // 이메일 제목
+		String content = "아이디 찾기 인증 번호는 <span style=\"color:green\"><strong>"
+				+ authNumber + "</strong></span>입니다." + "<br>" + "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+		mailSend(setFrom, toMail, title, content);
+		return Integer.toString(authNumber);
+	}
 }

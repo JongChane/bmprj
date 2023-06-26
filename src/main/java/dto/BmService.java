@@ -24,4 +24,12 @@ public class BmService {
 
 	}
 
+	public User idSearch(String user_email) {
+		return userDao.idSearch(user_email);
+	}
+
+
+
+
+
 }

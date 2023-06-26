@@ -85,6 +85,13 @@ public class UserController {
 		System.out.println("이메일 인증 이메일 : " + email);
 		return mss.joinEmail(email);
 	}
+	@GetMapping("/idMailCheck")
+	@ResponseBody
+	public String idMailCheck(String email) throws UnsupportedEncodingException, MessagingException {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mss.idSearchEmail(email);
+	}
 	@PostMapping("login")
 	public ModelAndView login
 	(@Valid User user, BindingResult bresult,HttpSession session) {
@@ -159,6 +166,16 @@ public class UserController {
 			throw new LoginException
 			("회원정보 수정 실패","update?user_id="+user.getUser_id());
 		}
+		return mav;
+	}
+	@PostMapping("idsearch")
+	public ModelAndView search(User user){
+		ModelAndView mav = new ModelAndView();
+		User dbUser = service.idSearch(user.getUser_email());
+		String result = null;
+		result = dbUser.getUser_id();
+		mav.addObject("result",result);
+		mav.setViewName("search");
 		return mav;
 	}
 }

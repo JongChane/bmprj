@@ -32,4 +32,10 @@ public class UserDao {
 		template.getMapper(cls).update(user);
 
 	}
+
+	public User idSearch(String user_email) {
+		param.clear();
+		param.put("user_email", user_email);
+		return template.getMapper(cls).idSearch(param);
+	}
 }

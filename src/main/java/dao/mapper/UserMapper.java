@@ -21,6 +21,9 @@ public interface UserMapper {
 	@Update("update user set user_name=#{user_name}, user_gender=#{user_gender}, user_tel=#{user_tel}, "
 												+ "user_email=#{user_email}, user_avg=#{user_avg} where user_id=#{user_id}")
 	void update(User user);
+	
+	@Select("select * from user where user_email=#{user_email}")
+	User idSearch(Map<String, Object> param);
 
 
 	
