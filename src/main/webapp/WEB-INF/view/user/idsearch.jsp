@@ -14,12 +14,21 @@ var code;
 var isCodeValid = true; // 인증번호 유효성 검사를 위한 변수, 초기값을 true로 설정
 
 $(document).on('click', '#mail-Check-Btn', function() {
-    const email = $('#user_email').val() + $('#user_email_domain').val();
+    const email = $('#user_email').val(); // 입력칸의 이메일 값만 가져오기
+    const emailDomain = $('#user_email_domain').val(); // 셀렉트 옵션 태그의 선택값 가져오기
     const checkInput = $('.mail-check-input');
+    
+    // 이메일 입력칸이 비어있는지 확인
+    if (email.trim() === '') {
+        alert('이메일을 입력해주세요.');
+        return;
+    }
+    
+    const fullEmail = email + emailDomain; // 이메일과 도메인을 합쳐 전체 이메일 주소 생성
 
     $.ajax({
         type: 'get',
-        url: '<c:url value="/user//idMailCheck?email="/>' + email,
+        url: '<c:url value="/user/idMailCheck?email="/>' + fullEmail,
         success: function (data) {
             checkInput.attr('disabled', false);
             code = data;
@@ -29,28 +38,10 @@ $(document).on('click', '#mail-Check-Btn', function() {
     });
 });
 
-$(document).on('keyup', '.mail-check-input', function() {
-    const inputCode = $(this).val();
-    const warnSpan = $('#mail-check-warn');
-
-    if (inputCode.length === 6) {
-        if (inputCode === code) {
-            warnSpan.text('일치합니다.').css('color', 'green');
-            isCodeValid = true; // 인증번호 유효함을 표시
-        } else {
-            warnSpan.text('인증번호가 다릅니다.').css('color', 'red');
-            isCodeValid = false; // 인증번호 유효하지 않음을 표시
-        }
-    } else {
-        warnSpan.text('');
-        isCodeValid = false; // 인증번호 유효하지 않음을 표시
-    }
-});
-
 $(document).on('click', 'input[type="submit"]', function(event) {
-    if (!isCodeValid || $('.mail-check-input').val().length !== 6) { // 인증번호 유효하지 않거나 인증번호 입력란의 길이가 6이 아닌 경우
+    if (!isCodeValid) { // 인증번호 유효하지 않으면 회원가입 버튼 동작 막기
         event.preventDefault();
-        alert('정확한 인증번호를 입력하세요.');
+        alert('인증번호를 정확히 입력하세요.');
     } else {
         // 이메일 주소값을 생성하여 필드에 설정
         const emailValue = $('#user_email').val() + $('#user_email_domain').val();

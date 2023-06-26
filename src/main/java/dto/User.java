@@ -20,6 +20,9 @@ public class User {
 	private String user_pass;
 	@NotEmpty(message="이름을 입력하세요.")
 	private String user_name;
+	@Min(value = 0, message = "나이는 0 이상이어야 합니다.")
+	@Max(value = 100, message = "나이는 100 이하여야 합니다.")
+	private String user_age;
 	@NotEmpty(message = "성별을 선택하세요.")
 	private String user_gender;
 	@Pattern(regexp = "\\d+", message = "전화번호는 숫자만 입력하세요.")
