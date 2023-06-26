@@ -33,10 +33,14 @@ $(document).on('click', '#mail-Check-Btn', function() {
         type: 'get',
         url: '<c:url value="/user/mailCheck?email="/>' + fullEmail,
         success: function (data) {
+        	if (data === "duplicated") {
+        		alert('이미 가입된 이메일입니다.')
+        	} else {
             checkInput.attr('disabled', false);
             code = data;
             isCodeValid = true; // 인증번호 유효함을 표시
             alert('인증번호가 전송되었습니다.');
+        	}
         }            
     });
 });

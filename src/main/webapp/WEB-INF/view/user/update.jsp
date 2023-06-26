@@ -45,6 +45,15 @@
        		</font>
        	</td>
        </tr>
+   			<tr>
+   				<td>나이</td>
+   				<td>
+   					<form:input path="user_age" />
+        		<font color="red">
+        			<form:errors path="user_age" />
+        		</font>
+        	</td>
+        </tr>       
   		<tr>
   			<td>성별</td>
   			<td>

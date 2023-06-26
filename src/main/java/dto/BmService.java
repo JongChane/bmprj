@@ -28,6 +28,11 @@ public class BmService {
 		return userDao.idSearch(user_email);
 	}
 
+	public boolean emailDuplicated(String email) {
+		User user = userDao.idSearch(email);
+		return user != null;
+	}
+
 
 
 

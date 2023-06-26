@@ -83,7 +83,12 @@ public class UserController {
 	public String mailCheck(String email) throws UnsupportedEncodingException, MessagingException {
 		System.out.println("이메일 인증 요청이 들어옴!");
 		System.out.println("이메일 인증 이메일 : " + email);
-		return mss.joinEmail(email);
+		boolean emailDuplicated = service.emailDuplicated(email);
+		if(emailDuplicated) {
+			return "duplicated";
+		} else {
+			return mss.joinEmail(email);
+		}
 	}
 	@GetMapping("/idMailCheck")
 	@ResponseBody
