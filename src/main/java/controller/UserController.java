@@ -1,7 +1,9 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -78,7 +80,7 @@ public class UserController {
 
 	@GetMapping("/mailCheck")
 	@ResponseBody
-	public String mailCheck(String email) {
+	public String mailCheck(String email) throws UnsupportedEncodingException, MessagingException {
 		System.out.println("이메일 인증 요청이 들어옴!");
 		System.out.println("이메일 인증 이메일 : " + email);
 		return mss.joinEmail(email);

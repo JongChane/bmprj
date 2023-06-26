@@ -24,7 +24,6 @@ $(document).on('click', '#mail-Check-Btn', function() {
         type: 'get',
         url: '<c:url value="/user/mailCheck?email="/>' + email,
         success: function (data) {
-            console.log("data : " + data);
             checkInput.attr('disabled', false);
             code = data;
             isCodeValid = true; // 인증번호 유효함을 표시
@@ -142,7 +141,6 @@ $(document).on('click', 'input[type="submit"]', function(event) {
                     <option value="@daum.net">@daum.net</option>
                     <option value="@gmail.com">@gmail.com</option>
                     <option value="@hanmail.com">@hanmail.com</option>
-                    <option value="@yahoo.co.kr">@yahoo.co.kr</option>
                 </select>
             </div>
             <div class="input-group-addon">
