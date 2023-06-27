@@ -5,7 +5,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <c:set var="uri" value="${pageContext.request.servletPath}" />
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
 <title><sitemesh:write property="title"/></title>
 <meta charset="UTF-8">
@@ -13,73 +13,66 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo:400" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1:700" rel="stylesheet">
+<script type="text/javascript" 
+   src="http://cdn.ckeditor.com/4.5.7/standard/ckeditor.js">
+</script>
+<sitemesh:write property="head"/>
 <style>
-html, body {
-    height: 100%;
-    width:100%;
-    margin 0;
-    padding 0;
-}
-body, h1,h2,h3,h4,h5,h6 {
-    font-family: 'TheJamsil5Bold'; sans-serif;
-    font-weight: 400;
+	.underbar, footer {
+		text-decoration: none;
+		font-family: "GmarketSansMedium";
+    font-weight: 800;
+    font-size : 20px;
     font-style: normal;
-    }
- footer   {
-		background-color:#282a35;
-  	height: 120px;
-  	position : realative;
-  	margin-top:-60px;
-  } 
-  #main {
-	height : auto;
-	min-height : 100%;
-	padding-bottom : 120px;
-	margin-top:100px;
-}
-.w3-row-padding img {margin-bottom: 12px}
-/* Set the width of the sidebar to 120px */
-/* Remove margins from "page content" on small screens */
-/* @media only screen and (max-width: 600px) {#main {margin-left: 0}} */
-@font-face {
-    font-family: 'TheJamsil5Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+	}
+	body {
+    font-family: 'Noto Serif KR', serif;
     font-weight: 500;
     font-style: normal;
+    }
+    @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-a{
-    text-decoration-line: none;
-}
-
 </style>
-<script type="text/javascript"
-  src="http://cdn.ckeditor.com/4.5.7/full/ckeditor.js">
-  </script>
-<sitemesh:write property="head"/>
 </head>
-<!-- Top container -->
-<div style="background-color:#00C73C; font-family:'TheJamsil5Bold'; sans-serif; font-weight: 500;"
-       class="w3-container w3-center w3-bar w3-top w3-large">
-  <a href="${path}/member/main" class="w3-bar-item"><img src="${path}/image/bm.png" class="w3-image" width="13%">&nbsp;&nbsp;볼링매니아</a>
-  <a href="${path}/board/list?boardid=1" class="w3-bar-item w3-button">볼링장정보</a>
-  <a href="${path}/game/gamelist" class="w3-bar-item w3-button">소셜매치</a>
-  <span class="w3-bar-item w3-right">
-  <c:if test="${empty sessionScope.login}">
-     <a href="${path}/user/login">로그인</a>
-     <a href="${path}/user/join">회원가입</a>
-  </c:if>
-  <c:if test="${!empty sessionScope.login}">
-     ${sessionScope.login}님&nbsp;&nbsp;
-     <a href="${path}/member/info?member_id=${sessionScope.login}">내정보</a>&nbsp;
-     <a href="${path}/member/logout">로그아웃</a>
-  </c:if>
-  </span>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a style="font-size : 30px;" class="underbar" href="${path}/board/main">
+    <img src="${path}/image/bm.png" class="w3-image" width="3%"> 볼링매니아</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-display-right w3-container">
+      <c:if test="${empty sessionScope.login}">
+     		<a class="underbar" href="${path}/user/login">로그인</a>
+     		<a class="underbar" href="${path}/user/join">회원가입</a>
+  		</c:if>
+      <c:if test="${!empty sessionScope.login}">
+     		<strong style="font-family:'GmarketSansMedium';">${sessionScope.login}님</strong>&nbsp;&nbsp;
+     		<a class="underbar" href="${path}/user/mypage?user_id=${sessionScope.login}">내정보</a>&nbsp;
+     		<a class="underbar" href="${path}/user/logout">로그아웃</a>
+  		</c:if>
+    </div>
+  </div>
 </div>
 
-<body class="w3-white">
-<!-- Page Content -->
-<div id="main">
+<!-- Page content -->
+<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px;">
 <sitemesh:write property="body"/>
- </div>
+</div>
+
+<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%;">
+  <p>Powered by 볼링매니아</p>
+</footer>
+
 </body>
 </html>

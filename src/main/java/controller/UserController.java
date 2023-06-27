@@ -132,6 +132,7 @@ public class UserController {
 		user.setUser_pass(passHash(user.getUser_pass()));
 		if(user.getUser_pass().equals(dbUser.getUser_pass())) { //정상 로그인
 		 	 session.setAttribute("loginUser", dbUser);
+		 	session.setAttribute("login", dbUser.getUser_id());
 			 mav.setViewName("redirect:mypage?user_id="+user.getUser_id());
 		}else {  
 			bresult.reject("error.login.password");

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -65,17 +66,9 @@ public class MvcConfig implements WebMvcConfigurer{
 		ser.setExceptionMappings(pr);
 		return ser;
 	}
-
-	/*
-	 * //인터셉터관련 설정
-	 * 
-	 * @Override public void addInterceptors(InterceptorRegistry registry) {
-	 * registry.addInterceptor(new BoardInterceptor())
-	 * .addPathPatterns("/board/write") .addPathPatterns("/board/update")
-	 * .addPathPatterns("/board/delete"); } //기본 웹파일 처리를 위한 설정
-	 * 
-	 * @Override public void
-	 * configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	 * configurer.enable(); }
-	 */
+	//기본 웹파일 처리를 위한 설정
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}	
 }
