@@ -30,7 +30,7 @@
     font-size : 20px;
     font-style: normal;
 	}
-	body {
+	body,h1,h2,h3,h4,h5 {
     font-family: 'Noto Serif KR', serif;
     font-weight: 500;
     font-style: normal;
