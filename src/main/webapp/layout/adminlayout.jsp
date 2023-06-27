@@ -43,7 +43,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="${path}/image/logo.png" 
+      <img src="${path}/image/bm.png" 
          class="w3-circle w3-margin-right" style="width:100px">
     </div>
     <div class="w3-col s8 w3-bar">
@@ -63,28 +63,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <i class="fa fa-users fa-fw"></i>&nbsp; 회원관리</a>
     <a href="${path}/item/list" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url == "item"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; 상품관리</a>
-    <a href="${path}/chat/chat" 
-    class="w3-bar-item w3-button w3-padding <c:if test='${url == "chat"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; 채팅하기</a>
+    <i class="fa fa-eye fa-fw"></i>&nbsp; 예약관리</a>
     <hr>
     <a href="${path}/board/list?boardid=1"
      class="w3-bar-item w3-button w3-padding
      <c:if test='${url == "board" && boardid=="1"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; 공지사항</a>
+    <i class="fa fa-eye fa-fw"></i>&nbsp; 공지작성</a>
     <a href="${path}/board/list?boardid=2" 
     class="w3-bar-item w3-button w3-padding
-    <c:if test='${url == "board" && boardid=="2"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; 자유게시판</a>
+    	<c:if test='${url == "board" && boardid=="2"}'>w3-blue</c:if>">
+    <i class="fa fa-eye fa-fw"></i>&nbsp; 건의답변</a>
     <a href="${path}/board/list?boardid=3" 
     class="w3-bar-item w3-button w3-padding
     <c:if test='${url == "board" && boardid=="3"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; QnA</a>
-    <hr>
-  	  <a href="${path }/naver/search" class="w3-bar-item w3-button w3-padding 
-         <c:if test='${url ==  "naver"}'>w3-blue</c:if>">
-            <i class="fa fa-eye fa-fw"></i>&nbsp;네이버 검색
-    	</a>
+    <i class="fa fa-eye fa-fw"></i>&nbsp; 메인수정</a>
   </div>
   <%-- 수출입은행 환율 정보 표시 영역 --%>
   <div style="width:100%;">
@@ -100,27 +92,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i>게시판현황</b></h5>
+    <h5><b><i class="fa fa-dashboard"></i>예약현황</b></h5>
   </header>
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-half">
       <div class="w3-container w3-padding-16 w3-center">
          <input type="radio" name="pie" onchange="piegraph(2)"
-          checked="checked">자유게시판 &nbsp;&nbsp;
-         <input type="radio" name="pie" onchange="piegraph(3)">QNA &nbsp;&nbsp;
+          checked="checked">공지사항 &nbsp;&nbsp;
+         <input type="radio" name="pie" onchange="piegraph(3)">건의사항 &nbsp;&nbsp;
          <div id="piecontainer" style="width:100%; border:1px solid #ffffff">
             <canvas id="canvas1" style="width:100%"></canvas>
-         </div>
-      </div>
-    </div>
-    <div class="w3-half">
-    <!-- 최근 7일간 등록된 게시글 건수 막대그래프와 선그래프 동시에 출력 -->
-      <div class="w3-container w3-padding-16 w3-center">
-         <input type="radio" name="barline" onchange="barlinegraph(2)"
-          checked="checked">자유게시판 &nbsp;&nbsp;
-         <input type="radio" name="barline" onchange="barlinegraph(3)">QNA &nbsp;&nbsp;
-         <div id="barcontainer" style="width:100%; border:1px solid #ffffff">
-            <canvas id="canvas2" style="width:100%"></canvas>
          </div>
       </div>
     </div>

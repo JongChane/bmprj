@@ -21,7 +21,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter{
 		HttpServletRequest request = (HttpServletRequest)servletRequest;
 		String url = request.getRequestURI(); //요청된 url 정보
 		if(url.contains("/user/")) url="user";
-		else if(url.contains("/admin/")) url="user";
+		else if(url.contains("/admin/")) url="admin";
 		else if(url.contains("/board/")) url="board";
 		else if(url.contains("/item/")) url="item";
 		else if(url.contains("/cart/")) url="item";
@@ -34,10 +34,12 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter{
 
 	@Override
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-		builder.addDecoratorPath("/*", "/layout/bmlayout.jsp")
-		.addExcludedPath("/user/idsearch*")
-		.addExcludedPath("/user/pwsearch*")
-		.addExcludedPath("/board/imgupload*")
-		.addExcludedPath("/ajax/*");
+	    builder.addDecoratorPath("/admin/*", "/layout/adminlayout.jsp")
+	           .addDecoratorPath("/*", "/layout/bmlayout.jsp")
+	           .addExcludedPath("/layout/adminlayout.jsp")
+	           .addExcludedPath("/user/idsearch*")
+	           .addExcludedPath("/user/pwsearch*")
+	           .addExcludedPath("/board/imgupload*")
+	           .addExcludedPath("/ajax/*");
 	}
 }
