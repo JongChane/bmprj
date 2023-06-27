@@ -8,13 +8,12 @@
 <title>매치등록</title>
 </head>
 <body>
-<form:form modelAttribute="game" action="gamelist" method="post">
+<form:form modelAttribute="game" action="writer" method="post">
    <table class="w3-table">
       <tr>
          <th>작성자</th>
          <td>
-         <input type="hidden" name="user_id">
-            <form:input path="user_id" class="w3-input"/>
+            <form:input path="user_id" class="w3-input" readonly="readonly"/>
             <font color="red">
                <form:errors path="user_id"/>
             </font>
