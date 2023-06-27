@@ -50,6 +50,15 @@
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
     <a style="font-size : 30px;" class="underbar" href="${path}/board/main">
     <img src="${path}/image/bm.png" class="w3-image" width="3%"> 볼링매니아</a>
+    <div class="w3-display-middle w3-container">
+    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">소셜매치</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">예약하기</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">공지사항</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">건의사항</a>
+    </div>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-display-right w3-container">
       <c:if test="${empty sessionScope.login}">
