@@ -13,4 +13,5 @@ public class Visit {
 	private int vi_total;
 	private int vi_avg;
 	private int vi_game;
+	private Reservation rv;
 }
