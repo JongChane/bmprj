@@ -57,7 +57,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">공지사항</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">건의사항</a>
+    <a style="font-size : 30px;" class="underbar" href="${path}/board/list?boardid=1">건의사항</a>
     </div>
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-display-right w3-container">

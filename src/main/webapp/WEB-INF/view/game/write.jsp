@@ -8,12 +8,12 @@
 <title>매치등록</title>
 </head>
 <body>
-<form:form modelAttribute="game" action="writer" method="post">
+<form:form modelAttribute="game" action="write" method="post">
    <table class="w3-table">
       <tr>
          <th>작성자</th>
          <td>
-            <form:input path="user_id" class="w3-input" readonly="readonly"/>
+            <form:input path="user_id" class="w3-input" readonly="true"/>
             <font color="red">
                <form:errors path="user_id"/>
             </font>
@@ -75,7 +75,7 @@
 	  <tr>
 	   		<td>경기날짜</td>
 	          <td>
-		       <form:input path="game_date" class="w3-select"/>
+		       <form:input path="game_date" class="w3-input"/>
 	            <font color="red">
 	               <form:errors path="game_date"/>
 	            </font>
