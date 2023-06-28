@@ -29,7 +29,7 @@ public class GameController {
 	}
 	
 	
-	@PostMapping("writer") 
+	@PostMapping("write") 
 	public ModelAndView writePost(@Valid Game game, BindingResult bresult, HttpServletRequest request) {
 		  ModelAndView mav = new ModelAndView();
 		  if(bresult.hasErrors()) {
@@ -39,16 +39,18 @@ public class GameController {
 		}
 		  System.out.println(game);
 		  service.gameInsert(game);
+		  mav.setViewName("redirect:gamelist");
 	  return mav; 
 	}
+	
 	@GetMapping("write")
+	
 	public ModelAndView writeGet(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String user_id = (String)session.getAttribute("login");
 		System.out.println(user_id);
 		Game g = new Game();
 		g.setUser_id(user_id);
-		
 		mav.addObject("game",g);
 		return mav;
 	}
