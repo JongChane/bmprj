@@ -3,8 +3,10 @@ package dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import dto.Board;
 
@@ -33,6 +35,17 @@ public interface BoardMapper {
 		"<if test='limit != null'> order by board_num desc</if>",
 		"</script>"})
 	List<Board> select(Map<String, Object> param);
+	
+	@Select("select * from board where board_num=#{board_num}")
+	Board getBoard(Integer board_num);
+
+	
+	@Update("update board set board_readcnt = board_readcnt + 1 where board_num=#{board_num}")
+	void addReadcnt(Integer board_num);
+	
+	
+	@Delete("delete from board where board_num = #{board_num}")
+	void deleteBoard(int board_num);
 	
 	
 

@@ -2,6 +2,7 @@ package controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,5 +107,29 @@ public class BoardController {
 		return mav;
 	}
 	
+	@GetMapping("detail")
+	public ModelAndView detailGet(Integer board_num) {
+		ModelAndView mav = new ModelAndView();
+		Board board = service.getBoard(board_num);
+		service.addReadcnt(board_num);
+		mav.addObject("board",board);
+		return mav;
+	}
+	
+	
+	@PostMapping("/delete")
+	@ResponseBody
+	public Map<String, Object> deleteBoard(@RequestParam("board_num") int board_num) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        // 게시글 삭제 로직 수행
+	        service.deleteBoard(board_num);
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        response.put("success", false);
+	    }
+	    return response;
+	}
+
 	
 }

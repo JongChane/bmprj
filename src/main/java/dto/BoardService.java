@@ -41,4 +41,16 @@ public class BoardService {
 	public List<Board> boardList(Integer pageNum, int limit, String board_id, String searchtype, String searchcontent) {
 		return boardDao.boardList(pageNum,limit,board_id,searchtype,searchcontent);
 	}
+
+	public Board getBoard(Integer board_num) {
+		return boardDao.getBoard(board_num); //board_num해당된 board레코드 조회
+	}
+
+	public void addReadcnt(Integer board_num) {
+		boardDao.addReadcnt(board_num); //조회수 증가
+	}
+
+	public void deleteBoard(int board_num) {
+		boardDao.deleteBoard(board_num);
+	}
 }

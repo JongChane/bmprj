@@ -42,6 +42,23 @@ public class BoardDao {
 		param.put("searchtype", searchtype);
 		param.put("searchcontent", searchcontent);
 		return template.getMapper(cls).select(param);
+	}
+
+	public Board getBoard(Integer board_num) {
+		param.clear();
+		param.put("board_num", board_num);
+		return template.getMapper(cls).getBoard(board_num);
+	}
+
+	public void addReadcnt(Integer board_num) {
+		param.clear();
+		param.put("board_num", board_num);
+		template.getMapper(cls).addReadcnt(board_num);
+	}
+
+	public void deleteBoard(int board_num) {
+		param.clear();
+		param.put("board_num", board_num);
+		template.getMapper(cls).deleteBoard(board_num);
 	}	
-	
 }
