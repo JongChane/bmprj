@@ -48,6 +48,10 @@ public class BmService {
 
 	}
 
+	public boolean checkId(String user_id) {
+		User user = userDao.checkId(user_id);
+		return user != null;
+	}
 
 
 }

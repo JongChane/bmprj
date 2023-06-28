@@ -35,6 +35,9 @@ public interface UserMapper {
 	@Delete("delete from user where user_id=#{user_id}")
 	void delete(Map<String, Object> param);
 
+	@Select("select * from user where user_id=#{user_id}")
+	User checkId(Map<String, Object> param);
+
 
 	
 

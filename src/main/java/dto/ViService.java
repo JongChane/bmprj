@@ -8,5 +8,7 @@ import dao.VisitDao;
 @Service
 public class ViService {
 	@Autowired
-	private VisitDao visitDao;
+	private VisitDao viDao;
+
+
 }

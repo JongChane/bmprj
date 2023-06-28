@@ -58,4 +58,10 @@ public class UserDao {
 		param.put("user_id", user_id);
 		template.getMapper(cls).delete(param);
 	}
+
+	public User checkId(String user_id) {
+		param.clear();
+		param.put("user_id", user_id);
+		return template.getMapper(cls).checkId(param);
+	}
 }
