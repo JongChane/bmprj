@@ -53,4 +53,8 @@ public class BoardService {
 	public void deleteBoard(int board_num) {
 		boardDao.deleteBoard(board_num);
 	}
+
+	public boolean update(Board board) {
+		return boardDao.update(board);
+	}
 }

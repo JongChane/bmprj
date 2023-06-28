@@ -47,6 +47,9 @@ public interface BoardMapper {
 	@Delete("delete from board where board_num = #{board_num}")
 	void deleteBoard(int board_num);
 	
+	@Update("update board set board_title=#{board_title}, board_content=#{board_content} where board_num=#{board_num}")
+	boolean update(Board board);
+	
 	
 
 }

@@ -60,5 +60,9 @@ public class BoardDao {
 		param.clear();
 		param.put("board_num", board_num);
 		template.getMapper(cls).deleteBoard(board_num);
+	}
+
+	public boolean update(Board board) {
+		return template.getMapper(cls).update(board);
 	}	
 }

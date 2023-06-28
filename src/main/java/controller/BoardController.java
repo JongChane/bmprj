@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Board;
 import dto.BoardService;
+import exception.LoginException;
 
 @Controller
 @RequestMapping("board")
@@ -32,12 +33,16 @@ public class BoardController {
 	private BoardService service;
 	
 	@GetMapping("write")
-	public ModelAndView writeget() {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(new Board());
-		return mav;
+	public ModelAndView writeget(HttpServletRequest request) {
+	    ModelAndView mav = new ModelAndView();
+	    String login = (String) request.getSession().getAttribute("login");
+	    if (login == null) {
+	    	throw new LoginException("로그인을 하셔야합니다","/bmprj/user/login");
+	    }
+	    mav.addObject(new Board());
+	    return mav;
 	}
-	
+
 	@PostMapping("write")
 	public ModelAndView wrtiePost(@Valid Board board, BindingResult bresult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -45,8 +50,10 @@ public class BoardController {
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
+		
 		String user_id = (String)request.getSession().getAttribute("login");
 		String board_id = (String)request.getSession().getAttribute("boardid");
+		
 		if(board_id == null) board_id = "1";
 		request.getSession().setAttribute("board_id", board_id);
 		board.setBoard_id(board_id);
@@ -130,6 +137,38 @@ public class BoardController {
 	    }
 	    return response;
 	}
-
+	
+	@GetMapping("update")
+	public ModelAndView getBoard(Integer board_num, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String login = (String)session.getAttribute("login");
+		Board dbBoard = service.getBoard(board_num);
+		if(login == null) {
+			throw new LoginException("로그인을 하셔야합니다.","/bmprj/user/login");
+		}
+		if(!dbBoard.getUser_id().equals(login)) {
+			throw new LoginException("해당 작성자만 가능합니다.","/bmprj/board/list");
+		}
+		Board board = service.getBoard(board_num);
+		mav.addObject(board);
+		return mav;
+	}
+	
+	@PostMapping("update")
+	public ModelAndView updatePost(@Valid Board board, BindingResult bresult) {
+		ModelAndView mav = new ModelAndView();
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		Board dbBoard = service.getBoard(board.getBoard_num());
+			if(service.update(board)) {
+				throw new LoginException("게시글 수정 완료되었습니다.", "/bmprj/board/list");
+			}	
+			else {
+				throw new LoginException("게시글 수정에 실패 했습니다.", "update?board_num="+board.getBoard_num());
+			}
+	}
+	
 	
 }
