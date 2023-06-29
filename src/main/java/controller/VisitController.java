@@ -41,16 +41,24 @@ public class VisitController {
 
 	@PostMapping("visit")
 	public ModelAndView score(String[] vi_id, String[] vi_total, String[] vi_avg, String[] vi_game) {
-
-		System.out.println("vi_id: " + vi_id[0]);
-		System.out.println("vi_total: " + vi_total[0]);
-		System.out.println("vi_avg: " + vi_avg[0]);
-		System.out.println("vi_game: " + vi_game[0]);
-		System.out.println("vi_id: " + vi_id[1]);
-		System.out.println("vi_total: " + vi_total[1]);
-		System.out.println("vi_avg: " + vi_avg[1]);
-		System.out.println("vi_game: " + vi_game[1]);
-			System.out.println("-----------------------------------");
+		int[] total = new int[vi_total.length];
+		int[] avg = new int[vi_avg.length];
+		int[] game = new int[vi_game.length];
+		
+		for(int i = 0 ; i < vi_total.length ; i++) {
+			total[i] = Integer.parseInt(vi_total[i]);
+		}
+		for(int i = 0 ; i < vi_avg.length ; i++) {
+			avg[i] = Integer.parseInt(vi_avg[i]);
+		}
+		for(int i = 0 ; i < vi_game.length ; i++) {
+			game[i] = Integer.parseInt(vi_game[i]);
+		}
+		
+		for(int i = 0 ; i < vi_id.length ; i++) {
+			vis.insert(vi_id[i], total[i], avg[i], game[i]);
+		}
+		
 
 		return null;
 	}
