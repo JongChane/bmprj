@@ -57,4 +57,8 @@ public class BoardService {
 	public boolean update(Board board) {
 		return boardDao.update(board);
 	}
+
+	public List<Board> boardList() {
+		return boardDao.boardList();
+	}
 }

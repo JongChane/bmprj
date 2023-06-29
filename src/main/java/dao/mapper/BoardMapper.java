@@ -50,6 +50,9 @@ public interface BoardMapper {
 	@Update("update board set board_title=#{board_title}, board_content=#{board_content} where board_num=#{board_num}")
 	boolean update(Board board);
 	
+	@Select("select * from board")
+	List<Board> boardList();
+	
 	
 
 }

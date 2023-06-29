@@ -34,7 +34,7 @@
 				<td>
 					<form:textarea path="board_content" rows="15" cols="80" />
 					<script>
-					CKEDITOR.replace("content", {
+					CKEDITOR.replace("board_content", {
 						filebrowserImageUploadUrl : "imgupload"
 					});
 					</script> 

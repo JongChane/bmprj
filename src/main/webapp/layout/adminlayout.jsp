@@ -91,6 +91,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
 
   <!-- Header -->
+  <!-- 
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i>예약현황</b></h5>
   </header>
@@ -106,7 +107,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
     </div>
   </div>
-
+  -->
   <div class="w3-panel">
   <sitemesh:write property="body" />
   </div>
