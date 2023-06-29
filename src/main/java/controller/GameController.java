@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -44,7 +46,6 @@ public class GameController {
 	}
 	
 	@GetMapping("write")
-	
 	public ModelAndView writeGet(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String user_id = (String)session.getAttribute("login");
@@ -52,6 +53,14 @@ public class GameController {
 		Game g = new Game();
 		g.setUser_id(user_id);
 		mav.addObject("game",g);
+		return mav;
+	}
+	
+	@RequestMapping("gamelist")
+	public ModelAndView gamelist() {
+		ModelAndView mav = new ModelAndView();
+		List<Game> gamelist = service.gameList();
+		mav.addObject("gamelist",gamelist);
 		return mav;
 	}
 	 

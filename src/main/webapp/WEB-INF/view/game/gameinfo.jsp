@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>매치등록</title>
+<title>매칭 상세보기</title>
 </head>
 <body>
-<h1>매치 작성</h1>
+<h1>매치 상세보기</h1>
 <form:form modelAttribute="game" action="write" method="post">
    <table class="w3-table">
       <tr>
@@ -76,7 +76,7 @@
 	  <tr>
 	   		<td>경기날짜</td>
 	          <td>
-		       <form:input path="game_date" class="w3-input" type="date"/>
+		       <form:input path="game_date" class="w3-input"/>
 	            <font color="red">
 	               <form:errors path="game_date"/>
 	            </font>
