@@ -114,14 +114,30 @@ public class BoardController {
 		return mav;
 	}
 	
-	@GetMapping("detail")
+	@RequestMapping("detail")
 	public ModelAndView detailGet(Integer board_num) {
 		ModelAndView mav = new ModelAndView();
 		Board board = service.getBoard(board_num);
 		service.addReadcnt(board_num);
+		if(board_num == null) {
+			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
+		}
 		mav.addObject("board",board);
 		return mav;
 	}
+	
+	
+	@GetMapping("detailJson")
+	@ResponseBody
+	public Board detailJson(Integer board_num) {
+		Board board = service.getBoard(board_num);
+		service.addReadcnt(board_num);
+		if(board_num == null) {
+			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
+		}
+		return board;
+	}
+	
 	
 	
 	@PostMapping("/delete")
@@ -146,9 +162,13 @@ public class BoardController {
 		if(login == null) {
 			throw new LoginException("로그인을 하셔야합니다.","/bmprj/user/login");
 		}
+		if(board_num == null || dbBoard == null) {
+			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
+		}
 		if(!dbBoard.getUser_id().equals(login)) {
 			throw new LoginException("해당 작성자만 가능합니다.","/bmprj/board/list");
 		}
+		
 		Board board = service.getBoard(board_num);
 		mav.addObject(board);
 		return mav;

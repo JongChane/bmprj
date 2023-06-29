@@ -64,5 +64,9 @@ public class BoardDao {
 
 	public boolean update(Board board) {
 		return template.getMapper(cls).update(board);
+	}
+
+	public List<Board> boardList() {
+		return template.getMapper(cls).boardList();
 	}	
 }
