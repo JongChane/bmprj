@@ -22,4 +22,8 @@ public class ReservationController {
 		return mav;
 	}
 
+	/*
+	 * @PostMapping("reservation") public ModelAndView reservation() { ModelAndView
+	 * mav = new ModelAndView(); }
+	 */
 }
