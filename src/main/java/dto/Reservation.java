@@ -20,4 +20,5 @@ public class Reservation {
 	private Time rv_start;
 	private Time rv_end;
 	private int rv_people;
+	private String rv_check;
 }

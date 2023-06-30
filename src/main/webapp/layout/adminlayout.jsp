@@ -34,7 +34,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 	 <a href="${path}/user/join">회원가입</a>
 	</c:if>   
 	<c:if test="${!empty sessionScope.loginUser}">
-	${sessionScope.loginUser.username}님이 로그인 하셨습니다.&nbsp;&nbsp;
+	${sessionScope.loginUser.user_name}님이 로그인 하셨습니다.&nbsp;&nbsp;
 	 <a href="${path}/user/logout">로그아웃</a>
 	</c:if>   
   </span>
@@ -48,7 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </div>
     <div class="w3-col s8 w3-bar">
       <c:if test="${!empty sessionScope.loginUser}">
-      <span>반갑습니다, <strong>${sessionScope.loginUser.username}님</strong></span><br>
+      <span>반갑습니다, <strong>${sessionScope.loginUser.user_name}님</strong></span><br>
       </c:if>
       <c:if test="${empty sessionScope.loginUser}">
       <span><strong>로그인하세요</strong></span><br>
@@ -58,7 +58,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <a href="${path}/user/mypage?userid=${loginUser.userid}" 
+    <a href="${path}/user/mypage?userid=${loginUser.user_id}" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url == "user"}'>w3-blue</c:if>">
     <i class="fa fa-users fa-fw"></i>&nbsp; 회원관리</a>
     <a href="${path}/item/list" 
