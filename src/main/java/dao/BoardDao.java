@@ -68,5 +68,12 @@ public class BoardDao {
 
 	public List<Board> boardList() {
 		return template.getMapper(cls).boardList();
+	}
+
+	public void updateGrpStep(Board board) {
+		param.clear();
+		param.put("grp", board.getBoard_grp());
+		param.put("grpstep", board.getBoard_grpstep());
+		template.getMapper(cls).updateGrpStep(param);
 	}	
 }

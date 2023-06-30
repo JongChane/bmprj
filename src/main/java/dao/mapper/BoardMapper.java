@@ -15,8 +15,8 @@ public interface BoardMapper {
 	@Select("select ifnull(max(board_num),0) from board")
 	int maxNum();
 	
-	@Insert("insert into board (board_num,user_id,board_title,board_content,board_readcnt,board_id,board_date)"
-			 + " values (#{board_num},#{user_id},#{board_title},#{board_content},0,#{board_id},now())")
+	@Insert("insert into board (board_num,user_id,board_title,board_content,board_readcnt,board_id,board_date,board_grp,board_grpstep)"
+			 + " values (#{board_num},#{user_id},#{board_title},#{board_content},0,#{board_id},now(),#{board_grp},#{board_grpstep})")
 	void insert(Board board);
 	
 	//건의사항 전체 게시글 건수
@@ -32,7 +32,7 @@ public interface BoardMapper {
 		"<if test='board_num != null'> where board_num = ${board_num}</if>",
 		"<if test='board_id != null'> where board_id = ${board_id}</if>",
 		"<if test='searchtype != null'> and ${searchtype} like '%${searchcontent}%'</if>",
-		"<if test='limit != null'> order by board_num desc</if>",
+		"<if test='limit != null'> order by board_grp desc, board_grpstep asc limit #{startrow}, #{limit}</if>",
 		"</script>"})
 	List<Board> select(Map<String, Object> param);
 	
@@ -53,6 +53,9 @@ public interface BoardMapper {
 	@Select("select * from board")
 	List<Board> boardList();
 	
+	@Update("update board set board_grpstep=board_grpstep + 1"
+			+ " where board_grp = #{grp} and board_grpstep > #{grpstep}")
+	void updateGrpStep(Map<String, Object> param);
 	
 
 }

@@ -30,6 +30,7 @@ public class BoardService {
 	public void write(Board board) {
 		int maxnum = boardDao.maxNum();
 		board.setBoard_num(++maxnum);
+		board.setBoard_grp(maxnum);
 		boardDao.insert(board);
 	}
 
@@ -60,5 +61,15 @@ public class BoardService {
 
 	public List<Board> boardList() {
 		return boardDao.boardList();
+	}
+	
+	public void boardReply(Board board) {
+		boardDao.updateGrpStep(board);
+		int maxnum = boardDao.maxNum();
+		board.setBoard_num(++maxnum);
+//		board.setBoard_grplevel(board.getBoard_grplevel() + 1);
+		board.setBoard_grpstep(board.getBoard_grpstep() + 1);
+		boardDao.insert(board);
+		System.out.println(board);
 	}
 }

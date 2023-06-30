@@ -21,4 +21,6 @@ public class Board {
 	private int board_readcnt;
 	private String board_id;
 	private Date board_date;
+	private int board_grp;
+	private int board_grpstep;
 }
