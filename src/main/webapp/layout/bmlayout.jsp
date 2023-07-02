@@ -23,6 +23,113 @@
 </script>
 <sitemesh:write property="head"/>
 <style>
+.day {
+	width : 50px;
+	text-align : center;
+	border : 1px solid black;
+	border-radius: 30px;
+	padding : 10px;
+}
+.day_table {
+        border-collapse: separate; /* 테두리 간격을 띄우기 위해 separate로 설정 */
+        border-spacing: 50px; /* 테두리 간격을 50px로 지정 */
+        margin : 0 auto;
+    }
+
+p {
+	width : 100px;
+	margin : 0 auto;
+	font-size : 2.0rem;
+}
+
+ol,ul {
+	list-style : none;
+}
+
+.am_ul {
+	margin : 8px 2px 0;
+}
+
+.am_li {
+	width : 22%;
+	height : 50px;
+	background-color : #edfbdc;
+	list-style-type: none;
+	display: inline-block;
+	margin : 0 2px 4px;
+	font-size : 1.5rem;
+	text-align : center;
+	line-height: 50px;
+	border : 1px solid #c8e1af;
+	color : #333;
+}
+
+.pm_ul {
+	margin : 8px 2px 0;
+}
+
+.pm_li {
+	width : 22%;
+	height : 50px;
+	background-color : #edfbdc;
+	list-style-type: none;
+	display: inline-block;
+	margin : 0 2px 4px;
+	font-size : 1.5rem;
+	text-align : center;
+	line-height: 50px;
+	border : 1px solid #c8e1af;
+	color : #333;
+}
+
+.choice {
+	display : flex;
+	padding : 15px 18px;
+	
+	align-items: center;
+	justify-content: center;
+	height: 10vh;
+}
+
+button {
+	width : 22%;
+	height : 50px;
+	border-radius: 30px;
+	font-size : 1.5rem;
+	margin : 0px 10px 0px 10px;
+	
+}
+
+.click {
+	background-color : #06c755;
+}
+
+select {
+  width: 200px;
+  height: 30px;
+}
+
+option {
+  padding: 100px;
+}
+
+.rain_ul {
+	margin : 8px 2px 0;
+}
+
+.rain_li {
+	width : 22%;
+	height : 50px;
+	background-color : #edfbdc;
+	list-style-type: none;
+	display: inline-block;
+	margin : 0 2px 4px;
+	font-size : 1.5rem;
+	text-align : center;
+	line-height: 50px;
+	border : 1px solid #c8e1af;
+	color : #333;	
+}
 	.underbar, footer {
 		text-decoration: none;
 		font-family: "GmarketSansMedium";
@@ -182,12 +289,12 @@ option {
 </div>
 
 <!-- Page content -->
-<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px;">
+<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin-bottom: 50px;">
 <sitemesh:write property="body"/>
 </div>
 
-<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%;">
-  <p>Powered by 볼링매니아</p>
+<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%; height: 50px;">
+  <strong>Powered by 볼링매니아</strong>
 </footer>
 
 </body>
