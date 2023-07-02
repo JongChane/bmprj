@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+	 <form action="reservation" method="post">
    <div>
       <h1>예약날짜</h1>
    		 <input type="text" id="Date">
@@ -39,14 +40,14 @@
       <p>오후</p>
       <ul class="pm_ul">
          <li class="pm_li">12:00</li>
-         <li class="pm_li">1:00</li>
-         <li class="pm_li">2:00</li>
-         <li class="pm_li">3:00</li>
-         <li class="pm_li">4:00</li>
-         <li class="pm_li">5:00</li>
-         <li class="pm_li">6:00</li>
-         <li class="pm_li">7:00</li>
-         <li class="pm_li">8:00</li>
+         <li class="pm_li">13:00</li>
+         <li class="pm_li">14:00</li>
+         <li class="pm_li">15:00</li>
+         <li class="pm_li">16:00</li>
+         <li class="pm_li">17:00</li>
+         <li class="pm_li">18:00</li>
+         <li class="pm_li">19:00</li>
+         <li class="pm_li">20:00</li>
       </ul>
 <script>
     // JavaScript 코드
@@ -115,9 +116,9 @@
    </div><!-- 레인선택 -->
    <div>
       <button>취소</button>
-      <button>예약</button>
+      <button type="submit">예약</button>
    </div>
-
+</form>
     
     
 </body>
