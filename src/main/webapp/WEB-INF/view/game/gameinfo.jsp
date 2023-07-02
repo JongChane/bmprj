@@ -24,6 +24,7 @@
 		경기인원 : ${game.game_max}
 	</td>
 	<td>
+	
 		성별 :
 	<c:if test="${game.game_gender == 1 }">
 		남
@@ -67,7 +68,12 @@
 </tr>
 <tr>
 	<td colspan="2" style="text-align: center;">
-		<input type="submit" value="신청하기"  onclick="">	
+		<c:if test="${game.game_max > game.game_people }">
+			<input type="submit" value="신청하기">	
+		</c:if>
+		<c:if test="${game.game_max < game.game_people }">
+			<input type="button" value="마감" onclick="location.href='gamelist'">
+		</c:if>
 	</td>
 </tr>
 </table>
