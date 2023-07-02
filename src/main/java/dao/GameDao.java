@@ -25,4 +25,22 @@ public class GameDao {
 		param.clear();
 		return template.getMapper(cls).select(param);
 	}
+
+	public Game getGame(Integer game_num) {
+		param.clear();
+		param.put("game_num", game_num);
+		return template.getMapper(cls).selectOne(param);
+	}
+
+	public void update(String user_id, Integer game_num) {
+		param.clear();
+		param.put("user_id",user_id);
+		param.put("game_num", game_num);
+		template.getMapper(cls).update(param);
+	}
+
+	public int maxpeople() {
+		
+		return template.getMapper(cls).maxPeople();
+	}
 }

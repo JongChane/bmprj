@@ -18,4 +18,12 @@ public class GameService {
 	public List<Game> gameList() {
 		return gamedao.list();
 	}
+
+	public Game getGame(Integer game_num) {
+		return gamedao.getGame(game_num);
+	}
+
+	public void gameupdate(String user_id, Integer game_num) {
+		gamedao.update(user_id,game_num);
+	}
 }

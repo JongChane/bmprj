@@ -63,5 +63,20 @@ public class GameController {
 		mav.addObject("gamelist",gamelist);
 		return mav;
 	}
+	@RequestMapping("gameinfo")
+	public ModelAndView getgameinfo(Integer game_num, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Game game = service.getGame(game_num);
+		String user_id = (String)session.getAttribute("login");
+		service.gameupdate(user_id,game_num);
+		mav.addObject("game",game);
+		return mav;
+	}
+	/*
+	 * @PostMapping("gameinfo") public ModelAndView postgameinfo(HttpSession
+	 * session) { ModelAndView mav = new ModelAndView(); String user_id =
+	 * (String)session.getAttribute("login"); service.gameupdate(user_id); return
+	 * mav; }
+	 */
 	 
 }

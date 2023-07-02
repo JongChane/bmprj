@@ -14,25 +14,24 @@
 	.w3-table {
 	width: 60%;
 	margin : 0 auto;
-	text-align: center;
 }
 
 .w3-table td {
   padding: 5px; 
+   text-align: center;
 }
 .w3-table tr {
   margin-bottom: 5px; 
+ 
 }
-h1{
-	margin: 0 auto;
-}
+
 </style>
 </head>
 <body>
 <h1 style="text-align: center;">매치 목록</h1>
 <div class="table-container" >
 <c:forEach items="${gamelist}" var="game">
-<table class="w3-table" >
+<table class="w3-table"  >
 <tr>
 	<td>
 		제목 : ${game.game_title}
@@ -46,7 +45,16 @@ h1{
 		경기인원 : ${game.game_max}
 	</td>
 	<td>
-		성별 : ${game.game_gender}
+		성별 :
+	<c:if test="${game.game_gender == 1 }">
+		남
+	</c:if>
+	<c:if test="${game.game_gender == 2 }">
+		여
+	</c:if>
+	<c:if test="${game.game_gender == 3 }">
+		성별무관
+	</c:if>
 	</td>
 </tr>
 
@@ -60,17 +68,17 @@ h1{
 </tr>
 <tr >
 	<td>
-		경기날짜 : ${game.game_date}
+		경기날짜 : 
+		<fmt:formatDate value="${game.game_date}" pattern="yyyy년MM월dd일"/>
 	</td>
 	
 </tr>
 <tr>
 	<td colspan="2" style="text-align: center;">
-		<a style="font-size : 4px; " class="underbar" href="${path}/game/gameinfo">[상세보기]</a>
+		<a style="font-size : 5px; " class="underbar" href="../game/gameinfo?game_num=${game.game_num}">[상세보기]</a>
 	</td>
 </tr>
 </table>
-<hr>
 </c:forEach>
 </div>
 <input type="button" value="매치등록하기" onclick="location.href='write'">

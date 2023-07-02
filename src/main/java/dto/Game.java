@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+ @Setter
 @ToString
 public class Game {
 	private int game_num;
