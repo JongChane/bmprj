@@ -1,7 +1,9 @@
 package dto;
 
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +17,12 @@ public class Reservation {
 	private String user_id;
 	private int lane_num;
 	private Date rv_now;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date rv_date;
 	private int rv_game;
-	private Time rv_start;
-	private Time rv_end;
+	@DateTimeFormat(pattern = "HH:mm")
+	private LocalTime rv_start;
+	private LocalTime rv_end;
 	private int rv_people;
 	private String rv_check;
 }

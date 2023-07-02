@@ -9,4 +9,9 @@ import dao.ReservationDao;
 public class ReservationService {
 	@Autowired
 	private ReservationDao rvDao;
+
+	public void insert(Reservation reservation) {
+		rvDao.insert(reservation);
+
+	}
 }
