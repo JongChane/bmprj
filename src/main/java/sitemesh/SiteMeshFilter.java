@@ -24,6 +24,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter{
 		else if(url.contains("/admin/")) url="admin";
 		else if(url.contains("/board/")) url="board";
 		else if(url.contains("/visit/")) url="admin";
+		else if(url.contains("/reservation/")) url="reservation";
 		else url="";
 		request.setAttribute("url", url); //속성 등록
 		super.doFilter(servletRequest, servletResponse, filterChain); //다음 프로세스 진행
@@ -32,7 +33,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter{
 	@Override
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 	    builder.addDecoratorPath("/admin/*", "/layout/adminlayout.jsp")
-	    	   .addDecoratorPath("/visit/*", "/layout/adminlayout.jsp")
+					.addDecoratorPath("/visit/*", "/layout/adminlayout.jsp")
 	           .addDecoratorPath("/*", "/layout/bmlayout.jsp")
 	           .addExcludedPath("/layout/adminlayout.jsp")
 	           .addExcludedPath("/user/idsearch*")

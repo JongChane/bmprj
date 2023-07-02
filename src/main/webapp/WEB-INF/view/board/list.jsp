@@ -53,7 +53,9 @@
 		<tr>
 			<td>${boardno}</td>
 			<c:set var="boardno" value="${boardno -1 }"/>
-			<td><a href="detail?board_num=${board.board_num}">${board.board_title}</a></td>
+			<td>
+				<c:if test="${board.board_grpstep > 0}">└</c:if>
+				<a href="detail?board_num=${board.board_num}">${board.board_title}</a></td>
 			<td>${board.user_id}</td>
 			<td>
 				<fmt:formatDate value="${board.board_date}" pattern="yyyyMMdd" var="rdate"/>
