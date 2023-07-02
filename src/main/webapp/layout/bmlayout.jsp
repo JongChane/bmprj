@@ -182,11 +182,11 @@ option {
 </div>
 
 <!-- Page content -->
-<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px;">
+<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin-bottom: 50px;">
 <sitemesh:write property="body"/>
 </div>
 
-<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%;">
+<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%; height: 50px;">
   <strong>Powered by 볼링매니아</strong>
 </footer>
 
