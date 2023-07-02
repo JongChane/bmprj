@@ -12,7 +12,27 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
-	  $(".datepicker").datepicker({
+	$(".datepicker").datepicker({
+	    onSelect: function(date) {
+	        $.ajax({
+	            url: 'checkReservations',  // 백엔드 엔드포인트를 수정하세요
+	            data: { 'date': date },
+	            type: 'GET',
+	            dataType: 'json',
+	            success: function(data) {
+	                // 모든 시간 옵션을 표시
+	                $("input[name='rv_start']").parent().parent().show();
+
+	                // 이미 예약된 시간 옵션을 숨김
+	                data.reservedTimes.forEach(function(time) {
+	                    $("input[name='rv_start'][value='" + time + "']").parent().parent().hide();
+	                });
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                console.log(textStatus, errorThrown);
+	            }
+	        });
+		  },
 	    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (년-월-일)
 	    minDate: 0, // 오늘 날짜 이전은 선택할 수 없음
 	    maxDate: "+2w", // 오늘 날짜 기준 2주 뒤까지 선택 가능
@@ -20,6 +40,7 @@ $(function() {
 	    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
 	  });
 	});
+	
 </script>
 </head>
 <body>
