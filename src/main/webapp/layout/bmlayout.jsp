@@ -155,7 +155,7 @@ label {
     <div class="w3-display-middle w3-container">
     <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">소셜매치</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">예약하기</a>
+    <a style="font-size : 30px;" class="underbar" href="${path}/reservation/reservation">예약하기</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">공지사항</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

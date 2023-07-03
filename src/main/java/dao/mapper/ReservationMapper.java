@@ -1,6 +1,7 @@
 package dao.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,9 +16,9 @@ public interface ReservationMapper {
 			+ " #{rv_start}, #{rv_end}, #{rv_people})")
 	void insert(Reservation reservation);
 
-	@Select("SELECT rv_start"
+	@Select("SELECT rv_start, rv_end"
 			+ " FROM reservation"
 			+ " WHERE rv_date = #{date}")
-	List<String> rvCheck(String date);
+	List<Map<String, Object>> rvCheck(String date);
 
 }

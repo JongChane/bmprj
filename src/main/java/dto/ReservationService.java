@@ -1,6 +1,9 @@
 package dto;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +21,20 @@ public class ReservationService {
 
 	}
 
-	public List<String> rvCheck(String date) {
-    List<String> times = rvDao.rvCheck(date);
+	public List<Map<String, Object>> rvCheck(String date) {
+		List<Map<String, Object>> times = rvDao.rvCheck(date);
     return times.stream()
-            .map(time -> time.substring(0, 5)) // 시간과 분만 추출
-            .collect(Collectors.toList());
+				.map(time -> {
+					java.sql.Time rv_start_time = (java.sql.Time) time.get("rv_start");
+					java.sql.Time rv_end_time = (java.sql.Time) time.get("rv_end");
+
+					LocalTime rv_start_local_time = rv_start_time.toLocalTime();
+					LocalTime rv_end_local_time = rv_end_time.toLocalTime();
+
+					time.put("rv_start", rv_start_local_time.format(DateTimeFormatter.ofPattern("HH:mm")));
+					time.put("rv_end", rv_end_local_time.format(DateTimeFormatter.ofPattern("HH:mm")));
+					return time;
+				}) // 시간과 분만 추출
+				.collect(Collectors.toList());
 	}
 }

@@ -22,7 +22,7 @@ public class Reservation {
 	private int rv_game;
 	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime rv_start;
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime rv_end;
 	private int rv_people;
-	private String rv_check;
 }
