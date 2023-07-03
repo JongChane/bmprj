@@ -42,6 +42,7 @@ p {
    font-size : 2.0rem;
 }
 
+
 ol,ul {
    list-style : none;
 }
@@ -62,6 +63,7 @@ ol,ul {
    line-height: 50px;
    border : 1px solid #c8e1af;
    color : #333;
+   cursor: pointer;
 }
 
 
@@ -112,8 +114,18 @@ option {
    line-height: 50px;
    border : 1px solid #c8e1af;
    color : #333;   
+   cursor: pointer;
 }
-   .underbar, footer {
+
+.click {
+   background-color : #06c755;
+}
+
+label {
+   cursor: pointer;
+}
+
+.underbar, footer {
       text-decoration: none;
       font-family: "GmarketSansMedium";
     font-weight: 800;
@@ -125,9 +137,6 @@ option {
     font-weight: 500;
     font-style: normal;
     }
-.click {
-   background-color : #06c755;
-}
     @font-face {
     font-family: 'GmarketSansMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');

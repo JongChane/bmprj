@@ -12,43 +12,43 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
-	$(".datepicker").datepicker({
-	    onSelect: function(date) {
-	        $.ajax({
-	            url: 'checkReservations',  // 백엔드 엔드포인트를 수정하세요
-	            data: { 'date': date },
-	            type: 'GET',
-	            dataType: 'json',
-	            success: function(data) {
-	                // 모든 시간 옵션을 표시
-	                $("input[name='rv_start']").parent().parent().show();
+   $(".datepicker").datepicker({
+       onSelect: function(date) {
+           $.ajax({
+               url: 'checkReservations',  // 백엔드 엔드포인트를 수정하세요
+               data: { 'date': date },
+               type: 'GET',
+               dataType: 'json',
+               success: function(data) {
+                   // 모든 시간 옵션을 표시
+                   $("input[name='rv_start']").parent().parent().show();
 
-	                // 이미 예약된 시간 옵션을 숨김
-	                data.reservedTimes.forEach(function(time) {
-	                    $("input[name='rv_start'][value='" + time + "']").parent().parent().hide();
-	                });
-	            },
-	            error: function(jqXHR, textStatus, errorThrown) {
-	                console.log(textStatus, errorThrown);
-	            }
-	        });
-		  },
-	    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (년-월-일)
-	    minDate: 0, // 오늘 날짜 이전은 선택할 수 없음
-	    maxDate: "+2w", // 오늘 날짜 기준 2주 뒤까지 선택 가능
-	    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-	    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
-	  });
-	});
-	
+                   // 이미 예약된 시간 옵션을 숨김
+                   data.reservedTimes.forEach(function(time) {
+                       $("input[name='rv_start'][value='" + time + "']").parent().parent().hide();
+                   });
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+                   console.log(textStatus, errorThrown);
+               }
+           });
+        },
+       dateFormat: "yy-mm-dd", // 날짜 형식 설정 (년-월-일)
+       minDate: 0, // 오늘 날짜 이전은 선택할 수 없음
+       maxDate: "+2w", // 오늘 날짜 기준 2주 뒤까지 선택 가능
+       monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+       dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
+     });
+   });
+   
 </script>
 </head>
 <body>
-	 <form:form modelAttribute="reservation" action="reservation" method="post">
-	 <input type="hidden" name="user_id" value="${sessionScope.login}">
+    <form:form modelAttribute="reservation" action="reservation" method="post">
+    <input type="hidden" name="user_id" value="${sessionScope.login}">
    <div>
       <h1>예약날짜</h1>
-   		 <input type="text" name="rv_date" class="datepicker"/>
+          <input type="text" name="rv_date" class="datepicker"/>
    </div><!-- 예약날짜 -->
    
    <div>
@@ -137,14 +137,18 @@ $(function() {
       <script>
     const liItems = document.querySelectorAll('.li_class');
    
-		liItems.forEach(item => {
+      liItems.forEach(item => {
       item.addEventListener('click', function() {
         // 선택된 li 태그의 색상 변경
         liItems.forEach(item => item.classList.remove('click'));
         this.classList.add('click');
+        
+        // 라디오 버튼 체크
+        const radioInput = this.querySelector('.hidden-input');
+        radioInput.checked = true;
       });
     });
-		
+      
   </script>   
    </div>
    </div><!-- 예약시간 -->
@@ -162,7 +166,7 @@ $(function() {
    
    <div>
       <h1>인원선택</h1>
-      <select name="rv_people">
+      <select name="rv_people" id="personSelect">
          <option value="1">1명</option>
          <option value="2">2명</option>
          <option value="3">3명</option>
@@ -178,84 +182,122 @@ $(function() {
      <ul class="rain_ul">
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="1">
+         <input type="checkbox" name="lane_num" value="1">
          1번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="2">
+         <input type="checkbox" name="lane_num" value="2">
          2번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="3">
+         <input type="checkbox" name="lane_num" value="3">
          3번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="4">
+         <input type="checkbox" name="lane_num" value="4">
          4번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="5">
+         <input type="checkbox" name="lane_num" value="5">
          5번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="6">
+         <input type="checkbox" name="lane_num" value="6">
          6번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="7">
+         <input type="checkbox" name="lane_num" value="7">
          7번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="8">
+         <input type="checkbox" name="lane_num" value="8">
          8번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="9">
+         <input type="checkbox" name="lane_num" value="9">
          9번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="radio" name="lane_num" value="10">
+         <input type="checkbox" name="lane_num" value="10">
          10번레인
       </label>
    </li>
 </ul>
   <script>
-    const liItems2 = document.querySelectorAll('.rain_li');
-   
-		liItems2.forEach(item => {
-      item.addEventListener('click', function() {
-        // 선택된 li 태그의 색상 변경
-        liItems2.forEach(item => item.classList.remove('click'));
-        this.classList.add('click');
-      });
-    });
-		
-  </script>
+  const rainItems = document.querySelectorAll('.rain_li');
+  const personSelect = document.getElementById('personSelect');
+  let selectedItems = [];
+  
+  rainItems.forEach(item => {
+     item.addEventListener('click', function() {
+       if (parseInt(personSelect.value) >= 4) {
+         // 선택된 li 태그의 색상 변경 (두 개 선택)
+         if (selectedItems.length < 2) {
+           this.classList.toggle('click');
+           if (this.classList.contains('click')) {
+             selectedItems.push(this);
+           } else {
+             selectedItems = selectedItems.filter(item => item !== this);
+           }
+         } else if (selectedItems.includes(this)) {
+           this.classList.toggle('click');
+           selectedItems = selectedItems.filter(item => item !== this);
+         }
+       } else {
+         // 선택된 li 태그의 색상 변경 (한 개 선택)
+         rainItems.forEach(item => item.classList.remove('click'));
+         this.classList.add('click');
+         selectedItems = [this];
+       }
+
+       // 라디오 버튼 체크
+       selectedItems.forEach(selectedItem => {
+         const radioInput = selectedItem.querySelector('input[type="checkbox"]');
+         radioInput.checked = true;
+       });
+
+       // 나머지 태그들의 라디오 버튼 체크 해제
+       rainItems.forEach(item => {
+         if (!selectedItems.includes(item)) {
+           const radioInput = item.querySelector('input[type="checkbox"]');
+           radioInput.checked = false;
+         }
+       });
+     });
+   });
+  personSelect.addEventListener('change', function() {
+     // 인원 선택 값 변경 시 레인 선택 초기화
+     rainItems.forEach(item => {
+        item.classList.remove('click');
+        selectedItems = [];
+        const checkboxInput = item.querySelector('input[type="checkbox"]');
+        checkboxInput.checked = false;
+     });
+  });
+   </script>
    </div><!-- 레인선택 -->
    <div>
       <button>취소</button>
       <button type="submit">예약</button>
    </div>
 </form:form>
-    
-    
 </body>
 </html>
