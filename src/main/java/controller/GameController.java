@@ -82,14 +82,32 @@ public class GameController {
 		ModelAndView mav = new ModelAndView();
 		Game game = service.getGame(game_num);
 		User user = (User)session.getAttribute("loginUser");
+		int userAge = user.getUser_age();  // 유저의 나이
+		int gameAge = game.getGame_age();  // 게임의 제한 나이
+		int userAvg = user.getUser_avg();  // 유저의 에버리지
+	    int gameAvg = game.getGame_avg();  // 게임의 에버리지
+	    int gamePeople = game.getGame_people(); //게임의 신천인원수
+	    int gameMax = game.getGame_max();  // 게임에서 설정한 제한 인원수
+		
 		if(game.getGame_people() >= game.getGame_max()) {
 			throw new LoginException("마감되었습니다.","gameinfo?game_num="+game_num);
 		}
-		if(Integer.parseInt(user.getUser_age()) > game.getGame_age()) {
-			throw new LoginException("나이 맞지않습니다.","gameinfo?game_num="+game_num);
+		//유저의 나이가 게임나이보다 작거나 게임의 나이에서 9를 초과하면서 유저나이가 다른 경유에 예외경우 발생
+		if (userAge < gameAge || userAge > (gameAge + 9)) {
+		    if (userAge != gameAge) {
+		        throw new LoginException("나이제한을 확인해주세요.", "gameinfo?game_num=" + game_num);
+		    }
 		}
-		
-
+		if(!game.getGame_gender().equals("성별무관") && !user.getUser_gender().equals(game.getGame_gender())) {
+			throw new LoginException("성별 맞지않습니다.","gameinfo?game_num="+game_num);
+		}
+		if (userAvg < gameAvg - 50 || userAvg > gameAvg + 50) {
+		    throw new LoginException("에버리지가 맞지않습니다.", "gameinfo?game_num=" + game_num);
+		}
+		if(gamePeople == gameMax) {
+			throw new LoginException("신청인원이 마감 되었습니다.", "gameinfo?game_num=" + game_num);
+		}
+		 
 		service.gameupdate(user.getUser_id(),game_num);
 		mav.addObject("game",game);
 		mav.setViewName("redirect:gameinfo?game_num="+game_num);
