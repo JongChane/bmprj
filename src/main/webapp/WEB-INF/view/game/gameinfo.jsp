@@ -26,15 +26,7 @@
 	<td>
 	
 		성별 :
-	<c:if test="${game.game_gender == 1 }">
-		남
-	</c:if>
-	<c:if test="${game.game_gender == 2 }">
-		여
-	</c:if>
-	<c:if test="${game.game_gender == 3 }">
-		성별무관
-	</c:if>
+	${game.game_gender }
 	</td>
 </tr>
 
@@ -65,14 +57,15 @@
 	<td>
 		${game.game_content}
 	</td>
+
 </tr>
 <tr>
 	<td colspan="2" style="text-align: center;">
 		<c:if test="${game.game_max > game.game_people }">
 			<input type="button" value="신청하기" onclick="location.href='apply?game_num=${game.game_num}'">	
 		</c:if>
-		<c:if test="${game.game_max < game.game_people }">
-			<input type="button" value="마감" onclick="location.href='gamelist'">
+		<c:if test="${game.game_max == game.game_people }">
+			<input type="button" value="마감" onclick="location.href='apply?game_num=${game.game_num}'">
 		</c:if>
 	</td>
 </tr>

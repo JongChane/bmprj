@@ -46,15 +46,7 @@
 	</td>
 	<td>
 		성별 :
-	<c:if test="${game.game_gender == 1 }">
-		남
-	</c:if>
-	<c:if test="${game.game_gender == 2 }">
-		여
-	</c:if>
-	<c:if test="${game.game_gender == 3 }">
-		성별무관
-	</c:if>
+	${game.game_gender }
 	</td>
 </tr>
 

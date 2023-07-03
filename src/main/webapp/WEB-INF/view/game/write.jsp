@@ -48,9 +48,9 @@
 	         <th>성별</th>
 	          <td>
 		         <select class="w3-select" name="game_gender">
-			         <option value="1">남성</option>
-			         <option value="2">여성</option>
-			         <option value="3">성별무관</option>
+			         <option value="남성">남성</option>
+			         <option value="여성">여성</option>
+			         <option value="성별무관">성별무관</option>
 		         </select>
 	            <font color="red">
 	               <form:errors path="game_gender"/>
