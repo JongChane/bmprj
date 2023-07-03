@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.GameMapper;
 import dto.Game;
+import dto.User;
 @Repository
 public class GameDao {
 	@Autowired
