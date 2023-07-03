@@ -69,7 +69,7 @@
 <tr>
 	<td colspan="2" style="text-align: center;">
 		<c:if test="${game.game_max > game.game_people }">
-			<input type="submit" value="신청하기">	
+			<input type="button" value="신청하기" onclick="location.href='apply?game_num=${game.game_num}'">	
 		</c:if>
 		<c:if test="${game.game_max < game.game_people }">
 			<input type="button" value="마감" onclick="location.href='gamelist'">
