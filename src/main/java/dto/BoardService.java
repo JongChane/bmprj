@@ -72,4 +72,18 @@ public class BoardService {
 		boardDao.insert(board);
 		System.out.println(board);
 	}
+
+	public void commentinsert(Comment comm) {
+		boardDao.commentinsert(comm);
+	}
+
+	public Comment getComment(Integer board_num) {
+		// TODO Auto-generated method stub
+		return boardDao.getComment(board_num);
+	}
+
+	public void deleteComment(int board_num) {
+		boardDao.deleteComment(board_num);
+	}
+
 }

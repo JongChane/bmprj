@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.BoardMapper;
 import dto.Board;
+import dto.Comment;
 
 @Repository
 public class BoardDao {
@@ -75,5 +76,21 @@ public class BoardDao {
 		param.put("grp", board.getBoard_grp());
 		param.put("grpstep", board.getBoard_grpstep());
 		template.getMapper(cls).updateGrpStep(param);
+	}
+
+	public void commentinsert(Comment comm) {
+		template.getMapper(cls).commentinsert(comm);
+	}
+
+	public Comment getComment(Integer board_num) {
+		param.clear();
+		param.put("board_num", board_num);
+		return template.getMapper(cls).getComment(board_num);
+	}
+
+	public void deleteComment(int board_num) {
+		param.clear();
+		param.put("board_num", board_num);
+		template.getMapper(cls).deleteComment(board_num);
 	}	
 }

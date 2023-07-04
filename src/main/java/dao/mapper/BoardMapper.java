@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import dto.Board;
+import dto.Comment;
 
 public interface BoardMapper {
 
@@ -56,6 +57,18 @@ public interface BoardMapper {
 	@Update("update board set board_grpstep=board_grpstep + 1"
 			+ " where board_grp = #{grp} and board_grpstep > #{grpstep}")
 	void updateGrpStep(Map<String, Object> param);
+	
+	
+	@Insert("insert into comment (board_num,user_id,comm_content,comm_date)"
+			+ " values (#{board_num},#{user_id},#{comm_content},now())")
+	void commentinsert(Comment comm);
+	
+	
+	@Select("select * from comment where board_num=#{board_num}")
+	Comment getComment(Integer board_num);
+	
+	@Delete("delete from comment where board_num = #{board_num}")
+	void deleteComment(int board_num);
 	
 
 }

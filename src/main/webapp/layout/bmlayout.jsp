@@ -36,12 +36,6 @@
         margin : 0 auto;
     }
 
-p {
-   width : 100px;
-   margin : 0 auto;
-   font-size : 2.0rem;
-}
-
 
 ol,ul {
    list-style : none;
