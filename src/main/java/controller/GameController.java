@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Game;
 import dto.GameService;
+import dto.Gamer;
 import dto.User;
 import exception.LoginException;
 
@@ -73,25 +74,23 @@ public class GameController {
 	public ModelAndView getgameinfo(Integer game_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Game game = service.getGame(game_num);
-		String user_id = (String)session.getAttribute("login");		
 		mav.addObject("game",game);
 		return mav;
 	}
 	@RequestMapping("apply")
-	public ModelAndView apply(Integer game_num, HttpSession session) {
+	public ModelAndView apply( Integer game_num,  HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+
 		Game game = service.getGame(game_num);
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User)session.getAttribute("loginUser"); //로그인 되어있는 유저의 모든 정보
+		Gamer gamer = service.getGamer(user.getUser_id(),game_num);
 		int userAge = user.getUser_age();  // 유저의 나이
 		int gameAge = game.getGame_age();  // 게임의 제한 나이
 		int userAvg = user.getUser_avg();  // 유저의 에버리지
 	    int gameAvg = game.getGame_avg();  // 게임의 에버리지
 	    int gamePeople = game.getGame_people(); //게임의 신천인원수
 	    int gameMax = game.getGame_max();  // 게임에서 설정한 제한 인원수
-		
-		if(game.getGame_people() >= game.getGame_max()) {
-			throw new LoginException("마감되었습니다.","gameinfo?game_num="+game_num);
-		}
+	    
 		//유저의 나이가 게임나이보다 작거나 게임의 나이에서 9를 초과하면서 유저나이가 다른 경유에 예외경우 발생
 		if (userAge < gameAge || userAge > (gameAge + 9)) {
 		    if (userAge != gameAge) {
@@ -107,10 +106,17 @@ public class GameController {
 		if(gamePeople == gameMax) {
 			throw new LoginException("신청인원이 마감 되었습니다.", "gameinfo?game_num=" + game_num);
 		}
-		 
+		if(gamer != null){
+			throw new LoginException(" 이미 신청 되었습니다.", "gameinfo?game_num=" + game_num);
+		}
+		
+		service.gamerInsert(user.getUser_id(),game_num);
 		service.gameupdate(user.getUser_id(),game_num);
+		
 		mav.addObject("game",game);
-		mav.setViewName("redirect:gameinfo?game_num="+game_num);
+		mav.addObject("message","신청이 완료 되었습니다.");
+		mav.addObject("url","gameinfo?game_num="+game_num);
+		mav.setViewName("alert");
 		return mav;
 	}
 	

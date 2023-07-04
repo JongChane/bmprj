@@ -32,4 +32,6 @@ public interface GameMapper {
 	@Update("update gamelist set game_people=ifnull(game_people,0) + 1 where game_num=#{game_num}")
 	void update(Map<String, Object> param);
 	
+	
+	
 }
