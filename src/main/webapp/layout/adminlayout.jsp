@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />    
-<%-- /shop1/src/main/webapp/layout/gdulayout.jsp --%>    
 
 <!DOCTYPE html>
 <html>
@@ -29,13 +28,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
   <span class="w3-bar-item w3-right">
-	<c:if test="${empty sessionScope.loginUser}">
-	 <a href="${path}/user/login">로그인</a>
-	 <a href="${path}/user/join">회원가입</a>
+	<c:if test="${empty sessionScope.admin}">
+	 <a href="${path}/admin/login">로그인</a>
 	</c:if>   
-	<c:if test="${!empty sessionScope.loginUser}">
-	${sessionScope.loginUser.user_name}님이 로그인 하셨습니다.&nbsp;&nbsp;
-	 <a href="${path}/user/logout">로그아웃</a>
+	<c:if test="${!empty sessionScope.admin}">
+	${sessionScope.admin.admin_name}님이 로그인 하셨습니다.&nbsp;&nbsp;
+	 <a href="${path}/admin/logout">로그아웃</a>
 	</c:if>   
   </span>
 </div>
@@ -47,10 +45,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
          class="w3-circle w3-margin-right" style="width:100px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <c:if test="${!empty sessionScope.loginUser}">
-      <span>반갑습니다, <strong>${sessionScope.loginUser.user_name}님</strong></span><br>
+      <c:if test="${!empty sessionScope.admin}">
+      <span>반갑습니다, <strong>${sessionScope.admin.admin_name}님</strong></span><br>
       </c:if>
-      <c:if test="${empty sessionScope.loginUser}">
+      <c:if test="${empty sessionScope.admin}">
       <span><strong>로그인하세요</strong></span><br>
       </c:if>
     </div>
@@ -58,7 +56,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <a href="${path}/user/mypage?userid=${loginUser.user_id}" 
+    <a href="${path}/user/mypage?userid=${admin.admin_id}" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url == "user"}'>w3-blue</c:if>">
     <i class="fa fa-users fa-fw"></i>&nbsp; 회원관리</a>
     <a href="${path}/item/list" 
