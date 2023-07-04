@@ -22,4 +22,14 @@ public class GameLoginAspect {
 		   }
 		   return joinPoint.proceed();	
 		}
+	@Around
+	("execution(* controller.Game*.apply*(..)) && args(..,session)")
+		public Object loginCheck(ProceedingJoinPoint joinPoint,
+				HttpSession session) throws Throwable {
+		   User loginUser = (User)session.getAttribute("loginUser");	
+		   if(loginUser == null) {
+			   throw new LoginException("로그인이 필요합니다.","../user/login");
+		   }
+		   return joinPoint.proceed();	
+		}
 	}

@@ -55,7 +55,7 @@
 		평균에버리지 : ${game.game_avg}
 	</td>
 	<td>
-		나이제한 : ${game.game_age}
+		나이제한 : ${game.game_age} 대
 	</td>
 </tr>
 <tr >
