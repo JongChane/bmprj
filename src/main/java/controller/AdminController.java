@@ -7,23 +7,81 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.Admin;
+import dto.AdminService;
+import dto.BmService;
 import dto.Board;
 import dto.BoardService;
+import dto.User;
+import dto.ViService;
 import exception.LoginException;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
 	@Autowired
+	private ViService vis;
+	@Autowired
+	private AdminService ads;
+	@Autowired
+	private BmService service;
+	@Autowired
 	BoardService BoardService;
+	
+	@GetMapping("*")
+	public ModelAndView join() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(new Admin());
+		return mav;
+	}
+	
+	@PostMapping("login")
+	public ModelAndView login
+	(@Valid Admin admin, BindingResult bresult,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			bresult.reject("error.login.input");
+			return mav;
+		}
+		Admin dbAdmin;
+		try {
+		    dbAdmin = ads.selectAdmin(admin.getAdmin_id());
+		    if (dbAdmin == null) {
+		        bresult.reject("error.admin.id");
+		        mav.getModel().putAll(bresult.getModel());
+		        return mav;
+		    }
+		} catch (EmptyResultDataAccessException e) {
+		    e.printStackTrace();
+		    mav.getModel().putAll(bresult.getModel());
+		    return mav;
+		}
+		if(admin.getAdmin_pass().equals(dbAdmin.getAdmin_pass())) { //정상 로그인
+		 	 session.setAttribute("admin", dbAdmin);
+		 	 session.setAttribute("adminId", dbAdmin.getAdmin_id());
+			 mav.setViewName("redirect:boardList");
+		}else {  
+			bresult.reject("error.login.password");
+			mav.getModel().putAll(bresult.getModel());
+		}		
+		return mav;
+	}
+	@RequestMapping("logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:login";
+	}
 	@RequestMapping("boardList")
-	public ModelAndView boardList(HttpSession session) {
+	public ModelAndView adminboardList(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Board> list = BoardService.boardList();
 		mav.addObject("boardList",list);
@@ -31,7 +89,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("reply")
-	public ModelAndView replyGet(int board_num) {
+	public ModelAndView adminreplyGet(int board_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(board_num);
 		Board board = BoardService.getBoard(board_num);
@@ -40,7 +98,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("reply")
-	public ModelAndView replyPost(@Valid Board board, BindingResult bresult) {
+	public ModelAndView adminreplyPost(@Valid Board board, BindingResult bresult, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(board);
 		if(bresult.hasErrors()) {
@@ -59,5 +117,41 @@ public class AdminController {
 			throw new LoginException("답변등록시 오류 발생","reply?board_num="+board.getBoard_num());
 		}
 		return mav;
+	}
+
+	@PostMapping("checkUser")
+	@ResponseBody
+	public String checkUser(String user_id) {
+		System.out.println(user_id);
+		boolean checkId = service.checkId(user_id);
+		if (checkId) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+
+	@PostMapping("visit")
+	public ModelAndView adminscore(String[] vi_id, String[] vi_total, String[] vi_avg, String[] vi_game, HttpSession session) {
+		int[] total = new int[vi_total.length];
+		int[] avg = new int[vi_avg.length];
+		int[] game = new int[vi_game.length];
+		
+		for(int i = 0 ; i < vi_total.length ; i++) {
+			total[i] = Integer.parseInt(vi_total[i]);
+		}
+		for(int i = 0 ; i < vi_avg.length ; i++) {
+			avg[i] = Integer.parseInt(vi_avg[i]);
+		}
+		for(int i = 0 ; i < vi_game.length ; i++) {
+			game[i] = Integer.parseInt(vi_game[i]);
+		}
+		
+		for(int i = 0 ; i < vi_id.length ; i++) {
+			vis.insert(vi_id[i], total[i], avg[i], game[i]);
+		}
+		
+
+		return null;
 	}
 }

@@ -8,6 +8,8 @@
 <title>글 작성</title>
 </head>
 <body>
+<div style="margin-top : 200px">
+<h2>건의하기 작성</h2>
 <form:form modelAttribute="board" action="write" name="f">
 	<table>
 		<tr>
@@ -27,10 +29,11 @@
 		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>
 		<tr>
 			<td colspan="2">
-				<input type="submit" value="글 등록">
+				<input type="submit" value="건의하기">
 			</td>
 		</tr>
 	</table>
 </form:form>
+</div>
 </body>
 </html>

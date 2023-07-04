@@ -1,8 +1,11 @@
 package controller;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +33,12 @@ public class ReservationController {
 	}
 
 	@PostMapping("reservation")
-	public ModelAndView reservation(Reservation reservation) {
+	public ModelAndView reservation(Reservation reservation, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		LocalTime rv_start = reservation.getRv_start();
+		reservation.setRv_end(rv_start.plusMinutes(90));
+
+
 		rvService.insert(reservation);
 
 		return null;
@@ -39,12 +46,12 @@ public class ReservationController {
 
 	@GetMapping("checkReservations")
 	@ResponseBody
-	public Map<String, List<String>> checkReservations(@RequestParam String date) {
-		// service를 통해 해당 날짜에 이미 예약된 시간 목록을 찾습니다.
-		System.out.println(date);
-		List<String> reservedTimes = rvService.rvCheck(date);
-		Map<String, List<String>> response = new HashMap<>();
-		response.put("reservedTimes", reservedTimes);
+	public Map<String, List<Map<String, Object>>>
+			checkReservations(@RequestParam String date, @RequestParam("laneNumbers") List<String> laneNumbers) {
+		
+		List<Map<String, Object>> reservedTimes = rvService.rvCheck(date, laneNumbers);
+		Map<String, List<Map<String, Object>>> response = new HashMap<>();
+		response.put("reservations", reservedTimes);
 
 		return response;
 	}

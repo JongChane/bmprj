@@ -9,53 +9,55 @@
 <title>볼링매니아 로그인</title>
 <script type="text/javascript">
 function win_open(page) {
-	   var op = "width=500, height=350, left=50,top=150";
-	   open(page ,"",op);
+      var op = "width=500, height=350, left=50,top=150";
+      open(page ,"",op);
 }
 </script>
 </head>
 <body>
-	<h2>사용자 로그인</h2>
-	<form:form modelAttribute="user" method="post" action="login" name="loginform">
-		<input type="hidden" name="user_name" value="유효성검증을위한데이터" >
-		<input type="hidden" name="user_email" value="a@a.a" >
-		<input type="hidden" name="user_gender" value="유효성검증을위한데이터" >
-		<input type="hidden" name="user_avg" value="1" >
-  	<spring:hasBindErrors name="user">
-    	<font color="red">
-    		<c:forEach items="${errors.globalErrors}" var="error">
-      		<spring:message code="${error.code}" />
-      	</c:forEach>
-    	</font>
-  	</spring:hasBindErrors>
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td>
-					<form:input path="user_id" />
-     				<font color="red">
-     					<form:errors path="user_id" />
-     				</font>
-    		</td>
-  		</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td>
-					<form:password path="user_pass" />
-      		<font color="red">
-      			<form:errors path="user_pass" />
-      		</font>
-    		</td>
-  		</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="로그인">
-					<input type="button" value="회원가입"  onclick="location.href='join'">
-					<input type="button" value="아이디찾기" onclick="win_open('idsearch')">
-					<input type="button" value="비밀번호찾기" onclick="win_open('pwsearch')">
-				</td>
-			</tr>
-		</table>
-	</form:form>
+<div style="margin-top : 55px">
+   <h2>사용자 로그인</h2>
+   <form:form modelAttribute="user" method="post" action="login" name="loginform">
+      <input type="hidden" name="user_name" value="유효성검증을위한데이터" >
+      <input type="hidden" name="user_email" value="a@a.a" >
+      <input type="hidden" name="user_gender" value="유효성검증을위한데이터" >
+      <input type="hidden" name="user_avg" value="1" >
+     <spring:hasBindErrors name="user">
+       <font color="red">
+          <c:forEach items="${errors.globalErrors}" var="error">
+            <spring:message code="${error.code}" />
+         </c:forEach>
+       </font>
+     </spring:hasBindErrors>
+      <table>
+         <tr>
+            <td>아이디</td>
+            <td>
+               <form:input path="user_id" />
+                 <font color="red">
+                    <form:errors path="user_id" />
+                 </font>
+          </td>
+        </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td>
+               <form:password path="user_pass" />
+            <font color="red">
+               <form:errors path="user_pass" />
+            </font>
+          </td>
+        </tr>
+         <tr>
+            <td colspan="2" align="center">
+               <input type="submit" value="로그인">
+               <input type="button" value="회원가입"  onclick="location.href='join'">
+               <input type="button" value="아이디찾기" onclick="win_open('idsearch')">
+               <input type="button" value="비밀번호찾기" onclick="win_open('pwsearch')">
+            </td>
+         </tr>
+      </table>
+   </form:form>
+</div>   
 </body>
 </html>

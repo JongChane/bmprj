@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.BmService;
+import dto.BoardService;
 import dto.MailSendService;
 import dto.User;
 import exception.LoginException;
@@ -36,7 +37,9 @@ public class UserController {
 	private CipherUtil util;
 	@Autowired
 	private JavaMailSenderImpl mailSender;
-
+	@Autowired
+	private BoardService boardService;
+	
 	// ===================== 비밀번호 암호화 메서드 시작
 	private String passHash(String pass) {
 		try {

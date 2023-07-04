@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Board;
 import dto.BoardService;
+import dto.Comment;
 import exception.LoginException;
 
 @Controller
@@ -115,14 +116,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping("detail")
-	public ModelAndView detailGet(Integer board_num) {
+	public ModelAndView detailGet(Integer board_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Board board = service.getBoard(board_num);
+		Comment comm = service.getComment(board_num);
 		service.addReadcnt(board_num);
 		if(board_num == null) {
 			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
 		}
+		session.setAttribute("board_num", board_num);
+		mav.addObject("comm",comm);
 		mav.addObject("board",board);
+		
 		return mav;
 	}
 	
@@ -146,6 +151,7 @@ public class BoardController {
 	    Map<String, Object> response = new HashMap<>();
 	    try {
 	        // 게시글 삭제 로직 수행
+	    	service.deleteComment(board_num);
 	        service.deleteBoard(board_num);
 	        response.put("success", true);
 	    } catch (Exception e) {
@@ -191,4 +197,17 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping("comment")
+	public ModelAndView comment(Comment comm, HttpServletRequest request) {
+	ModelAndView mav = new ModelAndView();
+	System.out.println(comm.getComm_content());
+	int board_num = (int)request.getSession().getAttribute("board_num");
+	String user = (String)request.getSession().getAttribute("login");
+	comm.setBoard_num(board_num);
+	comm.setUser_id(user);
+	service.commentinsert(comm);
+	mav.setViewName("redirect:detail?board_num="+comm.getBoard_num());
+	return mav;
+	
+	}
 }

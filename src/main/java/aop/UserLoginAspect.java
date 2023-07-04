@@ -34,4 +34,15 @@ public class UserLoginAspect {
 	   }
 	   return joinPoint.proceed();	
 	}
+	
+	@Around
+	("execution(* controller.Reservation*.reservation*(..)) && args(..,session)")
+	public Object rvloginCheck(ProceedingJoinPoint joinPoint,
+			HttpSession session) throws Throwable {
+	   User loginUser = (User)session.getAttribute("loginUser");	
+	   if(loginUser == null) {
+		   throw new LoginException("[loginCheck]로그인이 필요합니다.","login");
+	   }
+	   return joinPoint.proceed();	
+	}
 }

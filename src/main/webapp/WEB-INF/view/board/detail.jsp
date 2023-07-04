@@ -8,11 +8,12 @@
 <title>게시글 상세보기</title>
 </head>
 <body>
+
     <%
         String path = request.getContextPath();
         pageContext.setAttribute("path", path);
     %>
-
+<div style="margin-top : 200px;">
 	<table>
 		<tr>
 			<td>작성자</td>
@@ -32,16 +33,48 @@
 				</table>
 			</td>
 		</tr>
+		<tr>
+			<td>답변일</td>
+			<td><fmt:formatDate value="${comm.comm_date}" pattern="yyyy-MM-dd"/></td>
+			
+		</tr>
+		<tr>
+			<td>답변내용</td>
+			<td>${comm.comm_content}</td>
+		</tr>
 	</table>
 	<c:if test="${sessionScope.login eq board.user_id}">
 	<button type="button" onclick="location.href='update?board_num=${board.board_num}'">[수정]</button>
 	<button type="button" onclick="detailDelete(${board.board_num})">[삭제]</button>
 	</c:if>
-	
+</div>
+
+<!-- admin 답글 달기 -->
+<c:if test="${sessionScope.login == 'admin'}">	
+<div>
+	<form:form modelAttribute="comment" action="comment" method="post">
+	<table>
+		<tr>
+			<td>답변 :</td>
+			<td><textarea rows="4" cols="50" name="comm_content"></textarea></td>
+		</tr>
+		<tr>	
+			<td>
+				<c:if test="${empty comm.comm_content}">
+				<input type="submit" value="답변하기">
+				</c:if>
+			</td>
+		</tr>	
+	</table>
+	</form:form>	
+</div>
+</c:if>
+
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 	<script>
 		function detailDelete(board_num) {
 		    if (confirm('정말 삭제하시겠습니까?')) {
+		        deleteComment(board_num);
 		        deleteBoard(board_num);
 		    }
 		}
