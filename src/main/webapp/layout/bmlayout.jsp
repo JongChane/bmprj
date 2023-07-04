@@ -155,7 +155,7 @@ label {
     <div class="w3-display-middle w3-container">
     <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">소셜매치</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a style="font-size : 30px;" class="underbar" href="${path}/reservation/reservation">예약하기</a>
+    <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">예약하기</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a style="font-size : 30px;" class="underbar" href="${path}/game/gamelist">공지사항</a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -164,20 +164,20 @@ label {
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-display-right w3-container">
       <c:if test="${empty sessionScope.login}">
-     		<a class="underbar" href="${path}/user/login">로그인</a>
-     		<a class="underbar" href="${path}/user/join">회원가입</a>
-  		</c:if>
+           <a class="underbar" href="${path}/user/login">로그인</a>
+           <a class="underbar" href="${path}/user/join">회원가입</a>
+        </c:if>
       <c:if test="${!empty sessionScope.login}">
-     		<strong style="font-family:'GmarketSansMedium';">${sessionScope.login}님</strong>&nbsp;&nbsp;
-     		<a class="underbar" href="${path}/user/mypage?user_id=${sessionScope.login}">내정보</a>&nbsp;
-     		<a class="underbar" href="${path}/user/logout">로그아웃</a>
-  		</c:if>
+           <strong style="font-family:'GmarketSansMedium';">${sessionScope.login}님</strong>&nbsp;&nbsp;
+           <a class="underbar" href="${path}/user/mypage?user_id=${sessionScope.login}">내정보</a>&nbsp;
+           <a class="underbar" href="${path}/user/logout">로그아웃</a>
+        </c:if>
     </div>
   </div>
 </div>
 
 <!-- Page content -->
-<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin-bottom: 50px;">
+<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin : 0px auto;">
 <sitemesh:write property="body"/>
 </div>
 
