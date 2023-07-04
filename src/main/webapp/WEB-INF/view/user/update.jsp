@@ -88,7 +88,7 @@
    		<tr>
    			<td>에버점수</td>
    			<td>
-   				<form:input path="user_avg" />
+   				<form:input path="user_avg" readonly="true" class="w3-input" />
        		<font color="red">
        			<form:errors path="user_avg" />
        		</font>

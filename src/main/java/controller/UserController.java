@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.Admin;
 import dto.BmService;
 import dto.BoardService;
 import dto.MailSendService;
@@ -165,21 +166,32 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("delete")
-	public String idCheckdelete
-	       (String user_pass, String user_id, HttpSession session) {
-		User loginUser = (User)session.getAttribute("loginUser");
-		if (!passHash(user_pass).equals(loginUser.getUser_pass())) {
-			throw new LoginException
-			     ("비밀번호를 확인하세요.", "delete?user_id="+user_id);
+	public String idCheckdelete(String user_pass, String user_id, HttpSession session) {
+		User loginUser = (User) session.getAttribute("loginUser");
+		Admin admin = (Admin) session.getAttribute("admin");
+
+		if (admin != null) {
+			try {
+				service.userDelete(user_id);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new LoginException("탈퇴시 오류발생.", "delete?user_id=" + user_id);
+			}
+		} else {
+			// 관리자가 아닌 경우에는 본인 확인 후 탈퇴 가능
+			if (!passHash(user_pass).equals(loginUser.getUser_pass())) {
+				throw new LoginException("비밀번호를 확인하세요.", "delete?user_id=" + user_id);
+			}
+
+			try {
+				service.userDelete(user_id);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new LoginException("탈퇴시 오류발생.", "delete?user_id=" + user_id);
+			}
+			session.removeAttribute("loginUser");
 		}
-		try {
-			service.userDelete(user_id);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw new LoginException("탈퇴시 오류발생.", "delete?user_id="+user_id);
-		}
-			session.invalidate();
-			return "redirect:login";	
+		return "redirect:login";
 	}
 	@PostMapping("update")
 	public ModelAndView idCheckUpdate(@Valid User user,BindingResult bresult,

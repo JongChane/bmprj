@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -153,5 +155,53 @@ public class AdminController {
 		
 
 		return null;
+	}
+
+	@RequestMapping("list")
+	public ModelAndView adminlist(String sort, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		// list : db에 등록된 모든 회원정보 저장 목록
+		List<User> list = service.userlist(); // 전체 회원목록
+		if (sort != null) {
+			switch (sort) {
+			case "10":
+				Collections.sort(list, new Comparator<User>() {
+					@Override
+					public int compare(User u1, User u2) {
+						return u1.getUser_id().compareTo(u2.getUser_id());
+					}
+				});
+				break;
+			case "11":
+				Collections.sort(list, (u1, u2) -> u2.getUser_id().compareTo(u1.getUser_id()));
+				break;
+			case "20":
+				Collections.sort(list, (u1, u2) -> u1.getUser_name().compareTo(u2.getUser_name()));
+				break;
+			case "21":
+				Collections.sort(list, (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
+				break;
+			case "30":
+				Collections.sort(list, (u1, u2) -> u2.getUser_tel().compareTo(u1.getUser_tel()));
+				break;
+			case "31":
+				Collections.sort(list, (u1, u2) -> u1.getUser_tel().compareTo(u2.getUser_tel()));
+				break;
+			case "40":
+				Collections.sort(list, (u1, u2) -> Integer.compare(u2.getUser_age(), u1.getUser_age()));
+				break;
+			case "41":
+				Collections.sort(list, (u1, u2) -> Integer.compare(u1.getUser_age(), u2.getUser_age()));
+				break;
+			case "50":
+				Collections.sort(list, (u1, u2) -> u1.getUser_email().compareTo(u2.getUser_email()));
+				break;
+			case "51":
+				Collections.sort(list, (u1, u2) -> u2.getUser_email().compareTo(u1.getUser_email()));
+				break;
+			}
+		}
+		mav.addObject("list", list);
+		return mav;
 	}
 }
