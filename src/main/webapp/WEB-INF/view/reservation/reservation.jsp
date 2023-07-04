@@ -95,7 +95,6 @@ $(function() {
    <div>
       <h1>게임 수</h1>
       <select name="rv_game">
-         <option value="2">2게임</option>
          <option value="3">3게임</option>
          <option value="4">4게임</option>
          <option value="5">5게임</option>
