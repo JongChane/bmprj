@@ -35,17 +35,9 @@ public class ReservationController {
 	@PostMapping("reservation")
 	public ModelAndView reservation(Reservation reservation, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int rv_game = reservation.getRv_game();
 		LocalTime rv_start = reservation.getRv_start();
-		if (rv_game == 2) {
-			reservation.setRv_end(rv_start.plusMinutes(30));
-		} else if (rv_game == 3) {
-			reservation.setRv_end(rv_start.plusMinutes(60));
-		} else if (rv_game == 4) {
-			reservation.setRv_end(rv_start.plusMinutes(90));
-		} else if (rv_game == 5) {
-			reservation.setRv_end(rv_start.plusMinutes(120));
-		}
+		reservation.setRv_end(rv_start.plusMinutes(90));
+
 
 		rvService.insert(reservation);
 
@@ -54,9 +46,10 @@ public class ReservationController {
 
 	@GetMapping("checkReservations")
 	@ResponseBody
-	public Map<String, List<Map<String, Object>>> checkReservations(@RequestParam String date) {
-		System.out.println(date);
-		List<Map<String, Object>> reservedTimes = rvService.rvCheck(date);
+	public Map<String, List<Map<String, Object>>>
+			checkReservations(@RequestParam String date, @RequestParam("laneNumbers") List<String> laneNumbers) {
+		
+		List<Map<String, Object>> reservedTimes = rvService.rvCheck(date, laneNumbers);
 		Map<String, List<Map<String, Object>>> response = new HashMap<>();
 		response.put("reservations", reservedTimes);
 

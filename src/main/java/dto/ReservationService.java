@@ -21,8 +21,8 @@ public class ReservationService {
 
 	}
 
-	public List<Map<String, Object>> rvCheck(String date) {
-		List<Map<String, Object>> times = rvDao.rvCheck(date);
+	public List<Map<String, Object>> rvCheck(String date, List<String> laneNumbers) {
+		List<Map<String, Object>> times = rvDao.rvCheck(date, laneNumbers);
     return times.stream()
 				.map(time -> {
 					java.sql.Time rv_start_time = (java.sql.Time) time.get("rv_start");

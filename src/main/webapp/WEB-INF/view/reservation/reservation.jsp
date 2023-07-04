@@ -13,64 +13,75 @@
 <script>
 $(function() {
 	  $(".datepicker").datepicker({
-	    onSelect: function(date) {
-	      // Show all time options
-	      $(".ul_class li").show();
-
-	      $.ajax({
-	        url: 'checkReservations',
-	        data: { 'date': date },
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function(data) {
-	          // Check if the reservation data is valid
-	          if (!data.reservations || data.reservations.length === 0) {
-	            console.error("No reservation data received from server");
-	            return;
-	          }
-
-	          // Loop through all the reservations
-	          data.reservations.forEach(function(reservation) {
-	            // Retrieve reservation start and end times
-	            var rv_start = reservation.rv_start;
-	            var rv_end = reservation.rv_end;
-
-	            // Parse the hours and minutes
-	            var start_time = rv_start.split(":");
-	            var end_time = rv_end.split(":");
-
-	            // Convert the times to minutes for easier comparison
-	            var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
-	            var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
-
-	            // Loop through all the time options
-	            $(".ul_class li").each(function() {
-	              var li = $(this);
-	              var li_time = li.find('input').val().split(":");
-	              var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
-
-	              // If the current time option falls within the reserved time, hide it
-	              // But the time slot for rv_end remains visible
-	              if (li_minutes >= start_minutes && li_minutes < end_minutes) {
-	                li.hide();
-	              } else {
-	                li.show();
-	              }
-	            });
-	          });
-	        },
-	        error: function (xhr, ajaxOptions, thrownError) {
-	          console.error("Error occurred while getting reservation data: ", thrownError);
-	        }
-	      });
-	    },
+	    onSelect: updateReservations,
 	    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (년-월-일)
 	    minDate: 0, // 오늘 날짜 이전은 선택할 수 없음
 	    maxDate: "+2w", // 오늘 날짜 기준 2주 뒤까지 선택 가능
 	    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
 	    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
 	  });
+
+	  // 체크박스 변경 이벤트 핸들러 추가
+	  $("input[name='lane_num']").change(updateReservations);
 	});
+
+	function updateReservations() {
+	  let date = $(".datepicker").datepicker('getDate');
+	  let laneNumbers = [];
+	  $("input[name='lane_num']:checked").each(function() {
+	    laneNumbers.push($(this).val());
+	  });
+	  
+	  $(".ul_class li").show();
+	  
+	  $.ajax({
+	    url: 'checkReservations',
+	    data: {
+	      'date': $.datepicker.formatDate("yy-mm-dd", date),
+	      'laneNumbers': laneNumbers
+	    },
+	    type: 'GET',
+	    traditional: true,
+	    dataType: 'json',
+	    success: function(data) {
+	      if (!data.reservations || data.reservations.length === 0) {
+	        console.error("No reservation data received from server");
+	        return;
+	      }
+
+	      data.reservations.forEach(function(reservation) {
+	        var rv_start = reservation.rv_start;
+	        var rv_end = reservation.rv_end;
+
+	        // Parse the hours and minutes
+	        var start_time = rv_start.split(":");
+	        var end_time = rv_end.split(":");
+
+	        // Convert the times to minutes for easier comparison
+	        var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
+	        var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
+
+	        // Loop through all the time options
+	        $(".ul_class li").each(function() {
+	          var li = $(this);
+	          var li_time = li.find('input').val().split(":");
+	          var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
+
+	          // If the current time option falls within the reserved time, hide it
+	          // But the time slot for rv_end remains visible
+	          if (li_minutes >= start_minutes && li_minutes < end_minutes) {
+	            li.hide();
+	          } else {
+	            li.show();
+	          }
+	        });
+	      });
+	    },
+	    error: function (xhr, ajaxOptions, thrownError) {
+	      console.error("Error occurred while getting reservation data: ", thrownError);
+	    }
+	  });
+	}
 
 </script>
 </head>
