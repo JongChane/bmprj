@@ -11,10 +11,16 @@ import dto.Reservation;
 
 public interface ReservationMapper {
 
-	@Insert("insert into reservation (user_id, lane_num, rv_now, rv_date, rv_game,"
-			+ " rv_start, rv_end, rv_people) values "
-			+ " (#{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},"
-			+ " #{rv_start}, #{rv_end}, #{rv_people})")
+	@Insert({
+	    "<script>",
+	    "INSERT INTO reservation (user_id, lane_num, rv_now, rv_date, rv_game,",
+	    "    rv_start, rv_end, rv_people) VALUES",
+	    "<foreach item='item' collection='lane_num' separator=','>",
+	    "    (#{user_id}, #{item}, now(), #{rv_date}, #{rv_game},",
+	    "    #{rv_start}, #{rv_end}, #{rv_people})",
+	    "</foreach>",
+	    "</script>"
+	})
 	void insert(Reservation reservation);
 
 	@Select({
