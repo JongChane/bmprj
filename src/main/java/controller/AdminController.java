@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -23,6 +24,8 @@ import dto.AdminService;
 import dto.BmService;
 import dto.Board;
 import dto.BoardService;
+import dto.Reservation;
+import dto.ReservationService;
 import dto.User;
 import dto.ViService;
 import exception.LoginException;
@@ -30,13 +33,15 @@ import exception.LoginException;
 @RequestMapping("admin")
 public class AdminController {
 	@Autowired
-	private ViService vis;
+	ViService vis;
 	@Autowired
-	private AdminService ads;
+	AdminService ads;
 	@Autowired
-	private BmService service;
+	BmService service;
 	@Autowired
 	BoardService BoardService;
+	@Autowired
+	ReservationService rvs;
 	
 	@GetMapping("*")
 	public ModelAndView join() {
@@ -202,6 +207,79 @@ public class AdminController {
 			}
 		}
 		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping("reserveList")
+	public ModelAndView adminReserveList(String sort, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Reservation> reserveList = rvs.reserveList(); // 전체 회원목록
+	    if (sort != null) {
+	        Comparator<Reservation> comparator = null;
+
+	        switch (sort) {
+	            case "10":
+	                comparator = Comparator.comparingInt(Reservation::getRv_num);
+	                break;
+	            case "11":
+	                comparator = Comparator.comparingInt(Reservation::getRv_num).reversed();
+	                break;
+	            case "20":
+	                comparator = Comparator.comparing(Reservation::getUser_id);
+	                break;
+	            case "21":
+	                comparator = Comparator.comparing(Reservation::getUser_id).reversed();
+	                break;
+	            case "30":
+	                comparator = Comparator.comparing(Reservation::getRv_now);
+	                break;
+	            case "31":
+	                comparator = Comparator.comparing(Reservation::getRv_now).reversed();
+	                break;
+	            case "40":
+	                comparator = Comparator.comparing(Reservation::getRv_date);
+	                break;
+	            case "41":
+	                comparator = Comparator.comparing(Reservation::getRv_date).reversed();
+	                break;
+	            case "50":
+	                comparator = Comparator.comparing(Reservation::getRv_start);
+	                break;
+	            case "51":
+	                comparator = Comparator.comparing(Reservation::getRv_start).reversed();
+	                break;
+	            case "60":
+	                comparator = Comparator.comparing(Reservation::getRv_end);
+	                break;
+	            case "61":
+	                comparator = Comparator.comparing(Reservation::getRv_end).reversed();
+	                break;
+	            case "70":
+	                comparator = Comparator.comparing(Reservation::getLane_num);
+	                break;
+	            case "71":
+	                comparator = Comparator.comparing(Reservation::getLane_num).reversed();
+	                break;
+	            case "80":
+	                comparator = Comparator.comparing(Reservation::getRv_game);
+	                break;
+	            case "81":
+	                comparator = Comparator.comparing(Reservation::getRv_game).reversed();
+	                break;
+	            case "90":
+	                comparator = Comparator.comparing(Reservation::getRv_people);
+	                break;
+	            case "91":
+	                comparator = Comparator.comparing(Reservation::getRv_people).reversed();
+	                break;
+	        }
+
+	        if (comparator != null) {
+	            Collections.sort(reserveList, comparator);
+	        }
+	    }
+	    System.out.println(reserveList);
+		mav.addObject("reserveList", reserveList);
 		return mav;
 	}
 }

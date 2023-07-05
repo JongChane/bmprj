@@ -53,22 +53,17 @@ $(function() {
 	        var rv_start = reservation.rv_start;
 	        var rv_end = reservation.rv_end;
 
-	        // Parse the hours and minutes
 	        var start_time = rv_start.split(":");
 	        var end_time = rv_end.split(":");
 
-	        // Convert the times to minutes for easier comparison
 	        var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
 	        var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
 
-	        // Loop through all the time options
 	        $(".ul_class li").each(function() {
 	          var li = $(this);
 	          var li_time = li.find('input').val().split(":");
 	          var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
 
-	          // If the current time option falls within the reserved time, hide it
-	          // But the time slot for rv_end remains visible
 	          if (li_minutes >= start_minutes && li_minutes < end_minutes) {
 	            li.hide();
 	          } else {
