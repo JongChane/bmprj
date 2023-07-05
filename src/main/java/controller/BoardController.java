@@ -202,9 +202,9 @@ public class BoardController {
 	ModelAndView mav = new ModelAndView();
 	System.out.println(comm.getComm_content());
 	int board_num = (int)request.getSession().getAttribute("board_num");
-	String user = (String)request.getSession().getAttribute("login");
+	String user = (String)request.getSession().getAttribute("adminId");
 	comm.setBoard_num(board_num);
-	comm.setUser_id(user);
+	comm.setAdmin_id(user);
 	service.commentinsert(comm);
 	mav.setViewName("redirect:detail?board_num="+comm.getBoard_num());
 	return mav;

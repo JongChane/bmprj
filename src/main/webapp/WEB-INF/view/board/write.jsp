@@ -6,9 +6,47 @@
 <head>
 <meta charset="UTF-8">
 <title>글 작성</title>
+   <style>
+      h2 {
+         margin-bottom: 20px;
+      }
+
+      table {
+         width: 100%;
+      }
+
+      td {
+         padding: 10px;
+      }
+
+      input[type="text"] {
+         width: 50%;
+         padding: 5px;
+         border: 1px solid #ddd;
+         border-radius: 3px;
+      }
+
+      input[type="submit"] {
+         padding: 5px 10px;
+         background-color: #4CAF50;
+         color: #fff;
+         border: none;
+         border-radius: 30px;
+         cursor: pointer;
+         width : 25%;
+         height : 50px;
+         font-size : 1.5rem;
+      }
+
+      font.error {
+         color: red;
+      }
+      
+      
+   </style>
 </head>
 <body>
-<div style="margin-top : 200px">
+<div style="margin-top : 55px">
 <h2>건의하기 작성</h2>
 <form:form modelAttribute="board" action="write" name="f">
 	<table>
@@ -28,7 +66,7 @@
 		</tr>
 		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" style="text-align: center;">
 				<input type="submit" value="건의하기">
 			</td>
 		</tr>

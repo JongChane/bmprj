@@ -19,7 +19,7 @@
     &nbsp; · 예약 내역</a>
     <a href="${path}/user/boardList?user_id=${sessionScope.login}" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url=="user" }'>w3-blue</c:if>">
-    &nbsp; · 건의답변 내역</a>
+    &nbsp; · 건의 내역</a>
     <hr>
     
     <hr>

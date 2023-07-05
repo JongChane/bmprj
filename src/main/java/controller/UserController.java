@@ -270,4 +270,5 @@ public class UserController {
 		mav.setViewName("search");
 		return mav;
 	}
+	
 }
