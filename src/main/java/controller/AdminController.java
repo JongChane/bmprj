@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -24,6 +25,7 @@ import dto.AdminService;
 import dto.BmService;
 import dto.Board;
 import dto.BoardService;
+import dto.Comment;
 import dto.Reservation;
 import dto.ReservationService;
 import dto.User;
@@ -282,4 +284,36 @@ public class AdminController {
 		mav.addObject("reserveList", reserveList);
 		return mav;
 	}
+	
+	
+	@RequestMapping("detail")
+	public ModelAndView detailGet(Integer board_num, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Board board = BoardService.getBoard(board_num);
+		Comment comm = BoardService.getComment(board_num);
+		BoardService.addReadcnt(board_num);
+		if(board_num == null) {
+			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
+		}
+		session.setAttribute("board_num", board_num);
+		mav.addObject("comm",comm);
+		mav.addObject("board",board);
+		
+		return mav;
+	}
+	
+	@RequestMapping("comment")
+	public ModelAndView comment(Comment comm, HttpServletRequest request) {
+	ModelAndView mav = new ModelAndView();
+	System.out.println(comm.getComm_content());
+	int board_num = (int)request.getSession().getAttribute("board_num");
+	String user = (String)request.getSession().getAttribute("adminId");
+	comm.setBoard_num(board_num);
+	comm.setAdmin_id(user);
+	BoardService.commentinsert(comm);
+	mav.setViewName("redirect:boardList");
+	return mav;
+	
+	}
+	
 }

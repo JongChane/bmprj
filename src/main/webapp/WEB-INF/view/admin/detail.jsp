@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>게시글 상세보기</title>
 <style>
 .detail {
   border-collapse: collapse;
@@ -18,19 +13,11 @@
 .delete-btns {
 	margin : 100px 0 0 500px;
 }
-.delete-btns button{
-	cursor: pointer;
-}
 </style>
-</head>
-<body>
 
-<%
-    String path = request.getContextPath();
-    pageContext.setAttribute("path", path);
-%>
+
 <div class="container" style="margin-top:55px;">
-	<div class="w3-container" style="width:1050px; height:300px; margin : 100px auto;" align="center">
+	<div class="w3-container" align="center">
     <table class="detail">
     	<tr>
     		<td>등록일</td>
@@ -118,8 +105,4 @@
             }
         });
     }
-    
 </script>
-
-</body>
-</html>

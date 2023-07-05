@@ -15,9 +15,12 @@
 	th{
 		background-color : black;
 		color : white;
+		height :45px;
 	}	
 	td{
 		text-align : center;
+		padding : 20px;
+		border-bottom : 1px solid black;
 	}
 	
 </style>
