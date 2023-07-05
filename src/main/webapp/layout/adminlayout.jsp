@@ -67,7 +67,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
      class="w3-bar-item w3-button w3-padding
      <c:if test='${url == "board" && boardid=="1"}'>w3-blue</c:if>">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 공지작성</a>
-    <a href="${path}/board/list?boardid=2" 
+    <a href="${path}/admin/boardList" 
     class="w3-bar-item w3-button w3-padding
     	<c:if test='${url == "board" && boardid=="2"}'>w3-blue</c:if>">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 건의답변</a>

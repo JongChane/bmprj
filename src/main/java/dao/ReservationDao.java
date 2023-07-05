@@ -31,4 +31,7 @@ public class ReservationDao {
 	public List<Reservation> rvList() {
 		return template.getMapper(cls).rvList();
 	}
+	public int maxRvnum() {
+		return template.getMapper(cls).maxRvnum();
+	}
 }

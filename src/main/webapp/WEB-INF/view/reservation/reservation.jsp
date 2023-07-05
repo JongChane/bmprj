@@ -77,11 +77,51 @@ $(function() {
 	    }
 	  });
 	}
+	  function validateForm() {
+          var date = $("input[name='rv_date']").val();
+          var game = $("select[name='rv_game']").val();
+          var people = $("select[name='rv_people']").val();
+          var memberId = $("select[name='memberCount']").val();
+          var memberIdInputs = $("input[name='vi_id']");
+          var lanes = $("input[name='lane_num[]']:checked").length;
+          var startTime = $("input[name='rv_start']:checked").val();
 
+          if (date === "" || game === "" || people === "" || memberId === "" || lanes === 0 || startTime === undefined) {
+              if (date === "") {
+                  alert("날짜를 선택하세요.");
+              } else if (game === "") {
+                  alert("게임 수를 선택하세요.");
+              } else if (people === "") {
+                  alert("인원을 선택하세요.");
+              } else if (memberId === "") {
+                  alert("회원 아이디를 적어도 한 개 이상 입력하세요.");
+              } else if (lanes === 0) {
+                  alert("레인을 선택하세요.");
+              } else if (startTime === undefined) {
+                  alert("시간을 선택하세요.");
+              }
+              return false;
+          }
+					
+          if (parseInt(people) >= 4 && lanes < 2) {
+              alert("4명 이상일 때는 최소 2개의 레인을 선택해야 합니다.");
+              return false;
+          }
+
+          var validationMessages = $(".validation-message");
+          for (var i = 0; i < validationMessages.length; i++) {
+              var messageElement = $(validationMessages[i]);
+              if (messageElement.text() !== "아이디 검증 완료") {
+                  alert("올바른 회원 아이디를 입력하세요.");
+                  return false;
+              }
+          }
+          return true;
+      }
 </script>
 </head>
 <body>
-    <form:form modelAttribute="reservation" action="reservation" method="post">
+    <form:form modelAttribute="reservation" action="reservation" method="post" onsubmit="return validateForm();">
     <input type="hidden" name="user_id" value="${sessionScope.login}">
    <div>
       <h1>예약날짜</h1>
@@ -98,6 +138,7 @@ $(function() {
    
    <div>
       <h1>인원선택</h1>
+      <h5>4명 이상부터 레인을 두 개 선택할 수 있습니다.</h5>
       <select name="rv_people" id="personSelect">
          <option value="1">1명</option>
          <option value="2">2명</option>
@@ -109,6 +150,66 @@ $(function() {
          <option value="8">8명</option>
       </select>
    </div><!-- 인원선택 -->
+   <div>
+   		<h1>회원 아이디 입력</h1>
+   		<h5>방문 회원의 아이디를 입력하세요. 게임 종료 후 에버점수를 업데이트 합니다.</h5>
+   		<select id="memberCount" name="memberCount">
+				 <option value="">선택</option>
+         <option value="1">1명</option>
+         <option value="2">2명</option>
+         <option value="3">3명</option>
+         <option value="4">4명</option>
+         <option value="5">5명</option>
+         <option value="6">6명</option>
+         <option value="7">7명</option>
+         <option value="8">8명</option>
+       </select>
+       <table id="memberTable"></table>
+   </div><!-- 회원 점수등록 -->
+   <script type="text/javascript">
+   $(document).ready(function() {
+       $("#memberCount").change(function() {
+           var count = $(this).val();
+           var formHtml = "";
+           for (var i = 1; i <= count; i++) {
+               formHtml += "<tr>";
+               formHtml += "<td>회원 " + i + " ID:</td>";
+               formHtml += "<td><input type='text' name='vi_id' class='vi-id'></td>";
+               formHtml += "<td class='validation-message' style='color: red;'></td>";
+               formHtml += "</tr>";
+           }
+           $("#memberTable").html(formHtml);
+       });
+       
+       // vi_id 입력칸에 입력이 있을 때마다 AJAX 요청 실행
+       $(document).on("blur", ".vi-id", function() {
+           var user_id = $(this).val();
+           var row = $(this).closest("tr");
+           var messageElement = row.find(".validation-message");
+
+           // AJAX 요청을 통해 회원 ID가 DB에 존재하는지 검증
+           $.ajax({
+               url: "checkUser",
+               type: "POST",
+               data: { user_id: user_id },
+               success: function(response) {
+                   if (response === "true") {
+                       messageElement.text("아이디 검증 완료").css("color", "green");
+                   } else {
+                       messageElement.text("존재하지 않는 회원입니다").css("color", "red");
+                   }
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+               		console.log(user_id);
+                   console.log("HTTP Status: " + jqXHR.status); // HTTP 상태 코드
+                   console.log("Ajax Error: " + textStatus); // Ajax가 처리하는 에러 메시지
+                   console.log("Error Thrown: " + errorThrown); // 서버에서 반환하는 오류 메시지
+                   messageElement.text("검증에 실패했습니다");
+               }
+           });
+       });
+   });
+   </script> 
    <div>
       <h1>레인선택</h1>
      <ul class="rain_ul">
@@ -394,7 +495,7 @@ $(function() {
    </div>
    </div><!-- 예약시간 -->
    <div>
-      <button>취소</button>
+      <button type="button" onclick="window.history.back()">취소</button>
       <button type="submit">예약</button>
    </div>
 </form:form>
