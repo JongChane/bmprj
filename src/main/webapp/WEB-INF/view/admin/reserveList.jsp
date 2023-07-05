@@ -33,6 +33,7 @@
                <a href="reserveList?sort=81" class="noline">▼</a></th>
       <th>방문인원<a href="reserveList?sort=90" class="noline">▲</a>
                 <a href="reserveList?sort=91" class="noline">▼</a></th>
+      <th>점수등록</th>          
   </tr>
   <c:forEach items="${reserveList}" var="reserve">
   <tr>
@@ -46,7 +47,14 @@
   	<td>${reserve.rv_game}</td>
   	<td>${reserve.rv_people}</td>
   	<td>
- 			<a href="../admin/visit?rv_num=${reserve.rv_num}">점수등록</a>
+   		<c:choose>
+      		<c:when test="${reserve.vi_total == 0}">
+         		<a href="../admin/visit?rv_num=${reserve.rv_num}">점수등록</a>
+     		  </c:when>
+     		  <c:otherwise>
+        		등록완료
+    			</c:otherwise>
+  		  </c:choose>
   	</td>
   </tr>
   </c:forEach>

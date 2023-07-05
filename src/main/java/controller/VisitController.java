@@ -39,26 +39,23 @@ public class VisitController {
 		}
 	}
 
-	@PostMapping("visit")
-	public ModelAndView score(String[] vi_id, String[] vi_total, String[] vi_avg, String[] vi_game) {
-		int[] total = new int[vi_total.length];
-		int[] avg = new int[vi_avg.length];
-		int[] game = new int[vi_game.length];
+	@RequestMapping("visit")
+	public ModelAndView score(Integer rv_num,String[] vi_total, String[] vi_avg) {
+		System.out.println(rv_num);
+		/*
+		 * int[] total = new int[vi_total.length]; int[] avg = new int[vi_avg.length];
+		 * int[] game = new int[vi_game.length];
+		 * 
+		 * for(int i = 0 ; i < vi_total.length ; i++) { total[i] =
+		 * Integer.parseInt(vi_total[i]); } for(int i = 0 ; i < vi_avg.length ; i++) {
+		 * avg[i] = Integer.parseInt(vi_avg[i]); } for(int i = 0 ; i < vi_game.length ;
+		 * i++) { game[i] = Integer.parseInt(vi_game[i]); }
+		 */
 		
-		for(int i = 0 ; i < vi_total.length ; i++) {
-			total[i] = Integer.parseInt(vi_total[i]);
-		}
-		for(int i = 0 ; i < vi_avg.length ; i++) {
-			avg[i] = Integer.parseInt(vi_avg[i]);
-		}
-		for(int i = 0 ; i < vi_game.length ; i++) {
-			game[i] = Integer.parseInt(vi_game[i]);
-		}
-		
-		for(int i = 0 ; i < vi_id.length ; i++) {
-			vis.insert(vi_id[i], total[i], avg[i], game[i]);
-		}
-		
+		/*
+		 * for(int i = 0 ; i < vi_id.length ; i++) { vis.update(vi_id[i], total[i],
+		 * avg[i], game[i]); }
+		 */
 
 		return null;
 	}
