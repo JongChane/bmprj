@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>볼링매니아 게임결과</title>
+<title>볼링매니아 점수등록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -81,12 +81,9 @@
     }
 </script>
 
-
-
-
 </head>
 <body>
-<h2>게임결과</h2>
+<h2>점수등록</h2>
 <form method="post" action="visit">
     <table>
         <tr>

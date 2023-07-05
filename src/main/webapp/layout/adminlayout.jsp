@@ -56,11 +56,11 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <a href="${path}/user/mypage?userid=${admin.admin_id}" 
-    class="w3-bar-item w3-button w3-padding <c:if test='${url == "user"}'>w3-blue</c:if>">
+    <a href="${path}/admin/list" 
+    class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-users fa-fw"></i>&nbsp; 회원관리</a>
-    <a href="${path}/item/list" 
-    class="w3-bar-item w3-button w3-padding <c:if test='${url == "item"}'>w3-blue</c:if>">
+    <a href="${path}/admin/reserveList" 
+    class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 예약관리</a>
     <hr>
     <a href="${path}/board/list?boardid=1"

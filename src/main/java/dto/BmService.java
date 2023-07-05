@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +55,8 @@ public class BmService {
 		return user != null;
 	}
 
+	public List<User> userlist() {
+		return userDao.list();
+	}
 
 }

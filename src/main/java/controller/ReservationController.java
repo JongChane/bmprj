@@ -33,26 +33,25 @@ public class ReservationController {
 	}
 
 	@PostMapping("reservation")
-	public ModelAndView reservation(Reservation reservation, HttpSession session) {
+	public ModelAndView reservation(@RequestParam("lane_num[]") String[] lane_nums, Reservation reservation, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		LocalTime rv_start = reservation.getRv_start();
-		reservation.setRv_end(rv_start.plusMinutes(90));
-
-
-		rvService.insert(reservation);
-
-		return null;
+		for(int i=0 ;i<lane_nums.length; i++) {
+			reservation.setLane_num(lane_nums[i]);
+			LocalTime rv_start = reservation.getRv_start();
+			reservation.setRv_end(rv_start.plusMinutes(90));
+			rvService.insert(reservation);
+		}
+		mav.setViewName("redirect:reserveList?user_id="+reservation.getUser_id());
+		return mav;
 	}
 
 	@GetMapping("checkReservations")
 	@ResponseBody
 	public Map<String, List<Map<String, Object>>>
-			checkReservations(@RequestParam String date, @RequestParam("laneNumbers") List<String> laneNumbers) {
-		
+			checkReservations(@RequestParam String date, @RequestParam("laneNumbers") List<String> laneNumbers) {	
 		List<Map<String, Object>> reservedTimes = rvService.rvCheck(date, laneNumbers);
 		Map<String, List<Map<String, Object>>> response = new HashMap<>();
 		response.put("reservations", reservedTimes);
-
 		return response;
 	}
 

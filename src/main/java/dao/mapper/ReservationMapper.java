@@ -11,10 +11,12 @@ import dto.Reservation;
 
 public interface ReservationMapper {
 
-	@Insert("insert into reservation (user_id, lane_num, rv_now, rv_date, rv_game,"
-			+ " rv_start, rv_end, rv_people) values "
-			+ " (#{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},"
-			+ " #{rv_start}, #{rv_end}, #{rv_people})")
+	@Insert({
+	    "INSERT INTO reservation (user_id, lane_num, rv_now, rv_date, rv_game,",
+	    " rv_start, rv_end, rv_people) VALUES",
+	    " (#{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},",
+	    "  #{rv_start}, #{rv_end}, #{rv_people})"
+	})
 	void insert(Reservation reservation);
 
 	@Select({
@@ -28,5 +30,8 @@ public interface ReservationMapper {
 	    "</script>"
 	})
 	List<Map<String, Object>> rvCheck(@Param("date")String date, @Param("laneNumbers")List<String> laneNumbers);
+	
+	@Select("select * from reservation")
+	List<Reservation> rvList();
 
 }

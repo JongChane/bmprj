@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
@@ -37,6 +38,9 @@ public interface UserMapper {
 
 	@Select("select * from user where user_id=#{user_id}")
 	User checkId(Map<String, Object> param);
+
+	@Select("select * from user")
+	List<User> list();
 
 
 	

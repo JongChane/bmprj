@@ -22,13 +22,13 @@ $(function() {
 	  });
 
 	  // 체크박스 변경 이벤트 핸들러 추가
-	  $("input[name='lane_num']").change(updateReservations);
+	  $("input[name='lane_num[]']").change(updateReservations);
 	});
 
 	function updateReservations() {
 	  let date = $(".datepicker").datepicker('getDate');
 	  let laneNumbers = [];
-	  $("input[name='lane_num']:checked").each(function() {
+	  $("input[name='lane_num[]']:checked").each(function() {
 	    laneNumbers.push($(this).val());
 	  });
 	  
@@ -53,22 +53,17 @@ $(function() {
 	        var rv_start = reservation.rv_start;
 	        var rv_end = reservation.rv_end;
 
-	        // Parse the hours and minutes
 	        var start_time = rv_start.split(":");
 	        var end_time = rv_end.split(":");
 
-	        // Convert the times to minutes for easier comparison
 	        var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
 	        var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
 
-	        // Loop through all the time options
 	        $(".ul_class li").each(function() {
 	          var li = $(this);
 	          var li_time = li.find('input').val().split(":");
 	          var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
 
-	          // If the current time option falls within the reserved time, hide it
-	          // But the time slot for rv_end remains visible
 	          if (li_minutes >= start_minutes && li_minutes < end_minutes) {
 	            li.hide();
 	          } else {
@@ -119,61 +114,61 @@ $(function() {
      <ul class="rain_ul">
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="1">
+         <input type="checkbox" name="lane_num[]" value="1">
          1번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="2">
+         <input type="checkbox" name="lane_num[]" value="2">
          2번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="3">
+         <input type="checkbox" name="lane_num[]" value="3">
          3번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="4">
+         <input type="checkbox" name="lane_num[]" value="4">
          4번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="5">
+         <input type="checkbox" name="lane_num[]" value="5">
          5번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="6">
+         <input type="checkbox" name="lane_num[]" value="6">
          6번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="7">
+         <input type="checkbox" name="lane_num[]" value="7">
          7번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="8">
+         <input type="checkbox" name="lane_num[]" value="8">
          8번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="9">
+         <input type="checkbox" name="lane_num[]" value="9">
          9번레인
       </label>
    </li>
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num" value="10">
+         <input type="checkbox" name="lane_num[]" value="10">
          10번레인
       </label>
    </li>
