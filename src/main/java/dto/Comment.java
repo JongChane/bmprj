@@ -12,7 +12,7 @@ import lombok.ToString;
 public class Comment {
 	private int comm_num;
 	private int board_num;
-	private String user_id;
+	private String admin_id;
 	private String comm_content;
 	private int comm_grp;
 	private Date comm_date;

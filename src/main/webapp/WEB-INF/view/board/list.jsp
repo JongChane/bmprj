@@ -90,7 +90,6 @@
          <td>${boardno}</td>
          <c:set var="boardno" value="${boardno -1 }"/>
          <td>
-            <c:if test="${board.board_grpstep > 0}">└</c:if>
             <a href="detail?board_num=${board.board_num}">${board.board_title}</a></td>
          <td>${board.user_id}</td>
          <td>
@@ -104,7 +103,7 @@
    </c:if>
    <%-- 등록된 게시물이 있는 경우  --%>
 </table>
-   <div style="margin : 0px auto; width:100px;">
+   <div style="margin : 10px auto; width:150px;">
    <c:if test="${pageNum > 1 }">
       <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
    </c:if>

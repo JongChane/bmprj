@@ -2,7 +2,6 @@ package dto;
 
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,4 +25,8 @@ public class Reservation {
 	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime rv_end;
 	private int rv_people;
+	//visit 테이블 필드
+	private String vi_id;
+	private int vi_avg;
+	private int vi_total;
 }

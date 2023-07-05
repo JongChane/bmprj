@@ -12,9 +12,9 @@ import dto.Reservation;
 public interface ReservationMapper {
 
 	@Insert({
-	    "INSERT INTO reservation (user_id, lane_num, rv_now, rv_date, rv_game,",
+	    "INSERT INTO reservation (rv_num, user_id, lane_num, rv_now, rv_date, rv_game,",
 	    " rv_start, rv_end, rv_people) VALUES",
-	    " (#{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},",
+	    " (#{rv_num}, #{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},",
 	    "  #{rv_start}, #{rv_end}, #{rv_people})"
 	})
 	void insert(Reservation reservation);
@@ -31,7 +31,9 @@ public interface ReservationMapper {
 	})
 	List<Map<String, Object>> rvCheck(@Param("date")String date, @Param("laneNumbers")List<String> laneNumbers);
 	
-	@Select("select * from reservation")
+	@Select("SELECT * FROM reservation r LEFT JOIN visit v ON r.rv_num = v.rv_num")
 	List<Reservation> rvList();
-
+	
+	@Select("select ifnull(max(rv_num),0) from reservation")
+	int maxRvnum();
 }

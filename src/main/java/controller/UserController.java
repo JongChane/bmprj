@@ -279,4 +279,5 @@ public class UserController {
 		mav.addObject("glist",glist);
 		return mav;
 	}
+
 }

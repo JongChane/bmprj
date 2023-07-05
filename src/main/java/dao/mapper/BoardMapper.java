@@ -59,8 +59,8 @@ public interface BoardMapper {
 	void updateGrpStep(Map<String, Object> param);
 	
 	
-	@Insert("insert into comment (board_num,user_id,comm_content,comm_date)"
-			+ " values (#{board_num},#{user_id},#{comm_content},now())")
+	@Insert("insert into comment (board_num,admin_id,comm_content,comm_date)"
+			+ " values (#{board_num},#{admin_id},#{comm_content},now())")
 	void commentinsert(Comment comm);
 	
 	

@@ -16,30 +16,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BmService;
 import dto.Reservation;
 import dto.ReservationService;
+import dto.ViService;
 
 @Controller
 @RequestMapping("reservation")
 public class ReservationController {
 	@Autowired
 	private ReservationService rvService;
-
+	@Autowired
+	private BmService service;
+	@Autowired
+	private ViService vis;
 	@GetMapping("*")
 	public ModelAndView rv() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject(new Reservation());
 		return mav;
 	}
-
+	@PostMapping("checkUser")
+	@ResponseBody
+	public String checkUser(String user_id) {
+		System.out.println(user_id);
+		boolean checkId = service.checkId(user_id);
+		if (checkId) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
 	@PostMapping("reservation")
-	public ModelAndView reservation(@RequestParam("lane_num[]") String[] lane_nums, Reservation reservation, HttpSession session) {
+	public ModelAndView reservation(@RequestParam("lane_num[]") String[] lane_nums, String[] vi_id,
+			Reservation reservation, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		for(int i=0 ;i<lane_nums.length; i++) {
 			reservation.setLane_num(lane_nums[i]);
 			LocalTime rv_start = reservation.getRv_start();
 			reservation.setRv_end(rv_start.plusMinutes(90));
 			rvService.insert(reservation);
+		}
+		if(vi_id !=null) {
+			for(int i = 0 ; i < vi_id.length ; i++) {
+				vis.insert(vi_id[i], reservation.getRv_num(), reservation.getRv_game());
+			}
 		}
 		mav.setViewName("redirect:reserveList?user_id="+reservation.getUser_id());
 		return mav;

@@ -17,6 +17,8 @@ public class ReservationService {
 	private ReservationDao rvDao;
 
 	public void insert(Reservation reservation) {
+		int maxRvnum = rvDao.maxRvnum();
+		reservation.setRv_num(++maxRvnum);
 		rvDao.insert(reservation);
 
 	}

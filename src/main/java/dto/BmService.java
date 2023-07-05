@@ -68,5 +68,9 @@ public class BmService {
 	public List<Game> gList() {
 		return gamedao.list();
 	}
+	public void avgUpdate(String vi_id, int vi_avg) {
+		userDao.avgUpdate(vi_id, vi_avg);
+		
+	}
 
 }
