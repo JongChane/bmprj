@@ -108,7 +108,14 @@ $(function() {
               return false;
           }
 
-
+          var validationMessages = $(".validation-message");
+          for (var i = 0; i < validationMessages.length; i++) {
+              var messageElement = $(validationMessages[i]);
+              if (messageElement.text() !== "아이디 검증 완료") {
+                  alert("올바른 회원 아이디를 입력하세요.");
+                  return false;
+              }
+          }
           return true;
       }
 </script>
