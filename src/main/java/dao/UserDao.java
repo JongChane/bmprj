@@ -69,4 +69,12 @@ public class UserDao {
 	public List<User> list() {
 		return template.getMapper(cls).list();
 	}
+
+	public void avgUpdate(String vi_id, int vi_avg) {
+		param.clear();
+		param.put("user_id", vi_id);
+		param.put("user_avg", vi_avg);
+		template.getMapper(cls).avgUpdate(param);
+		
+	}
 }

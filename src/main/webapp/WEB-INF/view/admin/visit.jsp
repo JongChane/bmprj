@@ -10,6 +10,16 @@
    .noline { text-decoration: none;}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(function() {
+  $('input[name="vi_total"]').on('input', function() {
+    var totalScore = $(this).val();
+    var gameNumber = $(this).closest('tr').find('input[name="vi_game"]').val();
+    var averageScore = Math.round(totalScore / gameNumber);
+    $(this).closest('tr').find('input[name="vi_avg"]').val(averageScore);
+  });
+});
+</script>
 </head>
 <body>
 <h2>점수등록</h2>
@@ -26,10 +36,10 @@
   	<c:forEach items="${visitList}" var="visit">
   	<tr>
   		<td>${visit.rv_num}</td>
-  		<td><input type="hidden" name=vi_id value="${visit.vi_id}">${visit.vi_id}</td>
-  		<td><input type="text" name="vi_total"></td>
-  		<td><input type="text" value="${visit.vi_game}" readonly></td>
-  		<td><input type="text" name="vi_avg"></td>				
+  		<td><input type="hidden" name="vi_id" value="${visit.vi_id}">${visit.vi_id}</td>
+  		<td><input type="number" name="vi_total"></td>
+  		<td><input type="number" name="vi_game" value="${visit.vi_game}" readonly></td>
+  		<td><input type="text" name="vi_avg" readonly></td>				
   	</tr>
   	</c:forEach>
    </table>

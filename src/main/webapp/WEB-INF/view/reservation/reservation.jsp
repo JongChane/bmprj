@@ -77,11 +77,44 @@ $(function() {
 	    }
 	  });
 	}
+	  function validateForm() {
+          var date = $("input[name='rv_date']").val();
+          var game = $("select[name='rv_game']").val();
+          var people = $("select[name='rv_people']").val();
+          var memberId = $("select[name='memberCount']").val();
+          var memberIdInputs = $("input[name='vi_id']");
+          var lanes = $("input[name='lane_num[]']:checked").length;
+          var startTime = $("input[name='rv_start']:checked").val();
 
+          if (date === "" || game === "" || people === "" || memberId === "" || lanes === 0 || startTime === undefined) {
+              if (date === "") {
+                  alert("날짜를 선택하세요.");
+              } else if (game === "") {
+                  alert("게임 수를 선택하세요.");
+              } else if (people === "") {
+                  alert("인원을 선택하세요.");
+              } else if (memberId === "") {
+                  alert("회원 아이디를 적어도 한 개 이상 입력하세요.");
+              } else if (lanes === 0) {
+                  alert("레인을 선택하세요.");
+              } else if (startTime === undefined) {
+                  alert("시간을 선택하세요.");
+              }
+              return false;
+          }
+					
+          if (parseInt(people) >= 4 && lanes < 2) {
+              alert("4명 이상일 때는 최소 2개의 레인을 선택해야 합니다.");
+              return false;
+          }
+
+
+          return true;
+      }
 </script>
 </head>
 <body>
-    <form:form modelAttribute="reservation" action="reservation" method="post">
+    <form:form modelAttribute="reservation" action="reservation" method="post" onsubmit="return validateForm();">
     <input type="hidden" name="user_id" value="${sessionScope.login}">
    <div>
       <h1>예약날짜</h1>
@@ -98,6 +131,7 @@ $(function() {
    
    <div>
       <h1>인원선택</h1>
+      <h5>4명 이상부터 레인을 두 개 선택할 수 있습니다.</h5>
       <select name="rv_people" id="personSelect">
          <option value="1">1명</option>
          <option value="2">2명</option>
@@ -111,7 +145,7 @@ $(function() {
    </div><!-- 인원선택 -->
    <div>
    		<h1>회원 아이디 입력</h1>
-   		<h5>방문 회원의 아이디를 입력하세요. 에버점수를 업데이트 합니다.</h5>
+   		<h5>방문 회원의 아이디를 입력하세요. 게임 종료 후 에버점수를 업데이트 합니다.</h5>
    		<select id="memberCount" name="memberCount">
 				 <option value="">선택</option>
          <option value="1">1명</option>
@@ -454,7 +488,7 @@ $(function() {
    </div>
    </div><!-- 예약시간 -->
    <div>
-      <button>취소</button>
+      <button type="button" onclick="window.history.back()">취소</button>
       <button type="submit">예약</button>
    </div>
 </form:form>

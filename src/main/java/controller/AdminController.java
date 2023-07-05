@@ -164,7 +164,7 @@ public class AdminController {
 			} 
 		 for(int i = 0 ; i < vi_id.length ; i++) {
 			 vis.update(rv_num, vi_id[i], total[i], avg[i]);
-			// service.avgUpdate(vi_id[i],avg[i]);
+			 service.avgUpdate(vi_id[i],avg[i]);
 			}
 		
 		return null;
