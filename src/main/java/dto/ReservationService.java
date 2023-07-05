@@ -37,4 +37,8 @@ public class ReservationService {
 				}) // 시간과 분만 추출
 				.collect(Collectors.toList());
 	}
+
+	public List<Reservation> reserveList() {
+		return rvDao.rvList();
+	}
 }

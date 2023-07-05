@@ -16,7 +16,7 @@ import lombok.ToString;
 public class Reservation {
 	private int rv_num;
 	private String user_id;
-	private String[] lane_num;
+	private String lane_num;
 	private Date rv_now;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date rv_date;

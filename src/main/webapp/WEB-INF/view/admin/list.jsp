@@ -40,9 +40,6 @@
   	</td>
   </tr>
   </c:forEach>
-  <tr>
-  	<td colspan="6" class="w3-center"></td>
-  </tr>
   </table>
  </body>
  </html>

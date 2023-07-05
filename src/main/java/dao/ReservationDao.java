@@ -27,4 +27,8 @@ public class ReservationDao {
 	public List<Map<String, Object>> rvCheck(String date, List<String> laneNumbers) {
 		return template.getMapper(cls).rvCheck(date,laneNumbers);
 	}
+
+	public List<Reservation> rvList() {
+		return template.getMapper(cls).rvList();
+	}
 }
