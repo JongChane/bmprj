@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
@@ -16,4 +17,9 @@ public interface GamerMapper {
 	
 	@Select("select * from gamer where user_id=#{user_id} and game_num=#{game_num}")
 	Gamer select(@Param("user_id") String user_id,@Param("game_num") Integer game_num);
+
+	@Select({"<script>"," select * from gamer<if test='usre_id != null'> where user_id=#{user_id}</if> ",
+			 "order by user_id",
+			 "</script>"})
+	List<Gamer> gselect(Map<String, Object> param);
 }

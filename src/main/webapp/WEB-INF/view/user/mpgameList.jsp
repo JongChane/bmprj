@@ -23,7 +23,7 @@
 			<th>신청인원</th>
 			<th></th>
 		</tr>
-		<c:forEach var="g" items="${glist}">
+			<c:forEach var="g" items="${glist}">
 		<tr>
 			<td>${g.game_title}</td>
 			<td>${g.user_id}</td>
@@ -35,6 +35,28 @@
 			<td>
 				<input type="checkbox" name="idchks" value="${g.game_num}"/>
 			</td>
+		</tr>
+		<tr>
+		<td>
+		<table>
+			<tr>
+				<th>참가자 아이디</th>
+				<th>참가자 성별</th>
+				<th>참가자 나이</th>
+				<th>참가자 에버리지</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<c:forEach var="gm" items="${gmlist}">
+				<tr>
+					<td>${gm.user_id}</td>
+					<td>${gm.user_gender}</td>
+					<td>${gm.user_age}</td>
+					<td>${gm.user_avg}</td>
+				</tr>
+			</c:forEach>
+		</table>
+		</td>
 		</tr>
 		</c:forEach>
 	</table>

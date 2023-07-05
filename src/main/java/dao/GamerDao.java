@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,5 +26,10 @@ public class GamerDao {
 
 	public  Gamer selectOne(String user_id, Integer game_num) {
 		return template.getMapper(cls).select(user_id,game_num);
+	}
+
+	public List<Gamer> list() {
+	
+		return template.getMapper(cls).gselect(param);
 	}
 }

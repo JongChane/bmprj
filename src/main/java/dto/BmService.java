@@ -72,5 +72,8 @@ public class BmService {
 		userDao.avgUpdate(vi_id, vi_avg);
 		
 	}
+	public List<Gamer> gmList() {
+		return gamerdao.list();
+	}
 
 }

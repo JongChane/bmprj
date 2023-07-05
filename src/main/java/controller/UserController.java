@@ -24,6 +24,7 @@ import dto.Admin;
 import dto.BmService;
 import dto.BoardService;
 import dto.Game;
+import dto.Gamer;
 import dto.MailSendService;
 import dto.User;
 import exception.LoginException;
@@ -276,6 +277,7 @@ public class UserController {
 	public ModelAndView gamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Game> glist = service.gList();
+		List<Gamer> gmlist = service.gmList();
 		mav.addObject("glist",glist);
 		return mav;
 	}
