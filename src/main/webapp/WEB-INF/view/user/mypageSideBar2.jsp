@@ -11,7 +11,7 @@
   <hr>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
-    <a href="${path}/user/gameList?user_id=${sessionScope.login}" 
+    <a href="${path}/user/mpgameList?user_id=${sessionScope.login}" 
     class="w3-bar-item w3-button w3-padding <c:if test='${url=="user" }'>w3-blue</c:if>">
     &nbsp; · 매칭 내역</a>
     <a href="${path}/user/reserveList?user_id=${sessionScope.login}" 

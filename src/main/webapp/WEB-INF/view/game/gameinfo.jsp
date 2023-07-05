@@ -24,9 +24,7 @@
 		경기인원 : ${game.game_max}
 	</td>
 	<td>
-	
-		성별 :
-	${game.game_gender }
+		성별 : ${game.game_gender }
 	</td>
 </tr>
 

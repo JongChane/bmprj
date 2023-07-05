@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dao.GameDao;
+import dao.GamerDao;
 import dao.UserDao;
 
 @Service
 public class BmService {
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private GameDao gamedao;
+	@Autowired
+	private GamerDao gamerdao;
 
 	public void userInsert(User user) {
 		userDao.insert(user);
@@ -57,6 +63,10 @@ public class BmService {
 
 	public List<User> userlist() {
 		return userDao.list();
+	}
+
+	public List<Game> gList() {
+		return gamedao.list();
 	}
 
 }

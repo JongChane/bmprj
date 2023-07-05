@@ -2,6 +2,7 @@ package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.Admin;
 import dto.BmService;
 import dto.BoardService;
+import dto.Game;
 import dto.MailSendService;
 import dto.User;
 import exception.LoginException;
@@ -268,6 +270,13 @@ public class UserController {
 		mav.addObject("result",result);
 		mav.addObject("title",title);
 		mav.setViewName("search");
+		return mav;
+	}
+	@RequestMapping("mpgameList")
+	public ModelAndView gamelist(String user_id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Game> glist = service.gList();
+		mav.addObject("glist",glist);
 		return mav;
 	}
 }
