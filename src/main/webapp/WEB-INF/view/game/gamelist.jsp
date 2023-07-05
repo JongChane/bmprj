@@ -73,6 +73,33 @@
 </table>
 </c:forEach>
 </div>
-<input type="button" value="매치등록하기" onclick="location.href='write'">
+   <div style="margin : 0px auto; width:100px;">
+   <c:if test="${pageNum > 1 }">
+      <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
+   </c:if>
+   <c:if test="${pageNum <= 1}">[이전]</c:if>
+   
+   <c:forEach var="a" begin="${startpage}" end="${endpage}">
+      <c:if test="${a == pageNum}">[${a}]</c:if>
+      <c:if test="${a != pageNum}">
+         <a href="javascript:listpage('${a}')">[${a}]</a>
+      </c:if>
+   </c:forEach>
+
+   <c:if test="${pageNum < maxpage}">
+      <a href="javascript:listpage('${pageNum + 1}')">[다음]</a>
+   </c:if>   
+   <c:if test="${pageNum >= maxpage}">[다음]</c:if>
+	</div>
+   <%-- 등록된 게시물이 없는 경우 --%>
+ <c:if test="${listCount == 0 }">
+   <div>
+      <span>등록된 게시물이 없습니다.</span>
+   </div>
+</c:if>
+
+<div>
+	<input type="button" value="매치등록하기" onclick="location.href='write'">
+</div>
 </body>
 </html>

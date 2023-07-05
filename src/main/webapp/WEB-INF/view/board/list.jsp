@@ -46,32 +46,32 @@
 <body>
 <div style="margin-top : 55px;">
 <h1>작성글 목록</h1>
-<div style="width:55px; height:50px; margin : 0px auto;">
-<table>
-   <tr>
-      <form action="list" method="post" name="searchform">
-         <td style="border-bottom: none";>
-            <input type="hidden" name="pageNum" value="1">
-            <input type="hidden" name="board_id" value="${param.board_id}">
-            <select name="searchtype">
-               <option value="">선택하세요</option>
-               <option value="board_title">제목</option>
-               <option value="user_id">작성자</option>
-               <option value="board_content">내용</option>
-            </select>
-            <script>
-               searchform.searchtype.value="${param.searchtype}";
-            </script>
-         </td>
-         <td colspan="3" style="border-bottom: none";>
-            <input type="text" name="searchcontent" value="${param.searchcontent}">
-         </td>
-         <td style="border-bottom: none"><input type="submit" value="검색"></td>
-         <td style="border-bottom: none"><input type="button" value="전체게시물보기" onclick="location.href='list?board_id=${board_id}'"></td>
-      </form>
-   </tr>
-</table>
-</div>
+<form action="list" method="post" name="searchform">
+	<div style="width:55px; height:50px; margin : 0px auto;">
+		<table>
+		  	 <tr>
+		         <td style="border-bottom: none">
+		            <input type="hidden" name="pageNum" value="1">
+		            <input type="hidden" name="board_id" value="${param.board_id}">
+		            <select name="searchtype">
+		               <option value="">선택하세요</option>
+		               <option value="board_title">제목</option>
+		               <option value="user_id">작성자</option>
+		               <option value="board_content">내용</option>
+		            </select>
+		            <script>
+		               searchform.searchtype.value="${param.searchtype}";
+		            </script>
+		         </td>
+		         <td colspan="3" style="border-bottom: none">
+		            <input type="text" name="searchcontent" value="${param.searchcontent}">
+		         </td>
+		         <td style="border-bottom: none"><input type="submit" value="검색"></td>
+		         <td style="border-bottom: none"><input type="button" value="전체게시물보기" onclick="location.href='list?board_id=${board_id}'"></td>
+		  	 </tr>
+		</table>
+	</div>
+</form>
 <div style="width:100%; margin : 0px auto;">
 <table>   
    <c:if test="${listCount > 0 }">
