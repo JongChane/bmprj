@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>예약 확정 페이지</title>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script type="text/javascript">
 		let IMP = window.IMP
 	  IMP.init("imp85850271") //가맹점 식별코드
@@ -40,7 +41,7 @@
 				   msg += "\n:상점ID : " + rsp.merchant_uid
 				   msg += "\n:결제금액 : " + rsp.paid_amount
 				   alert(msg)
-				   location.href="end"
+				   location.href="reservation"
 			   } else {
 				   alert("결제에 실패 했습니다.:" + rsp.error_msg)
 			   }
