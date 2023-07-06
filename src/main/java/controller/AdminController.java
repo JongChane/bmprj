@@ -99,7 +99,24 @@ public class AdminController {
 		mav.addObject("boardList", list);
 		return mav;
 	}
-
+	
+	@RequestMapping("boardLista")
+	public ModelAndView adminboardLista(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Board> list = BoardService.boardLista();
+		mav.addObject("boardList", list);
+		return mav;
+	}
+	
+	@RequestMapping("boardListb")
+	public ModelAndView adminboardListb(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Board> list = BoardService.boardListb();
+		mav.addObject("boardList", list);
+		return mav;
+	}
+	
+	
 	@GetMapping("reply")
 	public ModelAndView adminreplyGet(int board_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -319,9 +336,7 @@ public class AdminController {
 	comm.setAdmin_id(user);
 	BoardService.commentinsert(comm);
 	BoardService.boardUpdate(board_num);
-	mav.setViewName("redirect:boardList");
+	mav.setViewName("redirect:boardListb");
 	return mav;
-	
 	}
-	
 }

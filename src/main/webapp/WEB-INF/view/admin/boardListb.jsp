@@ -95,9 +95,6 @@
 								<c:if test="${boardList.board_anser == 1}">
 								<span class="w3-badge w3-green">답변</span>
 								</c:if>
-								<c:if test="${boardList.board_anser == 0}">
-								<span class="w3-badge w3-red">미답변</span>
-								</c:if>
 						</td>
 						<td><fmt:formatDate value="${boardList.board_date}" pattern="yyyy-MM-dd"/></td>
 						<td>${boardList.user_id}</td>

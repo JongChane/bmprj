@@ -94,6 +94,12 @@ public class BoardService {
 		boardDao.boardUpdate(board_num);
 	}
 
+	public List<Board> boardLista() {
+		return boardDao.boardLista();
+	}
 
+	public List<Board> boardListb() {
+		return boardDao.boardListb();
+	}
 
 }

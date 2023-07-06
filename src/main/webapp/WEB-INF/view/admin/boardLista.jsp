@@ -92,9 +92,6 @@
 							<a href="javascript:void(0)" onclick="openModal(${boardList.board_num})">
 							${boardList.board_title}
 							</a>	
-								<c:if test="${boardList.board_anser == 1}">
-								<span class="w3-badge w3-green">답변</span>
-								</c:if>
 								<c:if test="${boardList.board_anser == 0}">
 								<span class="w3-badge w3-red">미답변</span>
 								</c:if>
