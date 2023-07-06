@@ -133,7 +133,7 @@ $(function() {
 </script>
 </head>
 <body>
-    <form:form modelAttribute="reservation" action="reservation" method="post" onsubmit="return validateForm();">
+    <form:form modelAttribute="reservation" action="checkout" method="post" onsubmit="return validateForm();">
     <input type="hidden" name="user_id" value="${sessionScope.login}">
    <div style="margin-top: 70px">
       <h1>예약날짜</h1>
