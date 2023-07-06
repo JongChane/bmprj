@@ -28,7 +28,8 @@ $(document).on('click', '#mail-Check-Btn', function() {
     }
     
     const fullEmail = email + emailDomain; // 이메일과 도메인을 합쳐 전체 이메일 주소 생성
-
+    // 이메일 값을 hidden 필드에 저장
+    $('#hidden_user_email').val(fullEmail);
     $.ajax({
         type: 'get',
         url: '<c:url value="/user/mailCheck?email="/>' + fullEmail,
@@ -40,19 +41,22 @@ $(document).on('click', '#mail-Check-Btn', function() {
             code = data;
             isCodeValid = true; // 인증번호 유효함을 표시
             alert('인증번호가 전송되었습니다.');
+            
+            $('#user_email').prop('disabled', true);
+            $('#user_email_domain').prop('disabled', true);
         	}
         }            
     });
 });
 
-$(document).on('click', 'input[type="submit"]', function(event) {
+$('form').on('submit', function(event) {
     if (!isCodeValid) { // 인증번호 유효하지 않으면 회원가입 버튼 동작 막기
         event.preventDefault();
         alert('인증번호를 정확히 입력하세요.');
     } else {
         // 이메일 주소값을 생성하여 필드에 설정
         const emailValue = $('#user_email').val() + $('#user_email_domain').val();
-        $('#user_email').val(emailValue);
+        $('#user_email').prop('disabled', false).val(emailValue);
     }
 });
 
@@ -93,6 +97,7 @@ $(document).on('keyup', '.mail-check-input', function() {
       	</c:forEach>
     	</font>
  			</spring:hasBindErrors>
+ 			<h1>회원가입</h1>
  			<table>
    			<tr>
    				<td>아이디</td>
@@ -166,12 +171,13 @@ $(document).on('keyup', '.mail-check-input', function() {
                 </select>
             </div>
             <div class="input-group-addon">
-                <button type="button" class="btn btn-primary" id="mail-Check-Btn">메일인증</button>
+            <button class="w3-button w3-white w3-border" type="button" id="mail-Check-Btn">메일인증</button>
             </div>
             <div class="mail-check-box">
                 <input class="form-control mail-check-input" placeholder="인증번호 6자리 입력" disabled="disabled" maxlength="6">
             </div>
             <span id="mail-check-warn"></span>
+                <input type="hidden" class="form-control" name="user_email" id="hidden_user_email">
         		</div>
   			  </td>
 				</tr>

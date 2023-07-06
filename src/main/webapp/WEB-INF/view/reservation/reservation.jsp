@@ -14,14 +14,14 @@
 $(function() {
 	  $(".datepicker").datepicker({
 	    onSelect: updateReservations,
-	    dateFormat: "yy-mm-dd", // 날짜 형식 설정 (년-월-일)
-	    minDate: 0, // 오늘 날짜 이전은 선택할 수 없음
-	    maxDate: "+2w", // 오늘 날짜 기준 2주 뒤까지 선택 가능
+	    dateFormat: "yy-mm-dd",
+	    minDate: 0,
+	    maxDate: "+2w",
 	    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
 	    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"]
 	  });
-
-	  // 체크박스 변경 이벤트 핸들러 추가
+	 
+	  // 레인 선택 radio 버튼 변경 이벤트 핸들러 추가
 	  $("input[name='lane_num[]']").change(updateReservations);
 	});
 
@@ -31,9 +31,18 @@ $(function() {
 	  $("input[name='lane_num[]']:checked").each(function() {
 	    laneNumbers.push($(this).val());
 	  });
-	  
-	  $(".ul_class li").show();
-	  
+
+	  // 기존에 disable된 시간 선택 radio 버튼을 다시 enable 상태로 바꿉니다.
+	  $(".ul_class li").each(function() {
+	    var li = $(this);
+	    li.find('input[type="radio"]').prop('disabled', false);
+	  });
+
+	  // laneNumbers가 비어있으면 함수를 종료합니다.
+	  if (laneNumbers.length === 0) {
+	    return;
+	  }
+
 	  $.ajax({
 	    url: 'checkReservations',
 	    data: {
@@ -65,9 +74,7 @@ $(function() {
 	          var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
 
 	          if (li_minutes >= start_minutes && li_minutes < end_minutes) {
-	            li.hide();
-	          } else {
-	            li.show();
+	            li.find('input[type="radio"]').prop('disabled', true);
 	          }
 	        });
 	      });
@@ -97,7 +104,7 @@ $(function() {
                   alert("회원 아이디를 적어도 한 개 이상 입력하세요.");
               } else if (lanes === 0) {
                   alert("레인을 선택하세요.");
-              } else if (startTime === undefined) {
+              } else if (startTime === undefined || startTime === null ) {
                   alert("시간을 선택하세요.");
               }
               return false;
@@ -107,7 +114,12 @@ $(function() {
               alert("4명 이상일 때는 최소 2개의 레인을 선택해야 합니다.");
               return false;
           }
-
+          
+          if (parseInt(memberId) > parseInt(people)) {
+        	    alert("회원 수는 예약인원 수보다 클 수 없습니다.");
+        	    return false;
+        	}
+          
           var validationMessages = $(".validation-message");
           for (var i = 0; i < validationMessages.length; i++) {
               var messageElement = $(validationMessages[i]);
@@ -123,9 +135,9 @@ $(function() {
 <body>
     <form:form modelAttribute="reservation" action="reservation" method="post" onsubmit="return validateForm();">
     <input type="hidden" name="user_id" value="${sessionScope.login}">
-   <div>
+   <div style="margin-top: 70px">
       <h1>예약날짜</h1>
-          <input type="text" name="rv_date" class="datepicker"/>
+          <input type="text" name="rv_date" class="datepicker" readonly/>
    </div><!-- 예약날짜 -->
    <div>
       <h1>게임 수</h1>
@@ -302,10 +314,11 @@ $(function() {
        }
 
        // 라디오 버튼 체크
-       selectedItems.forEach(selectedItem => {
-         const radioInput = selectedItem.querySelector('input[type="checkbox"]');
-         radioInput.checked = true;
-       });
+      	selectedItems.forEach(selectedItem => {
+  			const checkboxInput = selectedItem.querySelector('input[type="checkbox"]');
+  			checkboxInput.checked = true;
+  			$(checkboxInput).change();
+				});
 
        // 나머지 태그들의 라디오 버튼 체크 해제
        rainItems.forEach(item => {
@@ -328,155 +341,80 @@ $(function() {
    </script>
    </div><!-- 레인선택 --> 
    <div>
-         <h1>예약시간</h1>
-      <div class="am_div">
-      <p>오전</p>
-      <ul class="ul_class">
+     <h1>예약시간</h1>
+     <div class="1_div">
+       <ul class="ul_class">
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="09:00" class="hidden-input">
-               09:00
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="09:00" class="hidden-input">
+               9:00 ~ 10:30
+             </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="09:30" class="hidden-input">
-               09:30
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="10:30" class="hidden-input">
+               10:30 ~ 12:00 
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="10:00" class="hidden-input">
-               10:00
-            </label>
+           <label>
+           	 <input type="radio" name="rv_start" value="12:00" class="hidden-input">
+               12:00 ~ 13:30
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="10:30" class="hidden-input">
-               10:30
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="13:30" class="hidden-input">
+               13:30 ~ 15:00
+           </label>
+         </li>
+       </ul>
+     </div>
+     <div class="2_div">
+       <ul class="ul_class">
+         <li class="li_class">
+           <label>
+             <input type="radio" name="rv_start" value="15:00" class="hidden-input">
+               15:00 ~ 16:30
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="11:00" class="hidden-input">
-               11:00
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="16:30" class="hidden-input">
+               16:30 ~ 18:00
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="11:30" class="hidden-input">
-               11:30
-            </label>
-         </li>
-      </ul>
-   </div>
-   <div class="pm_div">
-      <p>오후</p>
-      <ul class="ul_class">
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="12:00" class="hidden-input">
-               12:00
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="18:00" class="hidden-input">
+               18:00 ~ 19:30
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="12:30" class="hidden-input">
-               12:30
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="19:30" class="hidden-input">
+               19:30 ~ 21:00
+           </label>
+         </li>         
+       </ul>
+     </div>
+     <div class="3_div">
+       <ul class="ul_class">
+         <li class="li_class">
+           <label>
+             <input type="radio" name="rv_start" value="21:00" class="hidden-input">
+              21:00 ~ 22:30
+           </label>
          </li>
          <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="13:00" class="hidden-input">
-               13:00
-            </label>
+           <label>
+             <input type="radio" name="rv_start" value="22:30" class="hidden-input">
+              22:30 ~ 24:00
+           </label>
          </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="13:30" class="hidden-input">
-               13:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="14:00" class="hidden-input">
-               14:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="14:30" class="hidden-input">
-               14:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="15:00" class="hidden-input">
-               15:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="15:30" class="hidden-input">
-               15:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="16:00" class="hidden-input">
-               16:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="16:30" class="hidden-input">
-               16:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="17:00" class="hidden-input">
-               17:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="17:30" class="hidden-input">
-               17:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="18:00" class="hidden-input">
-               18:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="18:30" class="hidden-input">
-               18:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="19:00" class="hidden-input">
-               19:00
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="19:30" class="hidden-input">
-               19:30
-            </label>
-         </li>
-         <li class="li_class">
-            <label>
-               <input type="radio" name="rv_start" value="20:00" class="hidden-input">
-               20:00
-            </label>
-         </li>
-      </ul>
-      <script>
+       </ul>
+     </div>  
+   <script>
     const liItems = document.querySelectorAll('.li_class');
    
       liItems.forEach(item => {
@@ -489,10 +427,8 @@ $(function() {
         const radioInput = this.querySelector('.hidden-input');
         radioInput.checked = true;
       });
-    });
-      
+    });  
   </script>   
-   </div>
    </div><!-- 예약시간 -->
    <div>
       <button type="button" onclick="window.history.back()">취소</button>
