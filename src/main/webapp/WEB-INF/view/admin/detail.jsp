@@ -49,12 +49,12 @@
 		</c:if>
     </table>
     </div>
-    <c:if test="${sessionScope.login eq board.user_id}">
+<%--     <c:if test="${sessionScope.login eq board.user_id}">
         <div class="delete-btns">
             <button type="button" onclick="location.href='update?board_num=${board.board_num}'">수정</button>
             <button type="button" onclick="detailDelete(${board.board_num})">삭제</button>
         </div>
-    </c:if>
+    </c:if> --%>
     
 </div>
 

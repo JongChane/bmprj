@@ -318,6 +318,7 @@ public class AdminController {
 	comm.setBoard_num(board_num);
 	comm.setAdmin_id(user);
 	BoardService.commentinsert(comm);
+	BoardService.boardUpdate(board_num);
 	mav.setViewName("redirect:boardList");
 	return mav;
 	

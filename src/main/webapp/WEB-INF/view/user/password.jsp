@@ -7,12 +7,21 @@
 <title>비밀번호 변경</title>
 <script type="text/javascript">
    function inchk(f) {
-   if(f.chgpass.value != f.chgpass2.value) {
-      alert("변경 비밀번호 와 변경 비밀번호 재입력이 다릅니다.");
-      f.chgpass2.value="";
-      f.chgpass2.focus();
-      return false;
-   }
+	 let pass = f.chgpass.value;
+	   
+	 if (pass != f.chgpass2.value) {
+	        alert("변경할 비밀번호와 재입력한 비밀번호가 다릅니다.");
+	        f.chgpass2.value = "";
+	        f.chgpass2.focus();
+	        return false;
+	    }
+	    
+	    if (pass.length < 3 || pass.length > 10) {
+	        alert("비밀번호는 3자리 이상 10자리 이하로 입력하세요.");
+	        f.chgpass.value = "";
+	        f.chgpass.focus();
+	        return false;
+	    }
    return true;
    }
 </script>

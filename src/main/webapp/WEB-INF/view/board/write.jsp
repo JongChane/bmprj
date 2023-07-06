@@ -19,12 +19,6 @@
          padding: 10px;
       }
 
-      input[type="text"] {
-         width: 50%;
-         padding: 5px;
-         border: 1px solid #ddd;
-         border-radius: 3px;
-      }
 
       input[type="submit"] {
          padding: 5px 10px;
@@ -46,32 +40,28 @@
    </style>
 </head>
 <body>
-<div style="margin-top : 55px">
-<h2>건의하기 작성</h2>
+<div style="margin-top : 60px; width:60%" class=" container text-center">
+<h2 class="mt-5 mb-5">건의하기 작성</h2>
 <form:form modelAttribute="board" action="write" name="f">
-	<table>
+	<table class="table table-bordered align-middle">
 		<tr>
-			<td>제목</td>
+			<th class="text-center w3-green">제목</th>
 			<td>
-				<form:input path="board_title"/>
+				<form:input path="board_title" class="form-control" maxlength="30"/>
 				<font color="red"><form:errors path="board_title"/></font>
 			</td>
 		</tr>
 		<tr>
-			<td>내용</td>
+			<th class="text-center w3-green">내용</th>
 			<td>
-				<form:textarea path="board_content"/>
+				<form:textarea path="board_content" class="form-control" rows="15"/>
 				<font color="red"><form:errors path="board_content"/></font>
 			</td>
-		</tr>
-		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>
-		<tr>
-			<td colspan="2" style="text-align: center;">
-				<input type="submit" value="건의하기">
-			</td>
-		</tr>
+<!-- 		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>-->		<tr>
 	</table>
+				<div class="mt-5 text-center"><input type="submit" value="건의하기"></div>
 </form:form>
 </div>
+
 </body>
 </html>

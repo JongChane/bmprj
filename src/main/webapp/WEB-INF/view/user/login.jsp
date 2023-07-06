@@ -15,8 +15,8 @@ function win_open(page) {
 </script>
 </head>
 <body>
-<div style="margin-top : 55px">
-   <h2>사용자 로그인</h2>
+<div style="margin-top : 80px">
+   <h1>사용자 로그인</h1>
    <form:form modelAttribute="user" method="post" action="login" name="loginform">
       <input type="hidden" name="user_name" value="유효성검증을위한데이터" >
       <input type="hidden" name="user_email" value="a@a.a" >

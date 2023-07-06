@@ -32,7 +32,6 @@ import exception.LoginException;
 public class BoardController {
 	@Autowired
 	private BoardService service;
-	
 	@GetMapping("write")
 	public ModelAndView writeget(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
@@ -96,7 +95,6 @@ public class BoardController {
 		int limit = 10; //한페이지에 보여줄 게시물 건수
 		int listCount = service.boardCount(board_id,searchtype,searchcontent);
 		List<Board> boardlist = service.boardList(pageNum,limit,board_id,searchtype,searchcontent);
-		
 		int maxpage = (int)((double)listCount/limit + 0.95);
 		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
 		int endpage = startpage + 9;

@@ -20,6 +20,7 @@ import dto.BmService;
 import dto.Reservation;
 import dto.ReservationService;
 import dto.ViService;
+import exception.LoginException;
 
 @Controller
 @RequestMapping("reservation")
@@ -75,5 +76,8 @@ public class ReservationController {
 		response.put("reservations", reservedTimes);
 		return response;
 	}
-
+	/*
+	 * @PostMapping("checkOut")
+	 */
+	
 }

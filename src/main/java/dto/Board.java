@@ -23,4 +23,5 @@ public class Board {
 	private Date board_date;
 	private int board_grp;
 	private int board_grpstep;
+	private int board_anser;
 }

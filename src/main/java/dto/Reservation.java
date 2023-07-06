@@ -25,8 +25,10 @@ public class Reservation {
 	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime rv_end;
 	private int rv_people;
+	private int rv_price;
 	//visit 테이블 필드
 	private String vi_id;
 	private int vi_avg;
 	private int vi_total;
+
 }

@@ -10,6 +10,7 @@
 <title><sitemesh:write property="title"/></title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,6 +19,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gothic+A1:700" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 <script type="text/javascript" 
    src="http://cdn.ckeditor.com/4.5.7/standard/ckeditor.js">
 </script>
@@ -71,18 +75,19 @@ ol,ul {
    height: 10vh;
 }
 
-button {
+/* button {
    width : 22%;
    height : 50px;
    border-radius: 30px;
    font-size : 1.5rem;
    margin : 0px 10px 0px 10px;
    
+} */
+
+.selected {
+    background-color: #06c755;
 }
 
-  .selected {
-    background-color: #06c755;
-  }
 select {
   width: 200px;
   height: 30px;
@@ -142,7 +147,7 @@ label {
 <body>
 
 <!-- Navbar (sit on top) -->
-<div class="w3-top">
+<div class="w3-top" style="margin-bottom: 80px">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
     <a style="font-size : 30px;" class="underbar" href="${path}/board/main">
     <img src="${path}/image/bm.png" class="w3-image" width="3%"> 볼링매니아</a>
@@ -171,11 +176,10 @@ label {
 </div>
 
 <!-- Page content -->
-<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin : 0px auto;">
+<div id="main" class="w3-content w3-padding" style="min-height:90vh; max-width:1564px; margin-top: 100px; margin : 0px auto;">
 <sitemesh:write property="body"/>
 </div>
-
-<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%; height: 50px;">
+<footer class="w3-center w3-black w3-padding-16" style="margin-top: 70px; fixed; bottom: 0; width: 100%; height: 50px;">
   <strong>Powered by 볼링매니아</strong>
 </footer>
 

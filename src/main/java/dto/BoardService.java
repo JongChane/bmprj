@@ -86,4 +86,14 @@ public class BoardService {
 		boardDao.deleteComment(board_num);
 	}
 
+	public List<Board> getUserBoard(String user_id) {
+		return boardDao.getUserBoard(user_id);
+	}
+
+	public void boardUpdate(int board_num) {
+		boardDao.boardUpdate(board_num);
+	}
+
+
+
 }

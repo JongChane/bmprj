@@ -13,9 +13,9 @@ public interface ReservationMapper {
 
 	@Insert({
 	    "INSERT INTO reservation (rv_num, user_id, lane_num, rv_now, rv_date, rv_game,",
-	    " rv_start, rv_end, rv_people) VALUES",
+	    " rv_start, rv_end, rv_people, rv_price) VALUES",
 	    " (#{rv_num}, #{user_id}, #{lane_num}, now(), #{rv_date}, #{rv_game},",
-	    "  #{rv_start}, #{rv_end}, #{rv_people})"
+	    "  #{rv_start}, #{rv_end}, #{rv_people}, (#{rv_game}*#{rv_people})*3000)"
 	})
 	void insert(Reservation reservation);
 
