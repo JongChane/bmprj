@@ -225,8 +225,9 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("password") 
-	public String loginCheckPasswordRtn
+	public ModelAndView loginCheckPasswordRtn
 	     (String user_pass,String chgpass,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(!passHash(user_pass).equals(loginUser.getUser_pass())) {
 		  throw new LoginException("비밀번호 오류 입니다.","password");
@@ -238,7 +239,8 @@ public class UserController {
 			  throw new LoginException
 			  ("비밀번호 수정시 db 오류 입니다.","password");
 		}
-		return "redirect:mypage?user_id="+loginUser.getUser_id();
+		mav.setViewName("mypage?user_id="+loginUser.getUser_id());
+		return mav;
 	}
 	@PostMapping("idsearch")
 	public ModelAndView idsearch(User user) {
@@ -246,7 +248,12 @@ public class UserController {
 		User dbUser = service.idSearch(user.getUser_email());
 		String result = null;
 		String title = "아이디";
+		try {
 		result = dbUser.getUser_id();
+		} catch(Exception e) {
+			  throw new LoginException
+			  ("회원 정보가 존재하지 않습니다.","idsearch");
+		}
 		mav.addObject("result", result);
 		mav.addObject("title", title);
 		mav.setViewName("search");

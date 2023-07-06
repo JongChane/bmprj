@@ -30,7 +30,7 @@
     <tr>
     	<td>비밀번호</td>
     	<td>
-    		<form:password path="user_pass" class="w3-input"/>
+    		<form:password path="user_pass" />
         <font color="red">
         	<form:errors path="user_pass" />
         </font>
@@ -48,7 +48,7 @@
    			<tr>
    				<td>나이</td>
    				<td>
-   					<form:input path="user_age" />
+   					<form:input path="user_age" readonly="true" class="w3-input"/>
         		<font color="red">
         			<form:errors path="user_age" />
         		</font>
@@ -57,11 +57,7 @@
   		<tr>
   			<td>성별</td>
   			<td>
-  				<form:select path="user_gender">
-  					<form:option value="">성별 선택</form:option>
-  					<form:option value="남성">남성</form:option>
-  					<form:option value="여성">여성</form:option>
-  				</form:select>
+  				<form:input path="user_gender" readonly="true" class="w3-input"/>
   				<font color="red">
        			<form:errors path="user_gender" />
        		</font>
@@ -79,7 +75,7 @@
 		   <tr>
 		   	<td>이메일</td>
 		   	<td>
-		   		<form:input path="user_email" />
+		   		<form:input path="user_email" readonly="true" class="w3-input"/>
 		   		<font color="red">
        			<form:errors path="user_email" />
        		</font>

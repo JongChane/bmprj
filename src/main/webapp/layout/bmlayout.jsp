@@ -142,7 +142,7 @@ label {
 <body>
 
 <!-- Navbar (sit on top) -->
-<div class="w3-top">
+<div class="w3-top" style="margin-bottom: 80px">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
     <a style="font-size : 30px;" class="underbar" href="${path}/board/main">
     <img src="${path}/image/bm.png" class="w3-image" width="3%"> 볼링매니아</a>
@@ -171,11 +171,10 @@ label {
 </div>
 
 <!-- Page content -->
-<div id="main" class="w3-content w3-padding" style="max-width:1564px; margin-top: 100px; margin : 0px auto;">
+<div id="main" class="w3-content w3-padding" style="min-height:90vh; max-width:1564px; margin-top: 100px; margin : 0px auto;">
 <sitemesh:write property="body"/>
 </div>
-
-<footer class="w3-center w3-black w3-padding-16" style="position: fixed; bottom: 0; width: 100%; height: 50px;">
+<footer class="w3-center w3-black w3-padding-16" style="margin-top: 70px; fixed; bottom: 0; width: 100%; height: 50px;">
   <strong>Powered by 볼링매니아</strong>
 </footer>
 
