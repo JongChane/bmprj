@@ -76,5 +76,8 @@ public class ReservationController {
 		response.put("reservations", reservedTimes);
 		return response;
 	}
-
+	/*
+	 * @PostMapping("checkOut")
+	 */
+	
 }
