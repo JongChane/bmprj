@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import dto.BmService;
 import dto.Reservation;
 import dto.ReservationService;
 import dto.ViService;
-import exception.LoginException;
 
 @Controller
 @RequestMapping("reservation")
@@ -76,8 +76,32 @@ public class ReservationController {
 		response.put("reservations", reservedTimes);
 		return response;
 	}
-	/*
-	 * @PostMapping("checkOut")
-	 */
-	
+
+	@PostMapping("checkout")
+	public ModelAndView checkout(Reservation reservation, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		int game = reservation.getRv_game();
+		int people = reservation.getRv_people();
+		LocalTime rv_start = reservation.getRv_start();
+		reservation.setRv_price((game * people) * 3000);
+		reservation.setRv_end(rv_start.plusMinutes(90));
+		List<Reservation> reservationList = new ArrayList<>();
+		reservationList.add(reservation);
+		mav.addObject("reserveList", reservationList);
+		session.setAttribute("reservation", reservation);
+		return mav;
+	}
+
+	@RequestMapping("kakao")
+	@ResponseBody
+	public Map<String, Object> kakao(HttpSession session) {
+		Map<String, Object> map = new HashMap<>();
+		Reservation reservation = (Reservation) session.getAttribute("reservation");
+		int num = 0;
+		map.put("merchant_uid", reservation.getUser_id() + "-" + (++num));
+		map.put("name", reservation.getUser_id() + "-" + reservation.getRv_date());
+		map.put("amount", reservation.getRv_price());
+		map.put("buyer_name", reservation.getUser_id());
+		return map; // 클라이언트는 json 객체로 전달
+	}
 }

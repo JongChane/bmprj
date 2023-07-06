@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,12 +16,17 @@ public interface GameMapper {
 			+ " game_people, game_date, game_age, game_gender, game_avg) values"
 			+ " ( #{user_id}, #{game_title}, #{game_content}, #{game_max},"
 			+ " #{game_people}, #{game_date}, #{game_age}, #{game_gender}, #{game_avg}) ")
+	@Options(useGeneratedKeys=true, keyProperty="game_num")
 	void insert(Game game);
 	
 	@Select({"<script>"," select * from gamelist<if test='game_num != null'> where game_num=#{game_num}</if> ",
+			 "<if test='user_id != null'> where user_id=#{user_id}</if> ",
 			 "order by game_num",
 			 "</script>"})
 	List<Game> select(Map<String, Object> param);
+	
+	@Select("select * from gamelist g1, gamer g2  WHERE g1.game_num = g2.game_num AND g1.user_id =#{user_id}")
+	List<Game> selectJoin(Map<String, Object> param);
 	
 	@Select("select * from gamelist where game_num=#{game_num}")
 	Game selectOne(Map<String, Object> param);

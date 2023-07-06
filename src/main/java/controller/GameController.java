@@ -43,10 +43,15 @@ public class GameController {
 			  mav.getModel().putAll(bresult.getModel());
 			  return mav; 
 		}
-		  //확인이 되었으면 db에 저장 후 게임 리스트로 이동합니다
+		  List<Game> gamelist = service.gameList();
 		  System.out.println(game);
-		  service.gameInsert(game);
-		  mav.setViewName("redirect:gamelist");
+		  //확인이 되었으면 db에 저장 후 게임 리스트로 이동합니다
+		  int game_num = service.gameInsert(game);
+		  service.gamerInsert(game.getUser_id(),game_num);
+		  mav.addObject("message","작성이 완료 되었습니다.");
+			mav.addObject("url","gamelist");
+			mav.setViewName("alert");
+
 	  return mav; 
 	}
 	

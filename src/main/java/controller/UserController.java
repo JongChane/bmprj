@@ -284,12 +284,17 @@ public class UserController {
 	@RequestMapping("mpgameList")
 	public ModelAndView gamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<Game> glist = service.gList();
+		User user = (User)session.getAttribute("loginUser");
+		List<Game> glist = service.gList(user.getUser_id());
+		
 		List<Gamer> gmlist = service.gmList();
+		List<User> gmuser = service.gmUser();
+		
+		mav.addObject("gmuser",gmuser);
 		mav.addObject("glist",glist);
+		mav.addObject("gmlist",gmlist);
 		return mav;
 	}
-	
 	@RequestMapping("boardList")
 	public ModelAndView boardList(String user_id) {
 		ModelAndView mav = new ModelAndView();

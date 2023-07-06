@@ -20,6 +20,7 @@ public interface GamerMapper {
 
 	@Select({"<script>"," select * from gamer<if test='usre_id != null'> where user_id=#{user_id}</if> ",
 			 "order by user_id",
+			 
 			 "</script>"})
 	List<Gamer> gselect(Map<String, Object> param);
 }
