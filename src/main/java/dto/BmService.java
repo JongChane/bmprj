@@ -65,8 +65,8 @@ public class BmService {
 		return userDao.list();
 	}
 
-	public List<Game> gList() {
-		return gamedao.list();
+	public List<Game> gList(String user_id) {
+		return gamedao.listjoin(user_id);
 	}
 	public void avgUpdate(String vi_id, int vi_avg) {
 		userDao.avgUpdate(vi_id, vi_avg);
@@ -74,6 +74,10 @@ public class BmService {
 	}
 	public List<Gamer> gmList() {
 		return gamerdao.list();
+	}
+
+	public List<User> gmUser() {
+		return userDao.list();
 	}
 
 }

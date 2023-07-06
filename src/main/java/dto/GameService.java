@@ -14,12 +14,12 @@ public class GameService {
 	@Autowired
 	private GamerDao gamerdao;
 	
-	public void gameInsert(Game game) {
-		gamedao.insert(game);
+	public int gameInsert(Game game) {
+		return gamedao.insert(game);
 	}
 
 	public List<Game> gameList() {
-		return gamedao.list();
+		return gamedao.list(null);
 	}
 
 	public Game getGame(Integer game_num) {
@@ -37,4 +37,6 @@ public class GameService {
 	public Gamer getGamer(String user_id,Integer game_num) {
 		return gamerdao.selectOne(user_id,game_num);
 	}
+
+	
 }

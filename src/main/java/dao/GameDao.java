@@ -18,12 +18,15 @@ public class GameDao {
 	private Map<String,Object> param = new HashMap<>();
 	private Class<GameMapper> cls = GameMapper.class;	
 	
-	public void insert(Game game) {
+	public int insert(Game game) {
 		template.getMapper(cls).insert(game);
+		System.out.println(game.getGame_num());
+		return game.getGame_num();
 	}
 
-	public List<Game> list() {
+	public List<Game> list(String user_id) {
 		param.clear();
+		param.put("user_id", user_id);
 		return template.getMapper(cls).select(param);
 	}
 
@@ -43,5 +46,9 @@ public class GameDao {
 	public int maxpeople() {
 		
 		return template.getMapper(cls).maxPeople();
+	}
+
+	public List<Game> listjoin(String user_id) {
+		return template.getMapper(cls).selectJoin(param);
 	}
 }
