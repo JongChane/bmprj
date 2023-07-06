@@ -18,7 +18,7 @@
 	}
 	
 	table {
-		margin : 55px auto;
+		margin : 0px auto;
 		border-collapse : collapse;
 	}
 	td {
@@ -26,8 +26,14 @@
 		height : 70px;
 	}
 	.container {
-		margin : 50px 50px 50px 50px;
+		margin : 0px 50px 50px 50px;
 		boarder : 1px solid black;
+	}
+	.searchtype {
+		width : 10%;
+	}
+	ul {
+		display : inline-flex;
 	}
 </style>
 <script>
@@ -47,6 +53,12 @@
 <body>
 	<div>
 		<h2>건의사항 목록</h2>
+		<div>
+			<ul>
+				<li>답변대기</li>
+				<li>답변완료</li>
+			</ul>
+		</div>
 		<div class="container">
 			<table class="w3-center" >
 				<tr class="w3-black">
@@ -58,7 +70,17 @@
 				<c:forEach items="${boardList}" var="boardList">
 					<tr>
 						<td>${boardList.board_num}</td>
-						<td><a href="javascript:void(0)" onclick="openModal(${boardList.board_num})">${boardList.board_title}</a></td>
+						<td>
+							<a href="javascript:void(0)" onclick="openModal(${boardList.board_num})">
+							${boardList.board_title}
+							</a>	
+								<c:if test="${boardList.board_anser == 1}">
+								<span class="w3-badge w3-green">답변</span>
+								</c:if>
+								<c:if test="${boardList.board_anser == 0}">
+								<span class="w3-badge w3-red">미답변</span>
+								</c:if>
+						</td>
 						<td><fmt:formatDate value="${boardList.board_date}" pattern="yyyy-MM-dd"/></td>
 						<td>${boardList.user_id}</td>
 					</tr>

@@ -70,5 +70,13 @@ public interface BoardMapper {
 	@Delete("delete from comment where board_num = #{board_num}")
 	void deleteComment(int board_num);
 	
+	
+	@Select("select * from board where user_id=#{user_id}")
+	List<Board> getUserBoard(String user_id);
+	
+	
+	@Update("update board set board_anser=1 where board_num=#{board_num}")
+	void boardUpdate(int board_num);
+	
 
 }

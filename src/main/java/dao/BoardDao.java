@@ -92,5 +92,13 @@ public class BoardDao {
 		param.clear();
 		param.put("board_num", board_num);
 		template.getMapper(cls).deleteComment(board_num);
-	}	
+	}
+
+	public List<Board> getUserBoard(String user_id) {
+		return template.getMapper(cls).getUserBoard(user_id);
+	}
+
+	public void boardUpdate(int board_num) {
+		template.getMapper(cls).boardUpdate(board_num);
+	}
 }

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dto.Admin;
 import dto.BmService;
+import dto.Board;
 import dto.BoardService;
 import dto.Game;
 import dto.Gamer;
@@ -281,5 +282,16 @@ public class UserController {
 		mav.addObject("glist",glist);
 		return mav;
 	}
+	
+	@RequestMapping("boardList")
+	public ModelAndView boardList(String user_id) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(user_id);
+		List<Board> board = boardService.getUserBoard(user_id);
+		mav.addObject("board",board);
+		return mav;
+	}
+
+
 
 }

@@ -8,6 +8,9 @@
 <title>작성글 목록</title>
    <style>
         /* 테이블 스타일 */
+	    a {
+		  text-decoration: none;
+		}
         table {
             width: 100%;
             border-collapse: collapse;
@@ -44,10 +47,10 @@
     </script>
 </head>
 <body>
-<div style="margin-top : 55px;">
-<h1>작성글 목록</h1>
+<div style="margin-top : 80px;">
+<h1 class="text-center">작성글 목록</h1>
 <form action="list" method="post" name="searchform">
-	<div style="width:55px; height:50px; margin : 0px auto;">
+	<div style="width:55px;margin : 0px auto;">
 		<table>
 		  	 <tr>
 		         <td style="border-bottom: none">
@@ -73,12 +76,12 @@
 	</div>
 </form>
 <div style="width:100%; margin : 0px auto;">
-<table>   
+<table class="table table-hover">   
    <c:if test="${listCount > 0 }">
       <tr>
-         <td colspan="5">글개수 : ${listCount}</td>
+         <td colspan="5">글개수 : <span class="text-danger fw-bold">${listCount}</span></td>
       </tr>
-   <tr>
+   <tr class="fw-bold w3-green text-center">
       <th>번호</th>
       <th>제목</th>
       <th>작성자</th>
@@ -90,7 +93,15 @@
          <td>${boardno}</td>
          <c:set var="boardno" value="${boardno -1 }"/>
          <td>
-            <a href="detail?board_num=${board.board_num}">${board.board_title}</a></td>
+            <a href="detail?board_num=${board.board_num}">${board.board_title}
+            </a>
+    	        <c:if test="${board.board_anser == 1}">
+					<span class="w3-badge w3-green">답변</span>
+				</c:if>
+				<c:if test="${board.board_anser == 0}">
+					<span class="w3-badge w3-red">미답변</span>
+				</c:if>
+         </td>
          <td>${board.user_id}</td>
          <td>
             <fmt:formatDate value="${board.board_date}" pattern="yyyyMMdd" var="rdate"/>

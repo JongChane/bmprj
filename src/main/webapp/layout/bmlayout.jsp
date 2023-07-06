@@ -10,6 +10,7 @@
 <title><sitemesh:write property="title"/></title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,6 +19,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gothic+A1:700" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 <script type="text/javascript" 
    src="http://cdn.ckeditor.com/4.5.7/standard/ckeditor.js">
 </script>
@@ -71,18 +75,19 @@ ol,ul {
    height: 10vh;
 }
 
-button {
+/* button {
    width : 22%;
    height : 50px;
    border-radius: 30px;
    font-size : 1.5rem;
    margin : 0px 10px 0px 10px;
    
+} */
+
+.selected {
+    background-color: #06c755;
 }
 
-  .selected {
-    background-color: #06c755;
-  }
 select {
   width: 200px;
   height: 30px;
