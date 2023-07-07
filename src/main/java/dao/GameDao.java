@@ -49,6 +49,12 @@ public class GameDao {
 	}
 
 	public List<Game> listjoin(String user_id) {
+		param.clear();
+		param.put("user_id",user_id);
 		return template.getMapper(cls).selectJoin(param);
+	}
+
+	public void gmdelete(Integer gmnum) {
+		template.getMapper(cls).gmdelete(gmnum);
 	}
 }

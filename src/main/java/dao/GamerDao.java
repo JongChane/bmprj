@@ -32,4 +32,19 @@ public class GamerDao {
 	
 		return template.getMapper(cls).gselect(param);
 	}
+
+	public List<Gamer> GmList(int game_num) {
+		return template.getMapper(cls).GmList(game_num);
+	}
+
+	public void gamerdelte(Integer gmnum) {
+		template.getMapper(cls).gamerdelete(gmnum);
+	}
+
+	public boolean mygamedelete(Integer gmnum, String user_id) {
+		param.clear();
+		param.put("gmnum", gmnum);
+		param.put("user_id", user_id);
+		return template.getMapper(cls).mygamedelete(param);
+	}
 }

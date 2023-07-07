@@ -80,5 +80,23 @@ public class BmService {
 		return userDao.list();
 	}
 
+	public List<Gamer> getGmList(int game_num) {
+		return gamerdao.GmList(game_num);
+	}
 
+	public User getUser(String user_id) {
+		return userDao.getUser(user_id);
+	}
+
+	public void gamedelete(Integer gmnum) {
+		gamedao.gmdelete(gmnum);
+	}
+
+	public void gamerdelete(Integer gmnum) {
+		gamerdao.gamerdelte(gmnum);
+	}
+
+	public boolean mygamedelete(Integer gmnum, String user_id) {
+		return gamerdao.mygamedelete(gmnum,user_id);
+	}
 }

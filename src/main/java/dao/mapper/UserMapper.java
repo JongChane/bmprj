@@ -45,6 +45,9 @@ public interface UserMapper {
 	@Update(" UPDATE user SET user_avg = (user_avg + #{user_avg})/2 "
 			+ " WHERE user_id = #{user_id}")
 	void avgUpdate(Map<String, Object> param);
+	
+	@Select("select * from user where user_id=#{user_id}")
+	User getUser(String user_id);
 
 
 	
