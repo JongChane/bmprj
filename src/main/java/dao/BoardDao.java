@@ -101,4 +101,13 @@ public class BoardDao {
 	public void boardUpdate(int board_num) {
 		template.getMapper(cls).boardUpdate(board_num);
 	}
+
+	public List<Board> boardLista() {
+		return template.getMapper(cls).boardLista();
+	}
+
+	public List<Board> boardListb() {
+		return template.getMapper(cls).boardListb();
+	}
+
 }

@@ -14,23 +14,7 @@
 	a {
 	  text-decoration: none;
 	}
-	/* th {
-		padding : 0px;
-		height : 40px;
-	}
-	
-	table {
-		margin : 0px auto;
-		border-collapse : collapse;
-	}
-	td {
-		border-bottom: 1px solid black;
-		height : 70px;
-	}
-	.container {
-		margin : 0px 50px 50px 50px;
-		boarder : 1px solid black;
-	} */
+
 	.searchtype {
 		width : 10%;
 	}
@@ -95,9 +79,6 @@
 								<c:if test="${boardList.board_anser == 1}">
 								<span class="w3-badge w3-green">답변</span>
 								</c:if>
-								<c:if test="${boardList.board_anser == 0}">
-								<span class="w3-badge w3-red">미답변</span>
-								</c:if>
 						</td>
 						<td><fmt:formatDate value="${boardList.board_date}" pattern="yyyy-MM-dd"/></td>
 						<td>${boardList.user_id}</td>
@@ -108,14 +89,11 @@
 	</div>
 	
 	<div id="id01" class="w3-modal">
-		<div class="w3-modal-content w3-card-4 w3-animate-zoom  w3-black">
+		<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 			<div class="w3-center"> <br>
-				<h3>건의사항 상세</h3><span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+				<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
 			</div>
-				<div class="w3-white" id="comment"></div>
-			<br>
-			<h4 class="text-center"><img src="${path }/image/bm.png" width="50px"/> &nbsp;&nbsp;&nbsp;볼매 관리자</h4>
-			<br>
+				<div id="comment"></div>
 		</div>
 	</div>
 </body>

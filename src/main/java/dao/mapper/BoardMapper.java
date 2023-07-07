@@ -78,5 +78,10 @@ public interface BoardMapper {
 	@Update("update board set board_anser=1 where board_num=#{board_num}")
 	void boardUpdate(int board_num);
 	
-
+	@Select("select * from board where board_anser=0")
+	List<Board> boardLista();
+	
+	@Select("select * from board where board_anser=1")
+	List<Board> boardListb();
+	
 }

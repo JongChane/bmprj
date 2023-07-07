@@ -1,64 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp"%>
-<style>
-.detail {
-  border-collapse: collapse;
-}
 
-.detail td {
-  border-bottom: 1px solid black;
-  padding : 15px;
-}	
-.delete-btns {
-	margin : 100px 0 0 500px;
-}
-</style>
-
-
-<div class="container" style="margin-top:55px;">
-	<div class="w3-container" align="center">
-    <table class="detail">
+<div class="container w3-light-grey">
+	<div class="w3-container">
+    <table class="table table-bordered align-middle mt-5">
     	<tr>
-    		<td>등록일</td>
+    		<td class="text-center w3-black" style="width:25%;">등록일</td>
     		<td colspan="2">
     			<fmt:formatDate value="${board.board_date}" pattern="yyyy-MM-dd"/>
     		</td>
     	</tr>
         <tr>
-            <td>작성자</td>
+            <td class="text-center w3-black">작성자</td>
             <td colspan="2">${board.user_id}</td>
         </tr>
         <tr>
-            <td>제목</td>
+            <td class="text-center w3-black">제목</td>
             <td>${board.board_title}</td>
         </tr>
         <tr>
-            <td>내용</td>
+            <td class="text-center w3-black">건의사항</td>
             <td>${board.board_content}</td>
         </tr>
-		<c:if test="${not empty comm.comm_date}">
-		    <tr>
-		        <td>답변일</td>
-		        <td><fmt:formatDate value="${comm.comm_date}" pattern="yyyy-MM-dd" /></td>
-		    </tr>
-		    <tr>
-		        <td>답변</td>
-		        <td>${comm.comm_content}</td>
-		    </tr>
-		</c:if>
     </table>
-    </div>
-<%--     <c:if test="${sessionScope.login eq board.user_id}">
-        <div class="delete-btns">
-            <button type="button" onclick="location.href='update?board_num=${board.board_num}'">수정</button>
-            <button type="button" onclick="detailDelete(${board.board_num})">삭제</button>
-        </div>
-    </c:if> --%>
     
+    
+    <h2 class="text-center mt-3 mb-5">답변</h2>
+    <c:if test="${empty comm.comm_date}">
+    	<h4 class="text-center">답변 대기중 입니다.</h4>
+    </c:if>
+    <c:if test="${not empty comm.comm_date}">
+    <table class="table table-bordered  align-middle">
+    	<tr>
+    		<td class="text-center w3-black" style="width:25%;">답변자</td>
+    		<td>볼매관리자</td>
+    	</tr>
+    	<tr>
+    		<td class="text-center w3-black">답변일</td>
+    		<td><fmt:formatDate value="${comm.comm_date}" pattern="yyyy-MM-dd"/></td>
+    	</tr>
+    	<tr>
+    		<td class="text-center w3-black">답변 내용</td>
+    		<td>${comm.comm_content}</td>
+    	</tr>
+    </table>
+    </c:if>
+    </div>
 </div>
 
-<c:if test="${sessionScope.adminId == 'admin'}">
+<%-- <c:if test="${sessionScope.adminId == 'admin'}">
     <div class="reply-container">
         <form:form modelAttribute="comment" action="comment" method="post" class="reply-form">
             <table>
@@ -75,13 +66,12 @@
             </table>
         </form:form>
     </div>
-</c:if>
+</c:if> --%>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function detailDelete(board_num) {
         if (confirm('정말 삭제하시겠습니까?')) {
-            deleteComment(board_num);
             deleteBoard(board_num);
         }
     }
@@ -105,4 +95,5 @@
             }
         });
     }
+    
 </script>
