@@ -26,8 +26,8 @@
     </table>
     
     
-    <h2 class="text-center mt-2 mb-4">답변</h2>
-    <c:if test="${empty comm.comm_date}">
+    <c:if test="${empty comm.comm_date and  not empty sessionScope.adminId}">
+ 	   <h2 class="text-center mt-2 mb-4">답변</h2>
 		<form:form modelAttribute="comment" action="comment" method="post" class="reply-form">
 		<table class="table table-bordered  align-middle">
 			<tr>
@@ -39,7 +39,11 @@
 		              <div class="mt-2 mb-3 text-center"><input class="btn btn-dark" type="submit" value="답변하기"></div>
 		</form:form>
     </c:if>
+    <c:if test="${empty comm.comm_date and empty sessionScope.adminId }">
+    	<h2 class="text-center">답변 대기중입니다.</h2>
+    </c:if>
     <c:if test="${not empty comm.comm_date}">
+    <h2 class="text-center mt-2 mb-4">답변</h2>
     <table class="table table-bordered  align-middle">
     	<tr>
     		<td class="text-center w3-black" style="width:25%;">답변자</td>

@@ -23,12 +23,13 @@
 </script>
 </head>
 <body>
-<div class="container" style="magin-top:55px;">
-	<div id="minfo" class="minfo" style="display : flex; justify-content : space-between;">
+<div class="container" style="magin-top:60px;">
+	<div id="minfo" class="minfo" style="display : flex; justify-content : space-between; align-items: center">
 	  	<div style="flex-basis : 20%;">
 			<h2>소셜매치 내역</h2>
  			<%@ include file="mypageSideBar2.jsp" %>
 		</div>
+		<div style="flex-basis : 80%;">
 	<table class="w3-table-all">
 		<tr>
 			<th>제목</th>
@@ -78,7 +79,7 @@
 					<td>${gm.user_avg}</td>
 					<td>
 						<c:if test="${param.user_id == gm.user_id}">
-							<a href="mpudelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}">[run]</a>
+							<a href="mpudelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}">[매치 나가기]</a>
 						</c:if>
 					</td>
 				</tr>
@@ -88,6 +89,7 @@
 		</tr>
 		</c:forEach>
 	</table>
+	</div>
 </div>
 	</div>
 </body>

@@ -321,10 +321,30 @@ public class UserController {
 		
 	}
 	@RequestMapping("boardList")
-	public ModelAndView boardList(String user_id) {
+	public ModelAndView boardList(Integer pageNum,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(user_id);
-		List<Board> board = boardService.getUserBoard(user_id);
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		String user = (String)session.getAttribute("login");
+		
+		int limit = 10; //한페이지에 보여줄 게시물 건수
+		int listCount = boardService.UserboardCount(user);
+		
+		List<Board> board = boardService.getUserBoard(user,pageNum,limit);
+		
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		int endpage = startpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardno = listCount - (pageNum - 1) * limit;
+		
+		mav.addObject("boardno",boardno);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
 		mav.addObject("board",board);
 		return mav;
 	}

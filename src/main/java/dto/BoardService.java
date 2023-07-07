@@ -82,9 +82,6 @@ public class BoardService {
 		boardDao.deleteComment(board_num);
 	}
 
-	public List<Board> getUserBoard(String user_id) {
-		return boardDao.getUserBoard(user_id);
-	}
 
 	public void boardUpdate(int board_num) {
 		boardDao.boardUpdate(board_num);
@@ -114,6 +111,14 @@ public class BoardService {
 
 	public List<Board> boardListb(Integer pageNum, int limit) {
 		return boardDao.adminBoardListb(pageNum,limit);
+	}
+
+	public int UserboardCount(String user_id) {
+		return boardDao.UserboardCount(user_id);
+	}
+
+	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit) {
+		return boardDao.getUserBoard(user_id,pageNum,limit);
 	}
 
 }

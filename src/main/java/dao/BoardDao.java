@@ -94,9 +94,6 @@ public class BoardDao {
 		template.getMapper(cls).deleteComment(board_num);
 	}
 
-	public List<Board> getUserBoard(String user_id) {
-		return template.getMapper(cls).getUserBoard(user_id);
-	}
 
 	public void boardUpdate(int board_num) {
 		template.getMapper(cls).boardUpdate(board_num);
@@ -134,6 +131,18 @@ public class BoardDao {
 		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
 		param.put("limit", limit);
 		return template.getMapper(cls).adminBoardListb(param);
-	}	
+	}
+
+	public int UserboardCount(String user_id) {
+		return template.getMapper(cls).UserboardCount(user_id);
+	}
+
+	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		param.put("user_id", user_id);
+		return template.getMapper(cls).getUserBoard(param);
+	}
 
 }

@@ -71,9 +71,6 @@ public interface BoardMapper {
 	void deleteComment(int board_num);
 	
 	
-	@Select("select * from board where user_id=#{user_id}")
-	List<Board> getUserBoard(String user_id);
-	
 	
 	@Update("update board set board_anser=1 where board_num=#{board_num}")
 	void boardUpdate(int board_num);
@@ -96,6 +93,13 @@ public interface BoardMapper {
 	
 	@Select("select * from board where board_anser=1 order by board_num desc limit #{startrow}, #{limit} ")
 	List<Board> adminBoardListb(Map<String, Object> param);
+	
+	@Select("select count(*) from board where user_id=#{user_id}")
+	int UserboardCount(String user_id);
+	
+	@Select("select * from board where user_id=user_id order by board_num desc limit #{startrow}, #{limit} ")
+	List<Board> getUserBoard(Map<String,Object> param);
+	
 	
 	
 }

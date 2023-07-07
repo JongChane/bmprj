@@ -31,8 +31,27 @@
 	.button {
 		padding: 5px;
 	}
+	a {
+	  text-decoration: none;
+	}
 </style>
 <script>
+function openModal(board_num){
+	document.getElementById('id01').style.display='block';
+	$.ajax({
+		url : "${path}/admin/detail?board_num="+board_num,
+		method: "GET",
+		success: function(data) {
+			  console.log(data);
+			  $("#comment").html(data);
+		}
+	})
+}
+
+function listpage(page){
+	window.location.href = "${path}/user/boardList?&pageNum="+page;
+}
+
 $(document).ready(function() {
 	  $("#statusFilter").change(function() {
 	    var selectedValue = $(this).val(); // 선택된 옵션의 값 가져오기
@@ -51,7 +70,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<div class="container" style="margin-top:55px;">
+<div class="container" style="margin-top:100px;">
 	<div style="display : flex; justify-content : space-between;">
 		<div style="flex-basis : 20%;">
 		   <%@ include file="mypageSideBar2.jsp" %>
@@ -75,7 +94,9 @@ $(document).ready(function() {
 				<c:forEach items="${board}" var="board">
 				<tr data-status="${board.board_anser}">
 					<td>${board.board_num}</td>
-					<td>${board.board_title}
+					<td><a href="javascript:void(0)" onclick="openModal(${board.board_num})">
+							${board.board_title}
+							</a>
 						<c:if test="${board.board_anser == 1}">
 							<span class="w3-badge w3-green">답변</span>
 						</c:if>
@@ -88,9 +109,44 @@ $(document).ready(function() {
 				</tr>
 				</c:forEach>
 			</table>
+			
+			<div style="margin : 10px auto; width:200px;">
+			<c:if test="${pageNum > 1 }">
+			  <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
+			</c:if>
+			<c:if test="${pageNum <= 1}">[이전]</c:if>
+			
+			<c:forEach var="a" begin="${startpage}" end="${endpage}">
+			  <c:if test="${a == pageNum}">[${a}]</c:if>
+			  <c:if test="${a != pageNum}">
+			     <a href="javascript:listpage('${a}')">[${a}]</a>
+			  </c:if>
+			</c:forEach>
+			
+			<c:if test="${pageNum < maxpage}">
+			  <a href="javascript:listpage('${pageNum + 1}')">[다음]</a>
+			</c:if>   
+			<c:if test="${pageNum >= maxpage}">[다음]</c:if>
+			</div>
+			
+			
 		</div>
 	</div>
 </div>
+
+
+	<div id="id01" class="w3-modal">
+		<div class="w3-modal-content w3-card-4 w3-animate-zoom  w3-black">
+			<div class="w3-center"> <br>
+				<h3>건의사항 상세</h3><span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+			</div>
+				<div class="w3-white" id="comment"></div>
+			<br>
+			<h4 class="text-center"><img src="${path }/image/bm.png" width="50px"/> &nbsp;&nbsp;&nbsp;볼매 관리자</h4>
+			<br>
+		</div>
+	</div>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     function detailDelete(board_num) {
