@@ -91,7 +91,7 @@
     </div>
 </div>
 
-<c:if test="${sessionScope.adminId == 'admin'}">
+<%-- <c:if test="${sessionScope.adminId == 'admin'}">
     <div class="reply-container">
         <form:form modelAttribute="comment" action="comment" method="post" class="reply-form">
             <table>
@@ -108,7 +108,7 @@
             </table>
         </form:form>
     </div>
-</c:if>
+</c:if> --%>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

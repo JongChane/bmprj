@@ -14,23 +14,7 @@
 	a {
 	  text-decoration: none;
 	}
-	th {
-		padding : 0px;
-		height : 40px;
-	}
-	
-	table {
-		margin : 0px auto;
-		border-collapse : collapse;
-	}
-	td {
-		border-bottom: 1px solid black;
-		height : 70px;
-	}
-	.container {
-		margin : 0px 50px 50px 50px;
-		boarder : 1px solid black;
-	}
+
 	.searchtype {
 		width : 10%;
 	}
@@ -71,14 +55,14 @@
 </head>
 <body>
 	<div>
-		<h2>건의사항 목록</h2>
-		<div style="margin-left : 50px;">
-		<button type="button" class="button w3-black" id="all">전체</button>
-		<button type="button" class="button w3-black" id="a">답변대기</button>
-		<button type="button" class="button w3-black" id="b">답변완료</button>
+		<h2 class="mt-5">건의사항 목록</h2>
+		<div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
+		  <button type="button" class="btn btn-outline-dark active" id="all">전체</button>
+		  <button type="button" class="btn btn-outline-dark" id="a">답변대기</button>
+		  <button type="button" class="btn btn-outline-dark" id="b">답변완료</button>
 		</div>
 		<div class="container">
-			<table class="w3-center" >
+			<table class="w3-center table table-hover" >
 				<tr class="w3-black">
 					<th style="width:10%">번호</th>
 					<th style="width:30%">제목</th>

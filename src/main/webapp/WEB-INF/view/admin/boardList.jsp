@@ -14,7 +14,7 @@
 	a {
 	  text-decoration: none;
 	}
-	th {
+	/* th {
 		padding : 0px;
 		height : 40px;
 	}
@@ -30,7 +30,7 @@
 	.container {
 		margin : 0px 50px 50px 50px;
 		boarder : 1px solid black;
-	}
+	} */
 	.searchtype {
 		width : 10%;
 	}
@@ -71,14 +71,14 @@
 </head>
 <body>
 	<div>
-		<h2>건의사항 목록</h2>
-		<div style="margin-left : 50px;">
-		<button type="button" class="button w3-black" id="all">전체</button>
-		<button type="button" class="button w3-black" id="a">답변대기</button>
-		<button type="button" class="button w3-black" id="b">답변완료</button>
+		<h2 class="mt-5">건의사항 목록</h2>
+		<div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
+		  <button type="button" class="btn btn-outline-dark active" id="all">전체</button>
+		  <button type="button" class="btn btn-outline-dark" id="a">답변대기</button>
+		  <button type="button" class="btn btn-outline-dark" id="b">답변완료</button>
 		</div>
 		<div class="container">
-			<table class="w3-center" >
+			<table class="w3-center table table-hover" >
 				<tr class="w3-black">
 					<th style="width:10%">번호</th>
 					<th style="width:30%">제목</th>
@@ -108,11 +108,14 @@
 	</div>
 	
 	<div id="id01" class="w3-modal">
-		<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+		<div class="w3-modal-content w3-card-4 w3-animate-zoom  w3-black">
 			<div class="w3-center"> <br>
-				<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+				<h3>건의사항 상세</h3><span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
 			</div>
-				<div id="comment"></div>
+				<div class="w3-white" id="comment"></div>
+			<br>
+			<h4 class="text-center"><img src="${path }/image/bm.png" width="50px"/> &nbsp;&nbsp;&nbsp;볼매 관리자</h4>
+			<br>
 		</div>
 	</div>
 </body>
