@@ -40,7 +40,6 @@
         margin : 0 auto;
     }
 
-
 ol,ul {
    list-style : none;
 }

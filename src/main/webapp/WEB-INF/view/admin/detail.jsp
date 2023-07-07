@@ -26,9 +26,18 @@
     </table>
     
     
-    <h2 class="text-center mt-3 mb-5">답변</h2>
+    <h2 class="text-center mt-2 mb-4">답변</h2>
     <c:if test="${empty comm.comm_date}">
-    	<h4 class="text-center">답변 대기중 입니다.</h4>
+		<form:form modelAttribute="comment" action="comment" method="post" class="reply-form">
+		<table class="table table-bordered  align-middle">
+			<tr>
+				<td class="text-center w3-black" style="width:25%;">답변 내용 :</td>
+		              <td><textarea class="form-control" rows="4" cols="50" name="comm_content"></textarea>
+		              </td>
+			</tr>
+		      </table>    
+		              <div class="mt-2 mb-3 text-center"><input class="btn btn-dark" type="submit" value="답변하기"></div>
+		</form:form>
     </c:if>
     <c:if test="${not empty comm.comm_date}">
     <table class="table table-bordered  align-middle">
@@ -48,25 +57,6 @@
     </c:if>
     </div>
 </div>
-
-<%-- <c:if test="${sessionScope.adminId == 'admin'}">
-    <div class="reply-container">
-        <form:form modelAttribute="comment" action="comment" method="post" class="reply-form">
-            <table>
-                <tr>
-                <c:if test="${empty comm.comm_content}">
-                    <td>답변 내용 :</td>
-                    <td><textarea rows="4" cols="50" name="comm_content"></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="답변하기"></td>
-                </tr>
-                </c:if>
-                
-            </table>
-        </form:form>
-    </div>
-</c:if> --%>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>

@@ -102,12 +102,38 @@ public class BoardDao {
 		template.getMapper(cls).boardUpdate(board_num);
 	}
 
-	public List<Board> boardLista() {
-		return template.getMapper(cls).boardLista();
+
+	public List<Board> adminBoardList(Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		return template.getMapper(cls).adminBoardList(param);
 	}
 
-	public List<Board> boardListb() {
-		return template.getMapper(cls).boardListb();
+	public int adminBoardCount() {
+		return template.getMapper(cls).adminBoardCount();
 	}
+
+	public int adminBoardCounta() {
+		return template.getMapper(cls).adminBoardCounta();
+	}
+
+	public List<Board> adminBoardLista(Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		return template.getMapper(cls).adminBoardLista(param);
+	}
+	
+	public int adminBoardCountb() {
+		return template.getMapper(cls).adminBoardCountb();
+	}
+
+	public List<Board> adminBoardListb(Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		return template.getMapper(cls).adminBoardListb(param);
+	}	
 
 }

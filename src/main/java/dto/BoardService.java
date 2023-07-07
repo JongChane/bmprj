@@ -58,10 +58,6 @@ public class BoardService {
 	public boolean update(Board board) {
 		return boardDao.update(board);
 	}
-
-	public List<Board> boardList() {
-		return boardDao.boardList();
-	}
 	
 	public void boardReply(Board board) {
 		boardDao.updateGrpStep(board);
@@ -94,12 +90,30 @@ public class BoardService {
 		boardDao.boardUpdate(board_num);
 	}
 
-	public List<Board> boardLista() {
-		return boardDao.boardLista();
+	
+	public List<Board> boardList(Integer pageNum, int limit) {
+		return boardDao.adminBoardList(pageNum,limit);
 	}
 
-	public List<Board> boardListb() {
-		return boardDao.boardListb();
+	public int boardCount() {
+		return boardDao.adminBoardCount();
+	}
+
+	public int boardCounta() {
+		return boardDao.adminBoardCounta();
+	}
+
+	public List<Board> boardLista(Integer pageNum, int limit) {
+		return boardDao.adminBoardLista(pageNum,limit);
+	}
+
+	
+	public int boardCountb() {
+		return boardDao.adminBoardCountb();
+	}
+
+	public List<Board> boardListb(Integer pageNum, int limit) {
+		return boardDao.adminBoardListb(pageNum,limit);
 	}
 
 }

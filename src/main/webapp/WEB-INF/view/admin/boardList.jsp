@@ -14,23 +14,6 @@
 	a {
 	  text-decoration: none;
 	}
-	/* th {
-		padding : 0px;
-		height : 40px;
-	}
-	
-	table {
-		margin : 0px auto;
-		border-collapse : collapse;
-	}
-	td {
-		border-bottom: 1px solid black;
-		height : 70px;
-	}
-	.container {
-		margin : 0px 50px 50px 50px;
-		boarder : 1px solid black;
-	} */
 	.searchtype {
 		width : 10%;
 	}
@@ -54,17 +37,21 @@
 		})
 	}
 	
+	function listpage(page){
+		window.location.href = "${path}/admin/boardList?type=all&pageNum="+page;
+	}
+	
 	$(document).ready(function(){
 	    $("#all").click(function(){
-	        window.location.href = "${path}/admin/boardList";
+	        window.location.href = "${path}/admin/boardList?type=all";
 	    });
 	    
 	    $("#a").click(function(){
-	        window.location.href = "${path}/admin/boardLista";
+	        window.location.href = "${path}/admin/boardLista?type=a";
 	    });
 
 	    $("#b").click(function(){
-	        window.location.href = "${path}/admin/boardListb";
+	        window.location.href = "${path}/admin/boardListb?type=b";
 	    });
 	});
 </script>
@@ -73,9 +60,9 @@
 	<div>
 		<h2 class="mt-5">건의사항 목록</h2>
 		<div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
-		  <button type="button" class="btn btn-outline-dark active" id="all">전체</button>
-		  <button type="button" class="btn btn-outline-dark" id="a">답변대기</button>
-		  <button type="button" class="btn btn-outline-dark" id="b">답변완료</button>
+		  <button type="button" class="btn btn-outline-dark ${type eq 'all' or empty type? 'active' : '' }" id="all">전체</button>
+		  <button type="button" class="btn btn-outline-dark ${type eq 'a' ? 'active' : '' }" id="a">답변대기</button>
+		  <button type="button" class="btn btn-outline-dark ${type eq 'b' ? 'active' : '' }" id="b">답변완료</button>
 		</div>
 		<div class="container">
 			<table class="w3-center table table-hover" >
@@ -104,6 +91,27 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			
+			<div style="margin : 10px auto; width:150px;">
+			   <c:if test="${pageNum > 1 }">
+			      <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
+			   </c:if>
+			   <c:if test="${pageNum <= 1}">[이전]</c:if>
+			   
+			   <c:forEach var="a" begin="${startpage}" end="${endpage}">
+			      <c:if test="${a == pageNum}">[${a}]</c:if>
+			      <c:if test="${a != pageNum}">
+			         <a href="javascript:listpage('${a}')">[${a}]</a>
+			      </c:if>
+			   </c:forEach>
+			
+			   <c:if test="${pageNum < maxpage}">
+			      <a href="javascript:listpage('${pageNum + 1}')">[다음]</a>
+			   </c:if>   
+			   <c:if test="${pageNum >= maxpage}">[다음]</c:if>
+			</div>
+			
 		</div>
 	</div>
 	

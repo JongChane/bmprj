@@ -16,8 +16,8 @@ public interface BoardMapper {
 	@Select("select ifnull(max(board_num),0) from board")
 	int maxNum();
 	
-	@Insert("insert into board (board_num,user_id,board_title,board_content,board_readcnt,board_id,board_date,board_grp,board_grpstep)"
-			 + " values (#{board_num},#{user_id},#{board_title},#{board_content},0,#{board_id},now(),#{board_grp},#{board_grpstep})")
+	@Insert("insert into board (board_num,user_id,board_title,board_content,board_readcnt,board_id,board_grp,board_grpstep)"
+			 + " values (#{board_num},#{user_id},#{board_title},#{board_content},0,#{board_id},#{board_grp},#{board_grpstep})")
 	void insert(Board board);
 	
 	//건의사항 전체 게시글 건수
@@ -78,10 +78,24 @@ public interface BoardMapper {
 	@Update("update board set board_anser=1 where board_num=#{board_num}")
 	void boardUpdate(int board_num);
 	
-	@Select("select * from board where board_anser=0")
-	List<Board> boardLista();
 	
-	@Select("select * from board where board_anser=1")
-	List<Board> boardListb();
+	@Select("select * from board order by board_num desc limit #{startrow}, #{limit} ")
+	List<Board> adminBoardList(Map<String, Object> param);
+	
+	@Select("select count(*) from board")
+	int adminBoardCount();
+	
+	@Select("select count(*) from board where board_anser=0")
+	int adminBoardCounta();
+	
+	@Select("select * from board where board_anser=0 order by board_num desc limit #{startrow}, #{limit} ")
+	List<Board> adminBoardLista(Map<String, Object> param);
+	
+	@Select("select count(*) from board where board_anser=1")
+	int adminBoardCountb();
+	
+	@Select("select * from board where board_anser=1 order by board_num desc limit #{startrow}, #{limit} ")
+	List<Board> adminBoardListb(Map<String, Object> param);
+	
 	
 }

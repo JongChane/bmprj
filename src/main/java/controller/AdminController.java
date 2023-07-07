@@ -93,26 +93,93 @@ public class AdminController {
 	}
 
 	@RequestMapping("boardList")
-	public ModelAndView adminboardList(HttpSession session) {
+	public ModelAndView adminboardList(String type, Integer pageNum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<Board> list = BoardService.boardList();
+		System.out.println(pageNum);
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		int limit = 10; //한페이지에 보여줄 게시물 건수
+		int listCount = BoardService.boardCount();
+		
+		List<Board> list = BoardService.boardList(pageNum,limit);
+		
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		int endpage = startpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardno = listCount - (pageNum - 1) * limit;
+		
+		mav.addObject("boardno",boardno);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
 		mav.addObject("boardList", list);
+		mav.addObject("type", type);
+		
 		return mav;
 	}
 	
 	@RequestMapping("boardLista")
-	public ModelAndView adminboardLista(HttpSession session) {
+	public ModelAndView adminboardLista(String type, Integer pageNum, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<Board> list = BoardService.boardLista();
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		int limit = 10; //한페이지에 보여줄 게시물 건수
+		int listCount = BoardService.boardCounta();
+		
+		List<Board> list = BoardService.boardLista(pageNum,limit);
+		
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		int endpage = startpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardno = listCount - (pageNum - 1) * limit;
+		
+		mav.addObject("boardno",boardno);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
 		mav.addObject("boardList", list);
+		mav.addObject("type", type);
+		
 		return mav;
 	}
 	
 	@RequestMapping("boardListb")
-	public ModelAndView adminboardListb(HttpSession session) {
+	public ModelAndView adminboardListb(String type , Integer pageNum,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<Board> list = BoardService.boardListb();
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		int limit = 10; //한페이지에 보여줄 게시물 건수
+		int listCount = BoardService.boardCountb();
+		
+		List<Board> list = BoardService.boardListb(pageNum,limit);
+		
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		int endpage = startpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardno = listCount - (pageNum - 1) * limit;
+		
+		mav.addObject("boardno",boardno);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
 		mav.addObject("boardList", list);
+		mav.addObject("type", type);
+		
 		return mav;
 	}
 	

@@ -114,7 +114,7 @@
    </c:if>
    <%-- 등록된 게시물이 있는 경우  --%>
 </table>
-   <div style="margin : 10px auto; width:150px;">
+   <div style="margin : 10px auto; width:200px;">
    <c:if test="${pageNum > 1 }">
       <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
    </c:if>
@@ -140,7 +140,7 @@
 </c:if>
 
 <div>
-   <a href="write">[건의 하기]</a>
+   <a class="btn btn-lg w3-green" href="write">건의 하기</a>
 </div>
 </div>
 </div>
