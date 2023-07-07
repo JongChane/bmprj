@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,8 +55,6 @@ public class ReservationController {
 		ModelAndView mav = new ModelAndView();
 		for(int i=0 ;i<lane_nums.length; i++) {
 			reservation.setLane_num(lane_nums[i]);
-			LocalTime rv_start = reservation.getRv_start();
-			reservation.setRv_end(rv_start.plusMinutes(90));
 			rvService.insert(reservation);
 		}
 		if(vi_id !=null) {
@@ -78,7 +77,8 @@ public class ReservationController {
 	}
 
 	@PostMapping("checkout")
-	public ModelAndView checkout(Reservation reservation, HttpSession session) {
+	public ModelAndView checkout(@RequestParam("lane_num[]") String[] lane_nums, String[] vi_id, Reservation reservation,
+			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int game = reservation.getRv_game();
 		int people = reservation.getRv_people();
@@ -96,9 +96,11 @@ public class ReservationController {
 	@ResponseBody
 	public Map<String, Object> kakao(HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
+		LocalTime now = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss");
+		String formatedNow = now.format(formatter);
 		Reservation reservation = (Reservation) session.getAttribute("reservation");
-		int num = 0;
-		map.put("merchant_uid", reservation.getUser_id() + "-" + (++num));
+		map.put("merchant_uid", reservation.getUser_id() + "-" + formatedNow);
 		map.put("name", reservation.getUser_id() + "-" + reservation.getRv_date());
 		map.put("amount", reservation.getRv_price());
 		map.put("buyer_name", reservation.getUser_id());
