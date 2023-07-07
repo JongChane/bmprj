@@ -41,7 +41,21 @@
 				   msg += "\n:상점ID : " + rsp.merchant_uid
 				   msg += "\n:결제금액 : " + rsp.paid_amount
 				   alert(msg)
-				   location.href="reservation"
+				   
+				   $.ajax({
+				        url: "reservation",
+				        type: "POST",
+				        contentType: "application/json",
+				        data: JSON.stringify({
+				            success: true
+				        }),
+				        success: function(data) {
+				            // 서버로부터 응답 받았을 때 처리
+				        },
+				        error: function(jqXHR, textStatus, errorThrown) {
+				            console.error('Error:', textStatus, errorThrown);
+				        }
+				    });
 			   } else {
 				   alert("결제에 실패 했습니다.:" + rsp.error_msg)
 			   }

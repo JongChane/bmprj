@@ -50,9 +50,11 @@ public class ReservationController {
 		}
 	}
 	@PostMapping("reservation")
-	public ModelAndView reservation(@RequestParam("lane_num[]") String[] lane_nums, String[] vi_id,
-			Reservation reservation, HttpSession session) {
+	public ModelAndView reservation(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		String[] lane_nums = (String[]) session.getAttribute("lane_nums");
+		String[] vi_id = (String[]) session.getAttribute("vi_id");
+		Reservation reservation = (Reservation) session.getAttribute("reservation");
 		for(int i=0 ;i<lane_nums.length; i++) {
 			reservation.setLane_num(lane_nums[i]);
 			rvService.insert(reservation);
@@ -62,7 +64,11 @@ public class ReservationController {
 				vis.insert(vi_id[i], reservation.getRv_num(), reservation.getRv_game());
 			}
 		}
-		mav.setViewName("redirect:reserveList?user_id="+reservation.getUser_id());
+		String user_id = (String) session.getAttribute("login");
+		session.removeAttribute("lane_nums");
+		session.removeAttribute("vi_id");
+		session.removeAttribute("reservation");
+		mav.setViewName("redirect:../user/reserveList?user_id=" + user_id);
 		return mav;
 	}
 
@@ -89,6 +95,8 @@ public class ReservationController {
 		reservationList.add(reservation);
 		mav.addObject("reserveList", reservationList);
 		session.setAttribute("reservation", reservation);
+		session.setAttribute("lane_nums", lane_nums);
+		session.setAttribute("vi_id", vi_id);
 		return mav;
 	}
 
