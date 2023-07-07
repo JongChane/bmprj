@@ -38,21 +38,25 @@
 			<th>신청인원</th>
 			<th></th>
 		</tr>
-			<c:forEach var="g" items="${glist}" varStatus="stat">
+			<c:forEach var="g" items="${gmuser}" varStatus="stat">
 		<tr>
-			<td>${g.game_title}</td>
-			<td>${g.user_id}</td>
-			<td>${g.game_content}</td>
+			<td>${g.key.game_title}</td>
+			<td>${g.key.user_id}</td>
+			<td>${g.key.game_content}</td>
 			<td>
-				<fmt:formatDate value="${g.game_date}" pattern="yyyy년MM월dd일"/>
+				<fmt:formatDate value="${g.key.game_date}" pattern="yyyy년MM월dd일"/>
 			</td>
 				<td>
 				<a href="javascript:list_disp('gLine${stat.index}')">
-					${g.game_max}/${g.game_people}
+					${g.key.game_max}/${g.key.game_people}
 				</a>
 				</td>
 			<td>
-				<input type="checkbox" name="idchks" value="${g.game_num}"/>
+				<c:if test="${param.user_id == g.key.user_id}">
+				<a href="mpdelete?gmnum=${g.key.game_num}">
+					[삭제]
+				</a>
+				</c:if>
 			</td>
 		</tr>
 		<tr id="gLine${stat.index}" class="gLine">
@@ -66,12 +70,17 @@
 				<th></th>
 				<th></th>
 			</tr>
-			<c:forEach var="gm" items="${gmuser}">
+			<c:forEach var="gm" items="${g.value}">
 				<tr>
 					<td>${gm.user_id}</td>
 					<td>${gm.user_gender}</td>
 					<td>${gm.user_age}</td>
 					<td>${gm.user_avg}</td>
+					<td>
+						<c:if test="${param.user_id == gm.user_id}">
+							<a href="mpudelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}">[run]</a>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

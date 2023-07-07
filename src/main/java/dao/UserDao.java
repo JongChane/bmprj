@@ -77,4 +77,8 @@ public class UserDao {
 		template.getMapper(cls).avgUpdate(param);
 		
 	}
+
+	public User getUser(String user_id) {
+		return template.getMapper(cls).getUser(user_id);
+	}
 }

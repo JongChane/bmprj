@@ -3,6 +3,7 @@ package dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
@@ -25,7 +26,7 @@ public interface GameMapper {
 			 "</script>"})
 	List<Game> select(Map<String, Object> param);
 	
-	@Select("select * from gamelist g1, gamer g2  WHERE g1.game_num = g2.game_num AND g1.user_id =#{user_id}")
+	@Select("select * from gamelist g1, gamer g2  WHERE g1.game_num = g2.game_num AND g2.user_id =#{user_id}")
 	List<Game> selectJoin(Map<String, Object> param);
 	
 	@Select("select * from gamelist where game_num=#{game_num}")
@@ -37,6 +38,9 @@ public interface GameMapper {
 
 	@Update("update gamelist set game_people=ifnull(game_people,0) + 1 where game_num=#{game_num}")
 	void update(Map<String, Object> param);
+	
+	@Delete("delete from gamelist where game_num=#{game_num}")
+	void gmdelete(Integer gmnum);
 	
 	
 	

@@ -2,7 +2,10 @@ package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -195,6 +198,7 @@ public class UserController {
 			}
 			session.removeAttribute("loginUser");
 		}
+		
 		return "redirect:login";
 	}
 	@PostMapping("update")
@@ -284,16 +288,37 @@ public class UserController {
 	@RequestMapping("mpgameList")
 	public ModelAndView gamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		User user = (User)session.getAttribute("loginUser");
-		List<Game> glist = service.gList(user.getUser_id());
+		List<Game> glist = service.gList(user_id);
+		Map<Game, List<User>> map = new LinkedHashMap<>();
+		for(Game g : glist) {
+			List<Gamer> gamerList = service.getGmList(g.getGame_num());
+			List<User> userList = new ArrayList<>();
+			for(Gamer gm : gamerList) {
+				User user = service.getUser(gm.getUser_id());
+				userList.add(user);
+			}
+			map.put(g, userList);
+		}
 		
-		List<Gamer> gmlist = service.gmList();
-		List<User> gmuser = service.gmUser();
 		
-		mav.addObject("gmuser",gmuser);
 		mav.addObject("glist",glist);
-		mav.addObject("gmlist",gmlist);
+		mav.addObject("gmuser",map);
 		return mav;
+	}
+	@RequestMapping("mpdelete")
+	public ModelAndView mpdelete(Integer gmnum,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		service.gamedelete(gmnum);
+		User loginUser = (User)session.getAttribute("loginUser");
+		service.gamerdelete(gmnum);
+		mav.addObject("gmnum",gmnum);
+		throw new LoginException("내 게시글이 삭제되었습니다","mpgameList?user_id="+loginUser.getUser_id());
+	}
+	@RequestMapping("mpudelete")
+	public ModelAndView mpudelete(Integer gmnum, String user_id) {
+		if(service.mygamedelete(gmnum,user_id)) throw new LoginException("매치 나가기에 성공했습니다.","mpgameList?user_id="+user_id);
+		else throw new LoginException("매치 나가기에 실패했습니다.","mpgameList?user_id="+user_id);		
+		
 	}
 	@RequestMapping("boardList")
 	public ModelAndView boardList(String user_id) {
