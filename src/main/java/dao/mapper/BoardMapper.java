@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -94,10 +95,18 @@ public interface BoardMapper {
 	@Select("select * from board where board_anser=1 order by board_num desc limit #{startrow}, #{limit} ")
 	List<Board> adminBoardListb(Map<String, Object> param);
 	
-	@Select("select count(*) from board where user_id=#{user_id}")
-	int UserboardCount(String user_id);
+	@Select({"<script>",
+		" select count(*) from board where user_id=#{user_id} ",
+		"  <if test='board_anser != null'> and board_anser=#{board_anser}</if> ",
+		" </script>"})
+	int UserboardCount(@Param("user_id") String user_id,@Param("board_anser") Integer board_anser);
 	
-	@Select("select * from board where user_id=user_id order by board_num desc limit #{startrow}, #{limit} ")
+//	@Select({"select * from board where user_id=user_id order by board_num desc limit #{startrow}, #{limit} "})
+	@Select({"<script>",
+			" select * from board where user_id=#{user_id} ",
+			" <if test='board_anser != null'> and board_anser=#{board_anser}</if> ",
+			" order by board_num desc limit #{startrow}, #{limit} ",
+			" </script>"})
 	List<Board> getUserBoard(Map<String,Object> param);
 	
 	

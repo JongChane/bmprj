@@ -21,6 +21,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>   
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.login {
+	color: white;
+	text-decoration: none;
+}
 a{color:black};
 </style>
 <sitemesh:write property="head" />
@@ -32,11 +36,11 @@ a{color:black};
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
   <span class="w3-bar-item w3-right">
 	<c:if test="${empty sessionScope.admin}">
-	 <a href="${path}/admin/login">로그인</a>
+	 <a href="${path}/admin/login" class=login>로그인</a>
 	</c:if>   
 	<c:if test="${!empty sessionScope.admin}">
 	${sessionScope.admin.admin_name}님이 로그인 하셨습니다.&nbsp;&nbsp;
-	 <a href="${path}/admin/logout">로그아웃</a>
+	 <a href="${path}/admin/logout" class=login>로그아웃</a>
 	</c:if>   
   </span>
 </div>

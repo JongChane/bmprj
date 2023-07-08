@@ -48,25 +48,10 @@ function openModal(board_num){
 	})
 }
 
-function listpage(page){
-	window.location.href = "${path}/user/boardList?&pageNum="+page;
+function listpage(page, board_anser){
+	window.location.href = "${path}/user/boardList?pageNum="+page+"&board_anser="+board_anser;
 }
 
-$(document).ready(function() {
-	  $("#statusFilter").change(function() {
-	    var selectedValue = $(this).val(); // 선택된 옵션의 값 가져오기
-
-	    if (selectedValue === "") {
-	      // 전체상태일 경우 모든 테이블 데이터 표시
-	      $("tr").show();
-	    } else {
-	      // 선택된 상태와 일치하는 데이터만 표시
-	      $("tr").hide(); // 모든 행 숨기기
-	      $("tr[data-status='" + selectedValue + "']").show(); // 선택된 상태와 일치하는 행 표시
-	      $("tr:first-child").show(); // 첫 번째 행 표시
-	    }
-	  });
-	});
 </script>
 </head>
 <body>
@@ -77,14 +62,12 @@ $(document).ready(function() {
 		</div>
 		<div style="flex-basis : 80%;">
 			<h2>건의 내역</h2>
-			<div>
-				<select class="w3-right" style="margin : 10px;" id="statusFilter">
-					<option value="">전체상태</option>
-					<option value="1">답변</option>
-					<option value="0">미답변</option>
-				</select>
+			<div style="margin-bottom : 10px;">
+				<a href="boardList" class="btn btn-outline-dark ${board_anser eq null? 'active' : '' }">전체</a>
+				<a href="boardList?board_anser=0" class="btn btn-outline-dark ${board_anser eq 0? 'active' : '' }">답변대기</a>
+				<a href="boardList?board_anser=1" class="btn btn-outline-dark ${board_anser eq 1? 'active' : '' }">답변완료</a>
 			</div>
-			<table>
+		<table>
 				<tr>
 					<th style="width:10%">번호</th>
 					<th style="width:40%">제목</th>
@@ -112,19 +95,19 @@ $(document).ready(function() {
 			
 			<div style="margin : 10px auto; width:200px;">
 			<c:if test="${pageNum > 1 }">
-			  <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
+			  <a href="javascript:listpage('${pageNum - 1 }', '${board_anser}')">[이전]</a>
 			</c:if>
 			<c:if test="${pageNum <= 1}">[이전]</c:if>
 			
 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
 			  <c:if test="${a == pageNum}">[${a}]</c:if>
 			  <c:if test="${a != pageNum}">
-			     <a href="javascript:listpage('${a}')">[${a}]</a>
+			     <a href="javascript:listpage('${a}', '${board_anser}')">[${a}]</a>
 			  </c:if>
 			</c:forEach>
 			
 			<c:if test="${pageNum < maxpage}">
-			  <a href="javascript:listpage('${pageNum + 1}')">[다음]</a>
+			  <a href="javascript:listpage('${pageNum + 1}', '${board_anser}')">[다음]</a>
 			</c:if>   
 			<c:if test="${pageNum >= maxpage}">[다음]</c:if>
 			</div>

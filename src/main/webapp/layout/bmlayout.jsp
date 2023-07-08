@@ -27,6 +27,7 @@
 </script>
 <sitemesh:write property="head"/>
 <style>
+
 .day {
    width : 50px;
    text-align : center;

@@ -321,23 +321,33 @@ public class UserController {
 		
 	}
 	@RequestMapping("boardList")
-	public ModelAndView boardList(Integer pageNum,HttpSession session) {
+	public ModelAndView boardList(Integer pageNum,Integer board_anser,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		
 		String user = (String)session.getAttribute("login");
-		
 		int limit = 10; //한페이지에 보여줄 게시물 건수
-		int listCount = boardService.UserboardCount(user);
+		int listCount = boardService.UserboardCount(user,board_anser);
 		
-		List<Board> board = boardService.getUserBoard(user,pageNum,limit);
+		// listCount 출력
+		System.out.println("listCount : " + listCount);
 		
+		List<Board> board = boardService.getUserBoard(user,pageNum,limit,board_anser);
 		int maxpage = (int)((double)listCount/limit + 0.95);
+		// 맥스 출력
+		System.out.println("maxpage : " + maxpage);
 		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		// 스타트 
+		System.out.println("startpage : " + startpage);
 		int endpage = startpage + 9;
+		System.out.println("endpage : " + endpage);
+		// 둥앤드
 		if(endpage > maxpage) endpage = maxpage;
 		int boardno = listCount - (pageNum - 1) * limit;
+		
+		
 		
 		mav.addObject("boardno",boardno);
 		mav.addObject("pageNum",pageNum);
@@ -346,6 +356,8 @@ public class UserController {
 		mav.addObject("endpage",endpage);
 		mav.addObject("listCount",listCount);
 		mav.addObject("board",board);
+		mav.addObject("user_id", user);
+		mav.addObject("board_anser",board_anser);
 		return mav;
 	}
 

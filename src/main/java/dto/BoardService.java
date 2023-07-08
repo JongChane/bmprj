@@ -113,12 +113,12 @@ public class BoardService {
 		return boardDao.adminBoardListb(pageNum,limit);
 	}
 
-	public int UserboardCount(String user_id) {
-		return boardDao.UserboardCount(user_id);
+	public int UserboardCount(String user_id,Integer board_anser) {
+		return boardDao.UserboardCount(user_id,board_anser);
 	}
 
-	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit) {
-		return boardDao.getUserBoard(user_id,pageNum,limit);
+	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit, Integer board_anser) {
+		return boardDao.getUserBoard(user_id,pageNum,limit,board_anser);
 	}
 
 }

@@ -133,15 +133,16 @@ public class BoardDao {
 		return template.getMapper(cls).adminBoardListb(param);
 	}
 
-	public int UserboardCount(String user_id) {
-		return template.getMapper(cls).UserboardCount(user_id);
+	public int UserboardCount(String user_id,Integer board_anser) {
+		return template.getMapper(cls).UserboardCount(user_id,board_anser);
 	}
 
-	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit) {
+	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit, Integer board_anser) {
 		param.clear();
 		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
 		param.put("limit", limit);
 		param.put("user_id", user_id);
+		param.put("board_anser", board_anser);
 		return template.getMapper(cls).getUserBoard(param);
 	}
 
