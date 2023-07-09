@@ -57,7 +57,8 @@
 				<form:textarea path="board_content" class="form-control" rows="15"/>
 				<font color="red"><form:errors path="board_content"/></font>
 			</td>
-<!-- 		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>-->		<tr>
+<!-- 		<script>CKEDITOR.replace("board_content",{filebrowserImageUploadUrl :  "imgupload" })</script>-->
+		<tr>
 	</table>
 				<div class="mt-5 text-center"><input type="submit" value="건의하기"></div>
 </form:form>

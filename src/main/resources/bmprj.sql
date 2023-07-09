@@ -30,6 +30,18 @@ CREATE TABLE board
 	PRIMARY KEY (board_num)
 ) COMMENT = '게시판';
 
+-- 공지사항
+CREATE TABLE notice
+(
+	notice_num int NOT NULL COMMENT '게시물번호',
+	admin_id varchar(20) NOT NULL COMMENT '아이디',
+	notice_title varchar(100) COMMENT '제목',
+	notice_content varchar(3000) COMMENT '내용',
+	notice_regdate date COMMENT '날짜',
+	notice_readcnt int COMMENT '조회수',
+	PRIMARY KEY (notice_num)
+) COMMENT = '공지사항';
+
 
 -- 댓글
 CREATE TABLE comment
@@ -162,6 +174,13 @@ ALTER TABLE visit
 ALTER TABLE board
 	ADD FOREIGN KEY (user_id)
 	REFERENCES user (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+ALTER TABLE notice
+	ADD FOREIGN KEY (admin_id)
+	REFERENCES user (admin_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

@@ -13,11 +13,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.Admin;
@@ -26,6 +28,7 @@ import dto.BmService;
 import dto.Board;
 import dto.BoardService;
 import dto.Comment;
+import dto.Notice;
 import dto.Reservation;
 import dto.ReservationService;
 import dto.User;
@@ -406,4 +409,116 @@ public class AdminController {
 	mav.setViewName("redirect:boardListb");
 	return mav;
 	}
+	
+	
+	@GetMapping("write")
+	public ModelAndView writeGet(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(new Notice());
+		return mav;
+	}
+	
+	@GetMapping("noticeUpdate")
+	public ModelAndView noticeUpdate(Integer notice_num,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Notice notice = ads.getNotice(notice_num);
+		
+		if(notice == null) {
+			throw new LoginException("해당 공지사항은 존재하지 않습니다.", "noticeList");
+		}
+		
+		mav.addObject("notice", notice);
+		return mav;
+	}
+	
+	
+	@PostMapping("noticeDelete")
+	public ModelAndView noticeDelete(Integer notice_num,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if(ads.deleteNotice(notice_num)) {
+			mav.setViewName("redirect:noticeList");
+			return mav;
+		}else {
+			throw new LoginException("공지사항 삭제 실패", "noticeList");
+		}
+	}
+	
+	@PostMapping("noticeUpdate")
+	public ModelAndView noticeUpdate(@Valid Notice notice,BindingResult bresult, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String admin_id = (String)session.getAttribute("adminId");
+		
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		
+		notice.setAdmin_id(admin_id);
+		ads.update(notice);
+		mav.setViewName("redirect:noticeList");
+		return mav;
+	}
+	
+	@PostMapping("write")
+	public ModelAndView write(@Valid Notice notice,BindingResult bresult, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String admin_id = (String)session.getAttribute("adminId");
+		System.out.println(admin_id);
+		
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		
+		notice.setAdmin_id(admin_id);
+		ads.insert(notice);
+		mav.setViewName("redirect:noticeList");
+		return mav;
+	}
+	
+	@RequestMapping("imgupload")
+	public String imgupload(MultipartFile upload, String CKEditorFuncNum, HttpServletRequest request, Model model) {
+		//request.getServletContext().getRealPath("/") : 절대 경로 값
+		String path = request.getServletContext().getRealPath("/") + "board/imgfile/";
+		BoardService.uploadFileCreate(upload,path); //upload(파일의내용), path(업로드되는 폴더)
+		String fileName = request.getContextPath() + "/board/imgfile/" + upload.getOriginalFilename();
+		model.addAttribute("fileName",fileName);
+		return "ckedit";//view 이름 /WEB-INF/view/ckedit.jsp
+	}	
+	
+	@RequestMapping("noticeList")
+	public ModelAndView noticeList(Integer pageNum,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		String admin_id = (String)session.getAttribute("adminId");
+		int limit = 10;
+		int listCount = ads.listCount();
+		System.out.println("listCount :" + listCount);
+		List<Notice> noticeList = ads.noticeList(admin_id,pageNum,limit);
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		// 맥스 출력
+		System.out.println("maxpage : " + maxpage);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		// 스타트 
+		System.out.println("startpage : " + startpage);
+		int endpage = startpage + 9;
+		System.out.println("endpage : " + endpage);
+		// 둥앤드
+		if(endpage > maxpage) endpage = maxpage;
+		int boardno = listCount - (pageNum - 1) * limit;
+		
+		System.out.println(noticeList);
+		
+		mav.addObject("boardno",boardno);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
+		mav.addObject("noticeList",noticeList);
+		return mav;
+	}
+	
 }

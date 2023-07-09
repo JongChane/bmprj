@@ -70,7 +70,7 @@ a{color:black};
     class="w3-bar-item w3-button w3-padding">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 예약관리</a>
     <hr>
-    <a href="${path}/board/list?boardid=1"
+    <a href="${path}/admin/noticeList"
      class="w3-bar-item w3-button w3-padding
      <c:if test='${url == "board" && boardid=="1"}'>w3-blue</c:if>">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 공지작성</a>
