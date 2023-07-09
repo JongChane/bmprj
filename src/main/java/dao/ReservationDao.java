@@ -34,4 +34,16 @@ public class ReservationDao {
 	public int maxRvnum() {
 		return template.getMapper(cls).maxRvnum();
 	}
+
+	public int userReserveCount(String vi_id) {
+		return template.getMapper(cls).UserReserveCount(vi_id);
+	}
+
+	public List<Reservation> getUserReserve(String user_id, Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum - 1) * limit); // 1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		param.put("vi_id", user_id);
+		return template.getMapper(cls).getUserReserve(param);
+	}
 }

@@ -30,6 +30,8 @@ import dto.BoardService;
 import dto.Game;
 import dto.Gamer;
 import dto.MailSendService;
+import dto.Reservation;
+import dto.ReservationService;
 import dto.User;
 import exception.LoginException;
 import util.CipherUtil;
@@ -47,6 +49,8 @@ public class UserController {
 	private JavaMailSenderImpl mailSender;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReservationService rvs;
 	
 	// ===================== 비밀번호 암호화 메서드 시작
 	private String passHash(String pass) {
@@ -360,7 +364,32 @@ public class UserController {
 		mav.addObject("board_anser",board_anser);
 		return mav;
 	}
-
 	
+	@RequestMapping("reserveList")
+	public ModelAndView reserveList(Integer pageNum, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if (pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+
+		String user_id = (String) session.getAttribute("login");
+		int limit = 10; // 한페이지에 보여줄 게시물 건수
+		int reserveCount = rvs.UserReserveCount(user_id);
+		List<Reservation> reserve = rvs.getUserReserve(user_id, pageNum, limit);
+		System.out.println("예약내역 : " + reserve);
+		int maxpage = (int) ((double) reserveCount / limit + 0.95);
+		int startpage = (int) ((pageNum / 10.0 + 0.9) - 1) * 10 + 1;
+		int endpage = startpage + 9;
+		if (endpage > maxpage)
+			endpage = maxpage;
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("listCount", reserveCount);
+		mav.addObject("reserve", reserve);
+		return mav;
+
+	}
 	
 }

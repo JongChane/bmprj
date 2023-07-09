@@ -36,4 +36,10 @@ public interface ReservationMapper {
 	
 	@Select("select ifnull(max(rv_num),0) from reservation")
 	int maxRvnum();
+
+	@Select("select count(*) from rv_view where vi_id=#{vi_id}")
+	int UserReserveCount(@Param("vi_id") String vi_id);
+
+	@Select("SELECT * FROM rv_view WHERE vi_id=#{vi_id} ORDER BY rv_num DESC LIMIT #{startrow}, #{limit}")
+	List<Reservation> getUserReserve(Map<String, Object> param);
 }

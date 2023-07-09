@@ -43,4 +43,13 @@ public class ReservationService {
 	public List<Reservation> reserveList() {
 		return rvDao.rvList();
 	}
+
+	public int UserReserveCount(String user_id) {
+		return rvDao.userReserveCount(user_id);
+
+	}
+
+	public List<Reservation> getUserReserve(String user_id, Integer pageNum, int limit) {
+		return rvDao.getUserReserve(user_id, pageNum, limit);
+	}
 }

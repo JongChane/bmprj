@@ -3,8 +3,6 @@ package dto;
 import java.io.File;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -120,5 +118,6 @@ public class BoardService {
 	public List<Board> getUserBoard(String user_id,Integer pageNum, int limit, Integer board_anser) {
 		return boardDao.getUserBoard(user_id,pageNum,limit,board_anser);
 	}
+
 
 }
