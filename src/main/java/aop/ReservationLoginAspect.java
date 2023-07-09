@@ -14,7 +14,7 @@ import exception.LoginException;
 @Aspect
 public class ReservationLoginAspect {
 	@Around
-	("execution(* controller.Reservation*.reservation*(..)) && args(..,session)")
+	("execution(* controller.ReservationController*.reserv*(..)) && args(..,session)")
 	public Object rvloginCheck(ProceedingJoinPoint joinPoint,
 			HttpSession session) throws Throwable {
 	   User loginUser = (User)session.getAttribute("loginUser");	
@@ -23,4 +23,5 @@ public class ReservationLoginAspect {
 	   }
 	   return joinPoint.proceed();	
 	}
+
 }

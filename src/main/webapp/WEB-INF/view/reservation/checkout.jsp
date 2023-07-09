@@ -13,7 +13,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script type="text/javascript">
 		let IMP = window.IMP
-	  IMP.init("imp85850271") //가맹점 식별코드
+	  let user_id = '<%= session.getAttribute("login") %>';
+		IMP.init("imp85850271") //가맹점 식별코드
 	  
 	  function kakaopay() {
 		   $.ajax("kakao",{
@@ -50,7 +51,8 @@
 				            success: true
 				        }),
 				        success: function(data) {
-				            // 서버로부터 응답 받았을 때 처리
+				           window.location.href = "../user/reserveList?user_id=" + user_id;
+				           
 				        },
 				        error: function(jqXHR, textStatus, errorThrown) {
 				            console.error('Error:', textStatus, errorThrown);
@@ -93,6 +95,9 @@
 		</c:forEach>
 	</table>
 	</div>
-	<a href="javascript:kakaopay()">결제하기</a>
+	<div>
+	<a href="javascript:kakaopay()"><button>결제하기</button></a>
+	<button onclick="history.back()">예약수정</button>
+	</div>
 </body>
 </html>
