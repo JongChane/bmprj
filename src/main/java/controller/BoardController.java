@@ -32,6 +32,13 @@ import exception.LoginException;
 public class BoardController {
 	@Autowired
 	private BoardService service;
+
+	@GetMapping("main")
+	public ModelAndView mainview() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(new Board());
+		return mav;
+	}
 	@GetMapping("write")
 	public ModelAndView writeget(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
