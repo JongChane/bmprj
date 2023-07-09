@@ -21,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.BmService;
 import dto.Reservation;
 import dto.ReservationService;
+import dto.User;
 import dto.ViService;
+import exception.LoginException;
 
 @Controller
 @RequestMapping("reservation")
@@ -32,6 +34,7 @@ public class ReservationController {
 	private BmService service;
 	@Autowired
 	private ViService vis;
+
 	@GetMapping("*")
 	public ModelAndView rv() {
 		ModelAndView mav = new ModelAndView();
@@ -82,9 +85,20 @@ public class ReservationController {
 		return response;
 	}
 
+	@GetMapping("checkout")
+	public ModelAndView reservCheckout(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Reservation reservation = (Reservation) session.getAttribute("reservation");
+		if (reservation == null) {
+			throw new LoginException("예약내역이 없습니다.", "reservation");
+		}
+		mav.addObject(new Reservation());
+		return mav;
+	}
+
 	@PostMapping("checkout")
-	public ModelAndView checkout(@RequestParam("lane_num[]") String[] lane_nums, String[] vi_id, Reservation reservation,
-			HttpSession session) {
+	public ModelAndView reservecheckout(@RequestParam("lane_num[]") String[] lane_nums, String[] vi_id,
+			Reservation reservation, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int game = reservation.getRv_game();
 		int people = reservation.getRv_people();
@@ -92,6 +106,10 @@ public class ReservationController {
 		reservation.setRv_price((game * people) * 3000);
 		reservation.setRv_end(rv_start.plusMinutes(90));
 		List<Reservation> reservationList = new ArrayList<>();
+		User loginUser = (User) session.getAttribute("loginUser");
+		if (loginUser == null) {
+			throw new LoginException("로그인이 필요합니다.", "../user/login");
+		}
 		reservationList.add(reservation);
 		mav.addObject("reserveList", reservationList);
 		session.setAttribute("reservation", reservation);

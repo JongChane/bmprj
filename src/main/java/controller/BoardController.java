@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dto.AdminService;
 import dto.Board;
 import dto.BoardService;
 import dto.Comment;
-import dto.Notice;
 import exception.LoginException;
 
 @Controller
@@ -34,8 +32,13 @@ import exception.LoginException;
 public class BoardController {
 	@Autowired
 	private BoardService service;
-	@Autowired
-	private AdminService ads;
+
+	@GetMapping("main")
+	public ModelAndView mainview() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(new Board());
+		return mav;
+	}
 	@GetMapping("write")
 	public ModelAndView writeget(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
@@ -210,40 +213,6 @@ public class BoardController {
 	service.commentinsert(comm);
 	mav.setViewName("redirect:detail?board_num="+comm.getBoard_num());
 	return mav;
-	}
 	
-	@RequestMapping("noticeList")
-	public ModelAndView noticeList(Integer pageNum,HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		if(pageNum == null || pageNum.toString().equals("")) {
-			pageNum = 1;
-		}
-		String admin_id = (String)session.getAttribute("adminId");
-		int limit = 10;
-		int listCount = ads.listCount();
-		System.out.println("listCount :" + listCount);
-		List<Notice> noticeList = ads.noticeList(admin_id,pageNum,limit);
-		int maxpage = (int)((double)listCount/limit + 0.95);
-		// 맥스 출력
-		System.out.println("maxpage : " + maxpage);
-		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
-		// 스타트 
-		System.out.println("startpage : " + startpage);
-		int endpage = startpage + 9;
-		System.out.println("endpage : " + endpage);
-		// 둥앤드
-		if(endpage > maxpage) endpage = maxpage;
-		int boardno = listCount - (pageNum - 1) * limit;
-		
-		System.out.println(noticeList);
-		
-		mav.addObject("boardno",boardno);
-		mav.addObject("pageNum",pageNum);
-		mav.addObject("maxpage",maxpage);
-		mav.addObject("startpage",startpage);
-		mav.addObject("endpage",endpage);
-		mav.addObject("listCount",listCount);
-		mav.addObject("noticeList",noticeList);
-		return mav;
 	}
 }
