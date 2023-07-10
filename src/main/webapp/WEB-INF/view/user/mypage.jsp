@@ -50,10 +50,6 @@
                </tr>            
          </table>
       </div>
-       <br>
-<%--       <a class="w3-button w3-white w3-border w3-border-green w3-round-large" href="update?user_id=${user.user_id}">회원정보수정</a>&nbsp;
-       <a class="w3-button w3-white w3-border w3-border-green w3-round-large" href="password">비밀번호수정</a>&nbsp;
-      <a class="w3-button w3-white w3-border w3-border-green w3-round-large" href="delete?user_id=${user.user_id}">회원탈퇴</a>&nbsp; --%>
       </div>
    </div>   
 </div>   
