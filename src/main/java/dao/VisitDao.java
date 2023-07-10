@@ -46,4 +46,11 @@ public class VisitDao {
 		return template.getMapper(cls).viList();
 	}
 
+	public int getAvg(Integer rv_num, String vi_id) {
+		param.clear();
+		param.put("rv_num", rv_num);
+		param.put("vi_id", vi_id);
+		return template.getMapper(cls).getAvg(param);
+	}
+
 }
