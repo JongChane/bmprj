@@ -35,4 +35,7 @@ public interface AdminMapper {
 	@Delete("delete from notice where notice_num=#{value}")
 	boolean deleteNotice(Integer notice_num);
 	
+	@Select("select * from notice order by notice_num desc limit #{startrow}, #{limit}")
+	List<Notice> noticeListUser(Map<String, Object> param);
+	
 }

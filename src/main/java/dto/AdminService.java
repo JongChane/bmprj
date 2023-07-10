@@ -41,4 +41,8 @@ public class AdminService {
 	public boolean deleteNotice(Integer notice_num) {
 		return adminDao.deleteNotice(notice_num);
 	}
+
+	public List<Notice> noticeListUser(Integer pageNum, int limit) {
+		return adminDao.noticeListUser(pageNum,limit);
+	}
 }

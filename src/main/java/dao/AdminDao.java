@@ -51,4 +51,11 @@ public class AdminDao {
 	public boolean deleteNotice(Integer notice_num) {
 		return template.getMapper(cls).deleteNotice(notice_num);
 	}
+
+	public List<Notice> noticeListUser(Integer pageNum, int limit) {
+		param.clear();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		return template.getMapper(cls).noticeListUser(param);
+	}
 }
