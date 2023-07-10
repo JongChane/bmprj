@@ -130,9 +130,12 @@ public class BoardController {
 		Board board = service.getBoard(board_num);
 		Comment comm = service.getComment(board_num);
 		service.addReadcnt(board_num);
-		if(board_num == null) {
+		
+		if(board_num == null || board == null) {
 			throw new LoginException("해당 게시글이 없습니다.", "/bmprj/board/list");
 		}
+		
+		
 		session.setAttribute("board_num", board_num);
 		mav.addObject("comm",comm);
 		mav.addObject("board",board);

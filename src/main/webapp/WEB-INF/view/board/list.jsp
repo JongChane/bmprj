@@ -56,7 +56,7 @@
 		         <td style="border-bottom: none">
 		            <input type="hidden" name="pageNum" value="1">
 		            <input type="hidden" name="board_id" value="${param.board_id}">
-		            <select name="searchtype">
+		            <select name="searchtype" style="height:40px;">
 		               <option value="">선택하세요</option>
 		               <option value="board_title">제목</option>
 		               <option value="user_id">작성자</option>

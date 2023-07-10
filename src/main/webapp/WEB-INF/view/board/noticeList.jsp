@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 목록</title>
+<style>
+	a {
+	  text-decoration: none;
+	}
+</style>
 <script type="text/javascript">
 function openDetail(idx) {
 	  var detail = $("#notice" + idx);
@@ -18,7 +23,7 @@ function openDetail(idx) {
 </script>
 </head>
 <body>
-	<div>
+	<div style="margin-top : 100px;">
 		<h2 class="mt-5">공지사항 목록</h2>
 	</div>
 	<div class="container">

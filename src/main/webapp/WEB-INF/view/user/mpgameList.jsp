@@ -29,13 +29,10 @@
 			<h2>소셜매치 내역</h2>
  			<%@ include file="mypageSideBar2.jsp" %>
 		</div>
-<<<<<<< HEAD
 		<div style="flex-basis : 80%;">
 	<table class="w3-table-all">
-=======
 		<div style="flex-basis : 80%; margin-top:100px;">
 	<table class="w3-table-all" style="text-align:center;">
->>>>>>> refs/heads/jun
 		<tr>
 			<th>제목</th>
 			<th>작성자</th>
@@ -102,9 +99,7 @@
 					<td>${gm.user_avg}</td>
 					<td>
 						<c:if test="${param.user_id == gm.user_id}">
-<<<<<<< HEAD
 							<a href="mpudelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}">[매치 나가기]</a>
-=======
 						<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2">
   						매치 나가기
 					</button>
@@ -126,7 +121,6 @@
             </div>
         </div>
     </div>
->>>>>>> refs/heads/jun
 						</c:if>
 						
 					</td>
