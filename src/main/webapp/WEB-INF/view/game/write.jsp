@@ -24,7 +24,7 @@
        <tr>
          <th>제목</th>
          <td>
-            <form:input path="game_title" class="form-control"/>
+            <form:input path="game_title" class="form-control"  maxlength="10"/>
             <font color="red">
                <form:errors path="game_title"/>
             </font>
@@ -78,7 +78,7 @@
 	  <tr>
 	   		<td>경기날짜</td>
 	          <td>
-		       <form:input path="game_date" class="form-control" type="date"/>
+		       <form:input path="game_date" class="form-control" type="date"  id="game_date_input" />
 	            <font color="red">
 	               <form:errors path="game_date"/>
 	            </font>
@@ -96,7 +96,7 @@
       <tr>
          <th>제한사항</th>
          <td>
-            <form:textarea path="game_content" class="form-control"/>
+            <form:textarea path="game_content" class="form-control" maxlength="300"/>
             <font color="red">
                <form:errors path="game_content"/>
             </font>
@@ -108,5 +108,9 @@
    </div>
 </form:form>
 </div>
+<script>
+    var today = new Date().toISOString().split("T")[0];
+    document.getElementById("game_date_input").setAttribute("min", today);
+</script>
 </body>
 </html>

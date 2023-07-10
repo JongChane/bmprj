@@ -64,7 +64,7 @@
 			<button type="button" class="btn btn-success" onclick="location.href='apply?game_num=${game.game_num}'">신청하기</button>
 		</c:if>
 		<c:if test="${game.game_max == game.game_people }">
-			<button type="button" class="btn btn-success" onclick="location.href='apply?game_num=${game.game_num}'">마감</button>
+			<button type="button" class="btn btn-success" onclick="javascript:alert('마감되었습니다.')">마감</button>
 		</c:if>
 		<c:if test="${sessionScope.loginUser.user_id == game.user_id }">
 			<a href="update?game_num=${game.game_num}">

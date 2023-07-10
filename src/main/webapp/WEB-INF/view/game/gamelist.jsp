@@ -37,12 +37,18 @@
 <h1 style="text-align: center;">매치 목록</h1>
 <div class="container mt-5" >
 <form action="gamelist" method="post" name="searchform">
-	<div class="text-end" style="margin-left: 45%; margin-right: 15%;">
+	<div class="text-end" style="margin-left: 30%; margin-right: 15%;">
 		<table class="table">
 		  	 <tr>
+		  	 <td>
+		  	 <a style="font-size : 5px; " href="../game/gamelist?sort=1">
+		  	 	<button type="button" class="btn btn-success" >신청가능 매치 보기</button>
+		  	 </a>
+		  	 </td>
 		         <td style="border-bottom: none">
 		            <input type="hidden" name="pageNum" value="1">
 		            <input type="hidden" name="game_num" value="${param.game_num}">
+		            
 		            <select name="searchtype" class="form-select" style="height:40px;">
 		               <option value="">선택하세요</option>
 		               <option value="game_title">제목</option>

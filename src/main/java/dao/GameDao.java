@@ -87,4 +87,8 @@ public class GameDao {
 		param.put("searchcontent", searchcontent);
 		return template.getMapper(cls).gamepage(param);
 	}
+
+	public boolean gamepeople(Integer gmnum) {
+		return template.getMapper(cls).gamepeople(gmnum);
+	}
 }

@@ -47,4 +47,9 @@ public class GamerDao {
 		param.put("user_id", user_id);
 		return template.getMapper(cls).mygamedelete(param);
 	}
+
+	public List<Gamer> getGamer(Integer game_num) {
+		
+		return template.getMapper(cls).GmList(game_num);
+	}
 }

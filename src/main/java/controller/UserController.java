@@ -311,19 +311,35 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("mpdelete")
-	public ModelAndView mpdelete(Integer gmnum,HttpSession session) {
+	public ModelAndView loginCheckmpdelete(Integer gmnum,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		service.gamedelete(gmnum);
 		User loginUser = (User)session.getAttribute("loginUser");
+		Game game = service.getGame(gmnum);
+		if(game == null) {
+			throw new LoginException("없는 게임 번호입니다.","mpgameList?user_id="+loginUser.getUser_id());
+		}
+		if(!loginUser.getUser_id().equals(game.getUser_id())) {
+			throw new LoginException("본인만 삭제 가능합니다.","mpgameList?user_id="+loginUser.getUser_id());
+		}
+		service.gamedelete(gmnum);
 		service.gamerdelete(gmnum);
 		mav.addObject("gmnum",gmnum);
 		throw new LoginException("내 게시글이 삭제되었습니다","mpgameList?user_id="+loginUser.getUser_id());
 	}
-	@RequestMapping("mpudelete")
-	public ModelAndView mpudelete(Integer gmnum, String user_id) {
-		if(service.mygamedelete(gmnum,user_id)) throw new LoginException("매치 나가기에 성공했습니다.","mpgameList?user_id="+user_id);
+	@RequestMapping("mpudelete") 
+	public ModelAndView idCheckmpudelete(Integer gmnum, String user_id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		Game game = service.getGame(gmnum);
+		if(game == null) {
+			throw new LoginException("없는 게임 번호입니다.","mpgameList?user_id="+user_id);
+		}
+		if(service.mygamedelete(gmnum,user_id)) {
+			//gamelist에서 game_people 수 하나 빼기 -1
+			if(service.gamepeople(gmnum))
+			throw new LoginException("매치 나가기에 성공했습니다.","mpgameList?user_id="+user_id);
+		} 
 		else throw new LoginException("매치 나가기에 실패했습니다.","mpgameList?user_id="+user_id);		
-		
+		return mav;
 	}
 	@RequestMapping("boardList")
 	public ModelAndView boardList(Integer pageNum,Integer board_anser,HttpSession session) {

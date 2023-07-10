@@ -16,7 +16,7 @@ public interface GameMapper {
 	@Insert("insert into gamelist (user_id, game_title, game_content, game_max,"
 			+ " game_people, game_date, game_age, game_gender, game_avg) values"
 			+ " ( #{user_id}, #{game_title}, #{game_content}, #{game_max},"
-			+ " #{game_people}, #{game_date}, #{game_age}, #{game_gender}, #{game_avg}) ")
+			+ " 1, #{game_date}, #{game_age}, #{game_gender}, #{game_avg}) ")
 	@Options(useGeneratedKeys=true, keyProperty="game_num")
 	void insert(Game game);
 	
@@ -60,6 +60,9 @@ public interface GameMapper {
 			" <if test='limit != null'> order by game_num desc limit #{startrow}, #{limit}</if>",
 			 "</script>"})
 	List<Game> gamepage(Map<String, Object> param);
+
+	@Update("update gamelist set game_people=game_people-1 where game_num=#{value}")
+	boolean gamepeople(Integer gmnum);
 	
 	
 	

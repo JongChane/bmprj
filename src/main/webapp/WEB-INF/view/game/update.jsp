@@ -15,7 +15,7 @@
 <body>
 <h2>매치 수정</h2>
 <hr>
-<form action="update" method="post">
+<form:form modelAttribute="game" action="update" method="post">
 	<input type="hidden" name="game_num" value="${game.game_num }">
   <table class="w3-table"  >
 <tr>
@@ -25,7 +25,10 @@
 </tr>
 <tr>
 	<td>
-		제목 <input class="form-control mt-1" type="text" value="${game.game_title}" name="game_title">
+		제목 <form:input path="game_title" class="form-control mt-1" type="text" value="${game.game_title}" name="game_title"  maxlength="10"/>
+		<font color="red">
+               <form:errors path="game_title"/>
+            </font>
 	</td>
 </tr>
 <tr>
@@ -40,6 +43,9 @@
 			 <option value="7">7명</option>
 			 <option value="8">8명</option>
 		</select>
+		  <font color="red">
+	               <form:errors path="game_max"/>
+	            </font>
 	</td>
 </tr>
 	<tr>
@@ -50,6 +56,9 @@
 			  <option value="여성">여성</option>
 			  <option value="성별무관">성별무관</option>
 		  </select>
+		   <font color="red">
+	               <form:errors path="game_gender"/>
+	            </font>
 	</td>
 	</tr>
 
@@ -57,7 +66,10 @@
 <tr>
 	<td>
 		평균에버리지 
-		<input class="form-control mt-1" type="text" value="${game.game_avg}" name="game_avg">
+		<form:input path="game_avg" class="form-control mt-1" type="text" value="${game.game_avg}" name="game_avg"/>
+		 <font color="red">
+               <form:errors path="game_avg"/>
+            </font>
 	</td>
 </tr>
 <tr>
@@ -70,12 +82,18 @@
 			<option value="40">40대</option>
 			<option value="50">50대</option>
 		 </select>
+		  <font color="red">
+	               <form:errors path="game_gender"/>
+	            </font>
 	</td>
 </tr>
 <tr>
 	<td>
 		경기날짜  
-		<input class="form-control mt-1" value="${game_date}" class="w3-input" type="date" name="game_date"/>
+		<form:input path="game_date" class="form-control mt-1" value="${game_date}" type="date" name="game_date" id="game_date_input"/>
+		<font color="red">
+	               <form:errors path="game_date"/>
+	            </font>
 	</td>
 </tr>
 </table>
@@ -87,13 +105,22 @@
 </tr>
 <tr>
 	<td>
-		<input value="${game.game_content}" class="form-control mt-1" type="text" name="game_content"/>		
+		<form:textarea path="game_content" value="${game.game_content}" class="form-control mt-1" type="text" name="game_content"  maxlength="300"/>	
+		  <font color="red">
+               <form:errors path="game_content"/>
+            </font>	
 	</td>
 </tr>
+
 </table>
+
 <div class="row mx-auto mt-5" style="width: 5%;">
    		<button type="submit" class="btn btn-success">수정</button>
    </div>
-</form>
+   <script>
+    var today = new Date().toISOString().split("T")[0];
+    document.getElementById("game_date_input").setAttribute("min", today);
+</script>
+</form:form>
 </body>
 </html>
