@@ -38,5 +38,17 @@ public class GameService {
 		return gamerdao.selectOne(user_id,game_num);
 	}
 
+	public void gameupdate(Game game, Integer game_num) {
+		gamedao.gameupdate(game,game_num);
+	}
+
+	public int gameCount(String searchtype, String searchcontent) {
+		return gamedao.gameCount( searchtype,searchcontent);
+	}
+
+	public List<Game> gamepage(Integer pageNum, int limit, String searchtype, String searchcontent) {
+		return gamedao.gamepage(pageNum,limit,searchtype,searchcontent);
+	}
+
 	
 }
