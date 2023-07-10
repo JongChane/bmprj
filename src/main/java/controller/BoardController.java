@@ -228,7 +228,7 @@ public class BoardController {
 		int limit = 10;
 		int listCount = ads.listCount();
 		System.out.println("listCount :" + listCount);
-		List<Notice> noticeList = ads.noticeList(admin_id,pageNum,limit);
+		List<Notice> noticeList = ads.noticeListUser(pageNum,limit);
 		int maxpage = (int)((double)listCount/limit + 0.95);
 		// 맥스 출력
 		System.out.println("maxpage : " + maxpage);

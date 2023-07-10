@@ -496,7 +496,12 @@ public class AdminController {
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		
 		String admin_id = (String)session.getAttribute("adminId");
+		if(admin_id == null) {
+			throw new LoginException("로그인을 하셔야합니다.", "login");
+		}
+		
 		int limit = 10;
 		int listCount = ads.listCount();
 		System.out.println("listCount :" + listCount);
