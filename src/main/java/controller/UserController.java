@@ -367,16 +367,16 @@ public class UserController {
 	}
 	
 	@RequestMapping("reserveList")
-	public ModelAndView idCheckreserveList(Integer pageNum, String userid, HttpSession session) {
+	public ModelAndView idCheckreserveList(Integer pageNum, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
 
-		String user_id = (String) session.getAttribute("login");
+		String userid = (String) session.getAttribute("login");
 		int limit = 10; // 한페이지에 보여줄 게시물 건수
-		int reserveCount = rvs.UserReserveCount(user_id);
-		List<Reservation> reserve = rvs.getUserReserve(user_id, pageNum, limit);
+		int reserveCount = rvs.UserReserveCount(userid);
+		List<Reservation> reserve = rvs.getUserReserve(userid, pageNum, limit);
 		System.out.println("예약내역 : " + reserve);
 		int maxpage = (int) ((double) reserveCount / limit + 0.95);
 		int startpage = (int) ((pageNum / 10.0 + 0.9) - 1) * 10 + 1;
