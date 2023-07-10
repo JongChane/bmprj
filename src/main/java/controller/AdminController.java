@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -241,7 +240,7 @@ public class AdminController {
 
 	@PostMapping("visit")
 	public ModelAndView adminscore(Integer rv_num, String[] vi_id, String[] vi_total, String[] vi_avg) {
-		 System.out.println(rv_num+","+vi_id[0]+","+vi_total[0]+","+vi_avg[0]);
+		ModelAndView mav = new ModelAndView();
 		 int[] total = new int[vi_total.length];
 		 int[] avg = new int[vi_avg.length];
 		 
@@ -250,13 +249,18 @@ public class AdminController {
 			}
 		 for(int i = 0 ; i < vi_avg.length ; i++) {
 			 avg[i] = Integer.parseInt(vi_avg[i]);
-			} 
+			}
+
 		 for(int i = 0 ; i < vi_id.length ; i++) {
+				int dbAvg = vis.getAvg(rv_num, vi_id[i]);
+				if (dbAvg != 0) {
+					throw new LoginException("이미 점수등록을 완료한 게임입니다.", "reserveList");
+				}
 			 vis.update(rv_num, vi_id[i], total[i], avg[i]);
 			 service.avgUpdate(vi_id[i],avg[i]);
 			}
-		
-		return null;
+			mav.setViewName("redirect:reserveList");
+			return mav;
 	}
 
 	@RequestMapping("list")

@@ -12,13 +12,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(function() {
-  $('input[name="vi_total"]').on('input', function() {
-    var totalScore = $(this).val();
-    var gameNumber = $(this).closest('tr').find('input[name="vi_game"]').val();
-    var averageScore = Math.round(totalScore / gameNumber);
-    $(this).closest('tr').find('input[name="vi_avg"]').val(averageScore);
-  });
-});
+	  $('input[name="vi_total"]').on('input', function() {
+	    var totalScore = $(this).val();
+	    var gameNumber = $(this).closest('tr').find('input[name="vi_game"]').val();
+	    var maxScore = gameNumber * 300; // vi_game이 1이면 최대값 300, vi_game이 2이면 최대값 600, ...
+
+	    // 음수나 0 또는 최대값을 초과한 경우 알림 창 표시하고 입력칸 초기화
+	    if (totalScore <= 0 || totalScore > maxScore) {
+	      alert('총점을 올바르게 입력하세요. 최대값: ' + maxScore);
+	      $(this).val(''); // 입력칸 초기화
+	      return; // 함수 실행 중지
+	    }
+	    
+	    var averageScore = Math.round(totalScore / gameNumber);
+	    $(this).closest('tr').find('input[name="vi_avg"]').val(averageScore);
+	  });
+	});
+
 </script>
 </head>
 <body>

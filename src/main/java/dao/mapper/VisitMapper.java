@@ -24,6 +24,9 @@ public interface VisitMapper {
 	@Select("select * from visit") //전체 회원 점수 목록
 	List<Visit> viList();
 
+	@Select("select ifnull(vi_avg,0) from visit where rv_num=#{rv_num} and vi_id=#{vi_id}")
+	int getAvg(Map<String, Object> param);
+
 
 
 }

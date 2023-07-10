@@ -235,8 +235,8 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("password") 
-	public ModelAndView loginCheckPasswordRtn
-	     (String user_pass,String chgpass,HttpSession session) {
+	public ModelAndView idCheckPasswordRtn
+	(String user_pass, String chgpass, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(!passHash(user_pass).equals(loginUser.getUser_pass())) {
@@ -326,7 +326,7 @@ public class UserController {
 		
 	}
 	@RequestMapping("boardList")
-	public ModelAndView boardList(Integer pageNum,Integer board_anser,HttpSession session) {
+	public ModelAndView idCheckboardList(Integer pageNum, Integer board_anser, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -367,7 +367,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("reserveList")
-	public ModelAndView reserveList(Integer pageNum, HttpSession session) {
+	public ModelAndView idCheckreserveList(Integer pageNum, String userid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
