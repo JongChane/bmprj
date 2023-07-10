@@ -33,4 +33,5 @@ public interface GamerMapper {
 	
 	@Delete("delete from gamer where game_num=#{gmnum} and user_id=#{user_id}")	
 	boolean mygamedelete(Map<String, Object> param);
+	
 }

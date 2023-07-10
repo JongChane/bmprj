@@ -74,6 +74,7 @@ public class GameController {
 		Integer pageNum = null;
 		String searchtype = param.get("searchtype");
 		String searchcontent = param.get("searchcontent");
+		String sort = param.get("sort");
 		if(param.get("pageNum") != null) pageNum = Integer.parseInt(param.get("pageNum"));
 		if(searchtype==null || searchcontent == null || searchtype.trim().equals("") || searchcontent.trim().equals("")) {
 			searchtype=null;
@@ -83,6 +84,7 @@ public class GameController {
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+		if(sort == null || sort.equals("")) sort=null;
 		int limit = 10;
 		int listCount = service.gameCount(searchtype,searchcontent);
 		System.out.println(listCount);
@@ -159,14 +161,27 @@ public class GameController {
 	public ModelAndView getupdate(Integer game_num) {
 		ModelAndView mav = new ModelAndView();
 		Game game = service.getGame(game_num);
+		List<Gamer> gamerlist = service.getGamer(game_num);
+		if(gamerlist.size() >= 2 ) {
+			throw new LoginException(" 이미 참여인원 있어서 수정이 불가합니다.", "gameinfo?game_num=" + game_num);
+		}
 		mav.addObject("game",game);
 		return mav;
 	}
 	
 	@PostMapping("update")
-	public ModelAndView postupdate(Game game, Integer game_num) {
+	public ModelAndView postupdate(@Valid Game game, BindingResult bresult ,Integer game_num) {
+		ModelAndView mav = new ModelAndView();
+		if(bresult.hasErrors()) {
+			  System.out.println("inputcheck:"+ bresult.getModel());
+			  mav.getModel().putAll(bresult.getModel());
+			  return mav; 
+		}
 			service.gameupdate(game,game_num);
-			throw new LoginException(" 수정이 완료 되었습니다.", "gamelist");
+			  mav.addObject("message","수정이 완료 되었습니다.");
+				mav.addObject("url","gamelist");
+				mav.setViewName("alert");
+			return mav;
 	}
 	/*
 	 * @PostMapping("gameinfo") public ModelAndView postgameinfo(HttpSession

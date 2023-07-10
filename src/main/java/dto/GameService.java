@@ -50,5 +50,10 @@ public class GameService {
 		return gamedao.gamepage(pageNum,limit,searchtype,searchcontent);
 	}
 
+	public List<Gamer> getGamer(Integer game_num) {
+		
+		return gamerdao.getGamer(game_num);
+	}
+
 	
 }

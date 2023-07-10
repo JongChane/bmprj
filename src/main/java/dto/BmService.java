@@ -99,4 +99,12 @@ public class BmService {
 	public boolean mygamedelete(Integer gmnum, String user_id) {
 		return gamerdao.mygamedelete(gmnum,user_id);
 	}
+
+	public boolean gamepeople(Integer gmnum) {
+		return gamedao.gamepeople(gmnum);
+	}
+
+	public Game getGame(Integer gmnum) {
+		return gamedao.getGame(gmnum);
+	}
 }
