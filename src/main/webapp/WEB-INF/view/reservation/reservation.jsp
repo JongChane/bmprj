@@ -28,16 +28,30 @@ $(function() {
 	function updateReservations() {
 	  let date = $(".datepicker").datepicker('getDate');
 	  let laneNumbers = [];
+	  
 	  $("input[name='lane_num[]']:checked").each(function() {
 	    laneNumbers.push($(this).val());
 	  });
 
 	  // 기존에 disable된 시간 선택 radio 버튼을 다시 enable 상태로 바꿉니다.
-	  $(".ul_class li").each(function() {
-	    var li = $(this);
-	    li.find('input[type="radio"]').prop('disabled', false);
-	  });
+	 var currentTime = new Date();
 
+	 $(".ul_class li").each(function() {
+		  var li = $(this);
+		  var li_time = li.find('input').val().split(":");
+		  var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
+
+		  var selectedDate = new Date(date);
+		  var currentDate = new Date();
+		  currentDate.setHours(0,0,0,0);
+		  
+		  if (selectedDate.getTime() === currentDate.getTime() && li_minutes < currentTime.getHours() * 60 + currentTime.getMinutes()) {
+		    li.find('input[type="radio"]').prop('disabled', true);
+		  } else {
+		    li.find('input[type="radio"]').prop('disabled', false);
+		  }
+		});
+	 
 	  // laneNumbers가 비어있으면 함수를 종료합니다.
 	  if (laneNumbers.length === 0) {
 	    return;
@@ -91,9 +105,9 @@ $(function() {
           var memberId = $("select[name='memberCount']").val();
           var memberIdInputs = $("input[name='vi_id']");
           var lanes = $("input[name='lane_num[]']:checked").length;
-          var startTime = $("input[name='rv_start']:checked").val();
+          var startTime = $("input[name='rv_start']:checked:not(:disabled)").val();
 
-          if (date === "" || game === "" || people === "" || memberId === "" || lanes === 0 || startTime === undefined) {
+          if (date === "" || game === "" || people === "" || memberId === "" || lanes === 0 || startTime === undefined || startTime===null) {
               if (date === "") {
                   alert("날짜를 선택하세요.");
               } else if (game === "") {
@@ -104,7 +118,9 @@ $(function() {
                   alert("회원 아이디를 적어도 한 개 이상 입력하세요.");
               } else if (lanes === 0) {
                   alert("레인을 선택하세요.");
-              } else if (startTime === undefined || startTime === null ) {
+              } else if (startTime === undefined) {
+                  alert("시간을 선택하세요.");
+              } else if (startTime === null) {
                   alert("시간을 선택하세요.");
               }
               return false;
