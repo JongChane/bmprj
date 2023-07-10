@@ -9,12 +9,13 @@
 </head>
 <body>
 <h1>매치 작성</h1>
+<div class="mx-auto mt-5" style="width: 70%;">
 <form:form modelAttribute="game" action="write" method="post">
    <table class="w3-table">
       <tr>
          <th>작성자</th>
          <td>
-            <form:input path="user_id" class="w3-input" readonly="true"/>
+            <form:input path="user_id" class="form-control" readonly="true"/>
             <font color="red">
                <form:errors path="user_id"/>
             </font>
@@ -23,7 +24,7 @@
        <tr>
          <th>제목</th>
          <td>
-            <form:input path="game_title" class="w3-input"/>
+            <form:input path="game_title" class="form-control"/>
             <font color="red">
                <form:errors path="game_title"/>
             </font>
@@ -32,7 +33,7 @@
       <tr>
          <th>나이제한</th> 
 	         <td>
-		         <select class="w3-select" name="game_age">
+		         <select class="form-select" name="game_age" style="height:40px;">
 			         <option value="10">10대</option>
 			         <option value="20">20대</option>
 			         <option value="30">30대</option>
@@ -47,7 +48,7 @@
 	  <tr>
 	         <th>성별</th>
 	          <td>
-		         <select class="w3-select" name="game_gender">
+		         <select class="form-select" name="game_gender" style="height:40px;">
 			         <option value="남성">남성</option>
 			         <option value="여성">여성</option>
 			         <option value="성별무관">성별무관</option>
@@ -60,7 +61,7 @@
 	   <tr>
 	   		<td>경기인원</td>
 	          <td>
-		         <select class="w3-select" name="game_max">
+		         <select class="form-select" name="game_max" style="height:40px;">
 			         <option value="2">2명</option>
 			         <option value="3">3명</option>
 			         <option value="4">4명</option>
@@ -77,7 +78,7 @@
 	  <tr>
 	   		<td>경기날짜</td>
 	          <td>
-		       <form:input path="game_date" class="w3-input" type="date"/>
+		       <form:input path="game_date" class="form-control" type="date"/>
 	            <font color="red">
 	               <form:errors path="game_date"/>
 	            </font>
@@ -86,7 +87,7 @@
        <tr>
          <th>평균에버리지</th>
          <td>
-            <form:input path="game_avg" class="w3-input"/>
+            <form:input path="game_avg" class="form-control"/>
             <font color="red">
                <form:errors path="game_avg"/>
             </font>
@@ -95,18 +96,17 @@
       <tr>
          <th>제한사항</th>
          <td>
-            <form:textarea path="game_content" class="w3-input"/>
+            <form:textarea path="game_content" class="form-control"/>
             <font color="red">
                <form:errors path="game_content"/>
             </font>
          </td>
-      </tr>
-      <tr>
-      	<td>
-      		<input type="submit" value="매치개설">
-      	</td>
-      </tr>
+      </tr>      
    </table>
+   <div class="row mx-auto mt-5" style="width: 10%;">
+   		<button type="submit" class="btn btn-success">매치개설</button>
+   </div>
 </form:form>
+</div>
 </body>
 </html>

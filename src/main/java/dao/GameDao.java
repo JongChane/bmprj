@@ -57,4 +57,34 @@ public class GameDao {
 	public void gmdelete(Integer gmnum) {
 		template.getMapper(cls).gmdelete(gmnum);
 	}
+
+	public void gameupdate(Game game, Integer game_num) {
+		param.clear();
+		param.put("game_title", game.getGame_title());
+		param.put("game_content", game.getGame_content());
+		param.put("game_max", game.getGame_max());
+		param.put("game_date", game.getGame_date());
+		param.put("game_age", game.getGame_age());
+		param.put("game_gender", game.getGame_gender());
+		param.put("game_avg", game.getGame_avg());
+		param.put("game_num", game_num);
+		
+		template.getMapper(cls).gameupdate(param);
+	}
+
+	public int gameCount(String searchtype, String searchcontent) {
+		param.clear();
+		param.put("searchtype", searchtype);
+		param.put("searchcontent", searchcontent);
+		return template.getMapper(cls).gameCount(param);
+	}
+
+	public List<Game> gamepage(Integer pageNum, int limit, String searchtype, String searchcontent) {
+		param.getClass();
+		param.put("startrow", (pageNum -1) * limit); //1페이지 : 0 2페이지 :10
+		param.put("limit", limit);
+		param.put("searchtype", searchtype);
+		param.put("searchcontent", searchcontent);
+		return template.getMapper(cls).gamepage(param);
+	}
 }
