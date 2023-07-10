@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.Game;
@@ -43,7 +45,6 @@ public class GameController {
 			  mav.getModel().putAll(bresult.getModel());
 			  return mav; 
 		}
-		  List<Game> gamelist = service.gameList();
 		  System.out.println(game);
 		  //확인이 되었으면 db에 저장 후 게임 리스트로 이동합니다
 		  int game_num = service.gameInsert(game);
@@ -69,9 +70,39 @@ public class GameController {
 	}
 	
 	@RequestMapping("gamelist")
-	public ModelAndView gamelist() {
+	public ModelAndView gamelist(@RequestParam Map<String,String> param, HttpSession session) {
+		Integer pageNum = null;
+		String searchtype = param.get("searchtype");
+		String searchcontent = param.get("searchcontent");
+		if(param.get("pageNum") != null) pageNum = Integer.parseInt(param.get("pageNum"));
+		if(searchtype==null || searchcontent == null || searchtype.trim().equals("") || searchcontent.trim().equals("")) {
+			searchtype=null;
+			searchcontent=null;
+		}
 		ModelAndView mav = new ModelAndView();
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		int limit = 10;
+		int listCount = service.gameCount(searchtype,searchcontent);
+		System.out.println(listCount);
 		List<Game> gamelist = service.gameList();
+		List<Game> gamepage = service.gamepage(pageNum,limit,searchtype,searchcontent);
+		int maxpage = (int)((double)listCount/limit + 0.95);
+		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
+		int endpage = startpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int game_num = listCount - (pageNum - 1) * limit;
+		System.out.println("st : " + searchtype);
+		System.out.println("sc : " + searchcontent);
+		System.out.println(listCount);
+		mav.addObject("game_num",game_num);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("listCount",listCount);
+		mav.addObject("gamepage",gamepage);
 		mav.addObject("gamelist",gamelist);
 		return mav;
 	}
@@ -124,13 +155,23 @@ public class GameController {
 		mav.setViewName("alert");
 		return mav;
 	}
+	@GetMapping("update")
+	public ModelAndView getupdate(Integer game_num) {
+		ModelAndView mav = new ModelAndView();
+		Game game = service.getGame(game_num);
+		mav.addObject("game",game);
+		return mav;
+	}
 	
-	
+	@PostMapping("update")
+	public ModelAndView postupdate(Game game, Integer game_num) {
+			service.gameupdate(game,game_num);
+			throw new LoginException(" 수정이 완료 되었습니다.", "gamelist");
+	}
 	/*
 	 * @PostMapping("gameinfo") public ModelAndView postgameinfo(HttpSession
 	 * session) { ModelAndView mav = new ModelAndView(); String user_id =
 	 * (String)session.getAttribute("login"); service.gameupdate(user_id); return
 	 * mav; }
 	 */
-	 
 }

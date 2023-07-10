@@ -22,7 +22,8 @@ public interface GameMapper {
 	
 	@Select({"<script>"," select * from gamelist<if test='game_num != null'> where game_num=#{game_num}</if> ",
 			 "<if test='user_id != null'> where user_id=#{user_id}</if> ",
-			 "order by game_num",
+			 "<if test='searchtype != null'> and ${searchtype} like '%${searchcontent}%</if> ",
+			 "<if test='limit != null'> order by game_num desc, game_num asc limit #{startrow}, #{limit}</if>",
 			 "</script>"})
 	List<Game> select(Map<String, Object> param);
 	
@@ -41,6 +42,24 @@ public interface GameMapper {
 	
 	@Delete("delete from gamelist where game_num=#{game_num}")
 	void gmdelete(Integer gmnum);
+
+	@Update("update gamelist set game_title=#{game_title}, game_max=#{game_max}, game_gender=#{game_gender},"
+			+ "	game_avg=#{game_avg}, game_age=#{game_age}, game_date=#{game_date}, game_content=#{game_content}"
+			+ " where game_num=#{game_num}")
+	void gameupdate(Map<String, Object> param);
+	
+	@Select({"<script>",
+			"select count(*) from gamelist ",
+			"<if test='searchtype != null'> where ${searchtype} like '%${searchcontent}%'</if>",
+			"</script>"})
+	int gameCount(Map<String, Object> param);
+	
+	@Select({"<script>",
+			" select * from gamelist",
+			"<if test='searchtype != null'> where ${searchtype} like '%${searchcontent}%'</if>",
+			" <if test='limit != null'> order by game_num desc limit #{startrow}, #{limit}</if>",
+			 "</script>"})
+	List<Game> gamepage(Map<String, Object> param);
 	
 	
 	
