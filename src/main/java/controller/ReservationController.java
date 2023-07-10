@@ -1,8 +1,10 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,4 +134,18 @@ public class ReservationController {
 		map.put("buyer_name", reservation.getUser_id());
 		return map; // 클라이언트는 json 객체로 전달
 	}
+	
+	@GetMapping("getLaneStatus")
+	@ResponseBody
+	public Map<String, List<Map<String, Object>>>
+			getLaneStatus(@RequestParam("laneNumbers") List<String> laneNumbers) {
+		SimpleDateFormat today = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String date = today.format(now);
+		List<Map<String, Object>> reservedTimes = rvService.rvCheck(date, laneNumbers);
+		Map<String, List<Map<String, Object>>> response = new HashMap<>();
+		response.put("reservations", reservedTimes);
+		return response;
+	}
+	
 }

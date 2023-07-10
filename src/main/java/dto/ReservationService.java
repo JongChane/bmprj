@@ -49,7 +49,7 @@ public class ReservationService {
 
 	}
 
-	public List<Reservation> getUserReserve(String user_id, Integer pageNum, int limit) {
-		return rvDao.getUserReserve(user_id, pageNum, limit);
+	public List<Reservation> getUserReserve(String userid, Integer pageNum, int limit) {
+		return rvDao.getUserReserve(userid, pageNum, limit);
 	}
 }

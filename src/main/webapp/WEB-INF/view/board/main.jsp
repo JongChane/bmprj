@@ -5,8 +5,106 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
 <meta charset="UTF-8">
 <title>메인화면</title>
+<style>
+  .ul_mclass {
+    margin: 8px 0 0;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start; /* 좌측 정렬로 수정 */
+    width: 100%; /* 부모 요소에 꽉 차도록 너비 조정 */
+  }
+
+  .li_mclass {
+    flex-basis: calc(100% / 10);
+    height: 50px;
+    background-color: #edfbdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #c8e1af;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .lane-btn {
+    border: 2px solid green;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 5px;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .lane-btn.click {
+    background-color: #edfbdc;
+  }
+
+  .reserved {
+    background-color: gray;
+  }
+</style>
+
+
+<script>
+$(document).ready(function() {
+  $(".lane-btn").click(function() {
+    var laneNumbers = $(this).text();
+
+    $(".ul_mclass li").removeClass("reserved");
+    $(".lane-btn").removeClass("click");
+    $(this).addClass("click");
+
+    $.ajax({
+      url: '../reservation/getLaneStatus',
+      type: 'GET',
+      data: { 'laneNumbers': laneNumbers },
+      traditional: true,
+      dataType: 'json',
+      success: function(response) {
+        console.log(response);
+
+        response.reservations.forEach(function(reservation) {
+          var rv_start = reservation.rv_start;
+          var rv_end = reservation.rv_end;
+
+          var start_time = rv_start.split(":");
+          var end_time = rv_end.split(":");
+
+          var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
+          var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
+
+          $(".ul_mclass li").each(function() {
+            var li = $(this);
+            var li_time = li.find('input').val().split(":");
+            var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
+
+            if (li_minutes >= start_minutes && li_minutes < end_minutes) {
+              li.addClass("reserved");
+            } else {
+              var currentHour = new Date().getHours();
+              var currentMinute = new Date().getMinutes();
+              var currentMinutes = currentHour * 60 + currentMinute;
+
+              if (currentMinutes >= li_minutes) {
+                li.addClass("reserved");
+              }
+            }
+          });
+        });
+      }
+    });
+  });
+});
+</script>
+
 </head>
 <body>
 <div class="container" style="margin-top:100px;">
@@ -43,8 +141,89 @@
 	
 	<div>
 		<h3><img src="${path}/image/bollpin.png" style="width:40px; height:40px;"> 레인현황</h3>
-	</div>
-	
+<div style="max-width: 50%; display: flex; justify-content: space-between;">
+  <button class="lane-btn" style="width: 8%;">1</button>
+  <button class="lane-btn" style="width: 8%;">2</button>
+  <button class="lane-btn" style="width: 8%;">3</button>
+  <button class="lane-btn" style="width: 8%;">4</button>
+  <button class="lane-btn" style="width: 8%;">5</button>
+  <button class="lane-btn" style="width: 8%;">6</button>
+  <button class="lane-btn" style="width: 8%;">7</button>
+  <button class="lane-btn" style="width: 8%;">8</button>
+  <button class="lane-btn" style="width: 8%;">9</button>
+  <button class="lane-btn" style="width: 8%;">10</button>
+</div>
+	<div>
+     <div class="1_div">
+       <ul class="ul_mclass">
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="09:00">
+               9:00 ~ 10:30
+             </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="10:30">
+               10:30 ~ 12:00 
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+           	 <input type="hidden" name="rv_start" value="12:00">
+               12:00 ~ 13:30
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="13:30">
+               13:30 ~ 15:00
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="15:00">
+               15:00 ~ 16:30
+           </label>
+         </li>
+       </ul>
+     </div>
+     <div class="2_div">
+       <ul class="ul_mclass">
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="16:30">
+               16:30 ~ 18:00
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="18:00">
+               18:00 ~ 19:30
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="19:30">
+               19:30 ~ 21:00
+           </label>
+         </li>
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="21:00">
+               21:00 ~ 22:30
+           </label>
+         </li>    
+         <li class="li_mclass">
+           <label>
+             <input type="hidden" name="rv_start" value="22:30">
+              22:30 ~ 24:00
+           </label>
+         </li>                
+       </ul>
+     </div>
+  </div>
+  </div>  
 	<hr>
 	
 	<div>

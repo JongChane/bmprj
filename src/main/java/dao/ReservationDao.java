@@ -39,11 +39,11 @@ public class ReservationDao {
 		return template.getMapper(cls).UserReserveCount(vi_id);
 	}
 
-	public List<Reservation> getUserReserve(String user_id, Integer pageNum, int limit) {
+	public List<Reservation> getUserReserve(String userid, Integer pageNum, int limit) {
 		param.clear();
 		param.put("startrow", (pageNum - 1) * limit); // 1페이지 : 0 2페이지 :10
 		param.put("limit", limit);
-		param.put("vi_id", user_id);
+		param.put("vi_id", userid);
 		return template.getMapper(cls).getUserReserve(param);
 	}
 }
