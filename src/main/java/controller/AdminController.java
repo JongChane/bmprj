@@ -373,6 +373,12 @@ public class AdminController {
 			case "91":
 				comparator = Comparator.comparing(Reservation::getRv_people).reversed();
 				break;
+			case "100":
+				comparator = Comparator.comparing(Reservation::getVi_avg, Comparator.nullsFirst(Comparator.naturalOrder()));
+				break;
+			case "101":
+				comparator = Comparator.comparing(Reservation::getVi_avg, Comparator.nullsLast(Comparator.reverseOrder()));
+				break;
 			}
 
 			if (comparator != null) {
