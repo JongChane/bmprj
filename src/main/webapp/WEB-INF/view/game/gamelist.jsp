@@ -28,7 +28,6 @@
 }
 .w3-table tr {
   margin-bottom: 5px; 
- 
 }
 
 </style>
@@ -36,15 +35,11 @@
 <body>
 <h1 style="text-align: center;">매치 목록</h1>
 <div class="container mt-5" >
+
 <form action="gamelist" method="post" name="searchform">
 	<div class="text-end" style="margin-left: 30%; margin-right: 15%;">
 		<table class="table">
 		  	 <tr>
-		  	 <td>
-		  	 <a style="font-size : 5px; " href="../game/gamelist?sort=1">
-		  	 	<button type="button" class="btn btn-success" >신청가능 매치 보기</button>
-		  	 </a>
-		  	 </td>
 		         <td style="border-bottom: none">
 		            <input type="hidden" name="pageNum" value="1">
 		            <input type="hidden" name="game_num" value="${param.game_num}">

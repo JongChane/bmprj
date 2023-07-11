@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.BmService;
 import dto.Game;
 import dto.GameService;
 import dto.Gamer;
@@ -27,6 +28,8 @@ import exception.LoginException;
 public class GameController {
     @Autowired
 	private GameService service;
+    @Autowired
+    private BmService bmservice;
 
 	@GetMapping("*")
 	public ModelAndView write() {
@@ -90,6 +93,12 @@ public class GameController {
 		System.out.println(listCount);
 		List<Game> gamelist = service.gameList();
 		List<Game> gamepage = service.gamepage(pageNum,limit,searchtype,searchcontent);
+		for(Game g : gamepage) {
+			User user = bmservice.getUser(g.getUser_id());
+			if(user == null) {
+				g.setUser_id("탈퇴한 회원");
+			}
+		}
 		int maxpage = (int)((double)listCount/limit + 0.95);
 		int startpage = (int)((pageNum/10.0 + 0.9) -1) * 10 + 1;
 		int endpage = startpage + 9;
@@ -112,6 +121,9 @@ public class GameController {
 	public ModelAndView getgameinfo(Integer game_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		Game game = service.getGame(game_num);
+		if(game ==  null) {
+			throw new LoginException("없는 게입니다.", "gamelist");
+		}
 		mav.addObject("game",game);
 		return mav;
 	}

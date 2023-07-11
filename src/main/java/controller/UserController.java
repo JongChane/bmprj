@@ -291,7 +291,7 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("mpgameList")
-	public ModelAndView gamelist(String user_id, HttpSession session) {
+	public ModelAndView loginCheckgamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Game> glist = service.gList(user_id);
 		Map<Game, List<User>> map = new LinkedHashMap<>();
@@ -347,8 +347,8 @@ public class UserController {
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-		
 		String user = (String)session.getAttribute("login");
+		
 		int limit = 10; //한페이지에 보여줄 게시물 건수
 		int listCount = boardService.UserboardCount(user,board_anser);
 		
@@ -368,7 +368,9 @@ public class UserController {
 		if(endpage > maxpage) endpage = maxpage;
 		int boardno = listCount - (pageNum - 1) * limit;
 		
-		
+		if(user == null ) {
+			throw new LoginException("로그인을 하셔야 합니다!!", "login");
+		}
 		
 		mav.addObject("boardno",boardno);
 		mav.addObject("pageNum",pageNum);
