@@ -107,4 +107,8 @@ public class BmService {
 	public Game getGame(Integer gmnum) {
 		return gamedao.getGame(gmnum);
 	}
+
+	public Game getmpGame(Integer gmnum, String user_id) {
+		return gamedao.getmpGame(gmnum,user_id);
+	}
 }

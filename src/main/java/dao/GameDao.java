@@ -91,4 +91,8 @@ public class GameDao {
 	public boolean gamepeople(Integer gmnum) {
 		return template.getMapper(cls).gamepeople(gmnum);
 	}
+
+	public Game getmpGame(Integer gmnum, String user_id) {
+		return template.getMapper(cls).getmpGame(gmnum,user_id);
+	}
 }
