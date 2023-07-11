@@ -94,6 +94,16 @@ public class UserController {
 		return mav;
 	}
 
+	@GetMapping("/idCheck")
+	@ResponseBody
+	public String joinidCheck(String userId) throws UnsupportedEncodingException, MessagingException {
+		boolean joinidCheck = service.joinidCheck(userId);
+		if (joinidCheck) {
+			return "duplicated";
+		} else {
+			return null;
+		}
+	}
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String mailCheck(String email) throws UnsupportedEncodingException, MessagingException {
