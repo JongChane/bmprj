@@ -94,6 +94,16 @@ public class UserController {
 		return mav;
 	}
 
+	@GetMapping("/idCheck")
+	@ResponseBody
+	public String joinidCheck(String userId) throws UnsupportedEncodingException, MessagingException {
+		boolean joinidCheck = service.joinidCheck(userId);
+		if (joinidCheck) {
+			return "duplicated";
+		} else {
+			return null;
+		}
+	}
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String mailCheck(String email) throws UnsupportedEncodingException, MessagingException {
@@ -291,7 +301,7 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("mpgameList")
-	public ModelAndView loginCheckgamelist(String user_id, HttpSession session) {
+	public ModelAndView idCheckgamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Game> glist = service.gList(user_id);
 		Map<Game, List<User>> map = new LinkedHashMap<>();
@@ -311,7 +321,7 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("mpdelete")
-	public ModelAndView loginCheckmpdelete(Integer gmnum,HttpSession session) {
+	public ModelAndView idCheckmpdelete(Integer gmnum, String user_id,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		Game game = service.getGame(gmnum);
@@ -329,7 +339,7 @@ public class UserController {
 	@RequestMapping("mpudelete") 
 	public ModelAndView idCheckmpudelete(Integer gmnum, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		Game game = service.getGame(gmnum);
+		Game game = service.getmpGame(gmnum,user_id);
 		if(game == null) {
 			throw new LoginException("없는 게임 번호입니다.","mpgameList?user_id="+user_id);
 		}

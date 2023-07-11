@@ -15,8 +15,38 @@
 <script type="text/javascript">
 var code;
 var isCodeValid = false; // 인증번호 유효성 검사를 위한 변수 추가
+var isIdValid = false;
+$(document).on('click', '#id-Check-Btn', function() {
+    const userId = $('#user_id').val(); // 아이디 입력값 가져오기
+
+    // 아이디 입력칸이 비어있는지 확인
+    if (userId.trim() === '') {
+        alert('아이디를 입력해주세요.');
+        return;
+    }
+
+    $.ajax({
+        type: 'get',
+        url: '<c:url value="/user/idCheck?userId="/>' + userId,
+        success: function (data) {
+            if (data === "duplicated") {
+                alert('이미 사용 중인 아이디입니다.')
+                isIdValid = false; // 아이디 유효성 검사 실패
+            } else {
+                alert('사용 가능한 아이디입니다.');
+                isIdValid = true; // 아이디 유효성 검사 통과
+                $('#user_id').prop('disabled', true);
+                $('#hidden_user_id').val(userId);
+            }
+        }            
+    });
+});
 
 $(document).on('click', '#mail-Check-Btn', function() {
+    if (!isIdValid) {
+        alert('아이디 중복검사를 먼저 진행해주세요.');
+        return;
+    }
     const email = $('#user_email').val(); // 입력칸의 이메일 값만 가져오기
     const emailDomain = $('#user_email_domain').val(); // 셀렉트 옵션 태그의 선택값 가져오기
     const checkInput = $('.mail-check-input');
@@ -110,6 +140,8 @@ $(document).on('keyup', '.mail-check-input', function() {
    				<td>아이디</td>
    				<td>
    					<form:input path="user_id"/>
+   					<input type="hidden" id="hidden_user_id" name="user_id"/>
+   					<button class="w3-button w3-white w3-border" type="button" id="id-Check-Btn">중복검사</button>
         		<font color="red">
         			<form:errors path="user_id"/>
         		</font>

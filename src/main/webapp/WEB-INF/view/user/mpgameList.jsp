@@ -93,7 +93,7 @@ table {
 												<div class="modal-footer">
 													<button type="button" class="btn btn-light"
 														data-bs-dismiss="modal">닫기</button>
-													<a href="mpdelete?gmnum=${g.key.game_num}"><button
+													<a href="mpdelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}"><button
 															type="button" class="btn btn-success">글 삭제하기</button></a>
 												</div>
 											</div>
@@ -119,7 +119,7 @@ table {
 											<td>${gm.user_avg}</td>
 											<td><c:if test="${param.user_id != g.key.user_id}">
 													<c:if test="${param.user_id == gm.user_id}">
-														<button type="button" class="btn btn-primary"
+														<button type="button" class="btn btn-success"
 															data-bs-toggle="modal"
 															data-bs-target="#exampleModal2${stat.index }${st.index}">매치
 															나가기</button>
@@ -141,7 +141,7 @@ table {
 																	data-bs-dismiss="modal">닫기</button>
 																<a
 																	href="mpudelete?gmnum=${g.key.game_num}&user_id=${sessionScope.loginUser.user_id}"><button
-																		type="button" class="btn btn-primary">매치 나가기</button></a>
+																		type="button" class="btn btn-success">매치 나가기</button></a>
 															</div>
 														</div>
 													</div>

@@ -107,4 +107,14 @@ public class BmService {
 	public Game getGame(Integer gmnum) {
 		return gamedao.getGame(gmnum);
 	}
+
+	public boolean joinidCheck(String userId) {
+		User user = userDao.selectOne(userId);
+		return user != null;
+	}
+
+	public Game getmpGame(Integer gmnum, String user_id) {
+		return gamedao.getmpGame(gmnum,user_id);
+	}
 }
+
