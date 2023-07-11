@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
@@ -72,24 +71,11 @@ public class UserController {
 	}
 
 	@PostMapping("join")
-	public ModelAndView userAdd(@Valid User user, BindingResult bresult) {
+	public ModelAndView userAdd(User user, BindingResult bresult) {
 		ModelAndView mav = new ModelAndView();
-		if (bresult.hasErrors()) {
-			mav.getModel().putAll(bresult.getModel());
-			bresult.reject("error.input.user");
-			bresult.reject("error.input.check");
-			return mav;
-		}
-		try {
-			user.setUser_pass(passHash(user.getUser_pass()));
-			service.userInsert(user);
-			mav.addObject("user", user);
-		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-			bresult.reject("error.duplicate.user"); // 중복된 아이디 오류
-			mav.getModel().putAll(bresult.getModel());
-			return mav;
-		}
+		user.setUser_pass(passHash(user.getUser_pass()));
+		service.userInsert(user);
+		mav.addObject("user", user);
 		mav.setViewName("redirect:login");
 		return mav;
 	}
@@ -154,6 +140,9 @@ public class UserController {
 			bresult.reject("error.login.id"); //아이디를 확인하세요 
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
+		}
+		if (dbUser == null) {
+			throw new LoginException("회원정보가 없습니다.", "login");
 		}
 		user.setUser_pass(passHash(user.getUser_pass()));
 		if(user.getUser_pass().equals(dbUser.getUser_pass())) { //정상 로그인
@@ -245,7 +234,7 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("password") 
-	public ModelAndView idCheckPasswordRtn
+	public ModelAndView loginCheckPasswordRtn
 	(String user_pass, String chgpass, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
@@ -259,7 +248,7 @@ public class UserController {
 			  throw new LoginException
 			  ("비밀번호 수정시 db 오류 입니다.","password");
 		}
-		mav.setViewName("mypage?user_id="+loginUser.getUser_id());
+		mav.setViewName("redirect:mypage?user_id=" + loginUser.getUser_id());
 		return mav;
 	}
 	@PostMapping("idsearch")

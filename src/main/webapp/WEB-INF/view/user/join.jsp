@@ -1,18 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.container {
+   width: 35%;
+   margin: 200px auto;
+   text-align: center;
+}
+input.valid {
+  border: 2px solid green;
+}
+
+input.invalid {
+  border: 2px solid red;
+}
+</style>
 <meta charset="UTF-8">
 <title>볼링매니아 회원가입</title>
-<script type="text/javascript" src= 
-"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	  // 아이디 유효성 검사: 3자 이상 10자 이하
+	  $('#user_id').on('input', function() {
+	    var input=$(this);
+	    var user_id=input.val();
+	    if(user_id.length >= 3 && user_id.length <= 10){
+	      input.removeClass("invalid").addClass("valid");
+	      $('#user_id_error').text("").css('color', 'green');
+	    }
+	    else{
+	      input.removeClass("valid").addClass("invalid");
+	      $('#user_id_error').text("3자 이상 10자 이하로 입력하세요.").css('color', 'red');
+	    }
+	  });
+	  
+	  $('#user_pass').on('input', function() {
+		    var input=$(this);
+		    var user_pass=input.val();
+		    if(user_pass.length >= 3 && user_pass.length <= 10){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_pass_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_pass_error').text("3자 이상 10자 이하로 입력하세요.").css('color', 'red');
+		    }
+		  });
+	 
+	  $('#user_name').on('input', function() {
+		    var input=$(this);
+		    var user_name=input.val();
+		    if(user_name.trim() != ''){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_name_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_name_error').text("이름을 입력해주세요.").css('color', 'red');
+		    }
+		  });
+	  
+	  $('#user_age').on('input', function() {
+		    var input=$(this);
+		    var user_age=input.val();
+		    if(user_age >= 10 && user_age <= 100){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_age_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_age_error').text("10 이상 100 이하의 숫자를 입력해주세요.").css('color', 'red');
+		    }
+		  });
+	  
+	  $('#user_gender').change(function() {
+		    var input=$(this);
+		    var user_gender=input.val();
+		    if(user_gender.trim() != ''){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_gender_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_gender_error').text("성별을 선택해주세요.").css('color', 'red');
+		    }
+		  });
+	  
+	  $('#user_tel').on('input', function() {
+		    var input=$(this);
+		    var user_tel=input.val();
+		    var regex = /^[0-9]+$/;
+		    if(user_tel.match(regex)){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_tel_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_tel_error').text("숫자만 입력 가능합니다.").css('color', 'red');
+		    }
+		  });
+	  
+	  $('#user_avg').on('input', function() {
+		    var input=$(this);
+		    var user_avg=input.val();
+		    if(user_avg >= 0 && user_avg <= 300){
+		      input.removeClass("invalid").addClass("valid");
+		      $('#user_avg_error').text("").css('color', 'green');
+		    }
+		    else{
+		      input.removeClass("valid").addClass("invalid");
+		      $('#user_avg_error').text("0 이상 300 이하의 숫자를 입력해주세요.").css('color', 'red');
+		    }
+		  });
+});  
 var code;
 var isCodeValid = false; // 인증번호 유효성 검사를 위한 변수 추가
 var isIdValid = false;
@@ -24,7 +127,10 @@ $(document).on('click', '#id-Check-Btn', function() {
         alert('아이디를 입력해주세요.');
         return;
     }
-
+    if (userId.length < 3 || userId.length > 10) {
+        alert('아이디는 3~10자리여야 합니다.');
+        return; // 이벤트 핸들러를 더 이상 실행하지 않음
+    }
     $.ajax({
         type: 'get',
         url: '<c:url value="/user/idCheck?userId="/>' + userId,
@@ -79,16 +185,6 @@ $(document).on('click', '#mail-Check-Btn', function() {
     });
 });
 
-$('form').on('submit', function(event) {
-    if (!isCodeValid) { // 인증번호 유효하지 않으면 회원가입 버튼 동작 막기
-        event.preventDefault();
-        alert('인증번호를 정확히 입력하세요.');
-    } else {
-        // 이메일 주소값을 생성하여 필드에 설정
-        const emailValue = $('#user_email').val() + $('#user_email_domain').val();
-        $('#user_email').prop('disabled', false).val(emailValue);
-    }
-});
 
 $(document).on('keyup', '.mail-check-input', function() {
     const inputCode = $(this).val();
@@ -107,71 +203,79 @@ $(document).on('keyup', '.mail-check-input', function() {
         isCodeValid = false; // 인증번호 유효하지 않음을 표시
     }
 });
+
+$(document).ready(function() {
+    $('form').on('submit', function(event) {
+    var isFormValid = isValid();
+
+    if (!isFormValid) {
+        event.preventDefault();
+        alert("정확한 값들을 입력하세요.");
+    } else if (!isCodeValid) { // 이메일 인증번호의 유효성 검사
+        event.preventDefault();
+        alert('인증번호를 정확히 입력하세요.');
+    } else {
+        // 이메일 주소값을 생성하여 필드에 설정
+        const emailValue = $('#user_email').val() + $('#user_email_domain').val();
+        $('#user_email').prop('disabled', false).val(emailValue);
+    	}
+	});
+});
+	function isValid() {
+	  // 사용자 이름, 아이디, 비밀번호, 나이, 성별, 전화번호, 평균 등 각 필드의 유효성 검사
+	  var userIdValid = $('#user_id').hasClass('valid');
+	  var userPassValid = $('#user_pass').hasClass('valid');
+	  var userNameValid = $('#user_name').hasClass('valid');
+	  var userAgeValid = $('#user_age').hasClass('valid');
+	  var userGenderValid = $('#user_gender').hasClass('valid');
+	  var userTelValid = $('#user_tel').hasClass('valid');
+	  var userAvgValid = $('#user_avg').hasClass('valid');
+	  var emailCodeValid = isCodeValid;
+	  var idCheckValid = isIdValid;
+	  
+
+	  var isAnyInvalid = $('.invalid').length > 0;
+	    
+	    // 모든 필드의 유효성 검사 결과를 반환. 'invalid' 클래스가 있는지도 확인.
+	    return userIdValid && userPassValid && userNameValid && userAgeValid &&
+	           userGenderValid && userTelValid && userAvgValid && emailCodeValid && idCheckValid && !isAnyInvalid;
+	}
+
 </script>
-<style>
-.container {
-   width: 35%;
-   margin: 200px auto;
-   text-align: center;
-}
-</style>
 </head>
 <body>
 	<h2>볼링매니아 회원가입</h2>
 		<form:form modelAttribute="user" method="post" action="join">
- 			<spring:hasBindErrors name="user">
-    	<font color="red">
-<%-- ${errors.globalErrors} : controller에서 bresult.reject(코드값)메서드로
-                              추가한 error 코드 값들
- --%>      
-    		<c:forEach items="${errors.globalErrors}" var="error">
-<%--
-    <spring:message code="${error.code}" /> : 코드값에 해당하는 메세지를 출력
-				                                    현재 messages.properties 파일에 설정
-    ${error.code} : reject(코드값)으로 등록한 코드값
- --%>      
-        	<spring:message code="${error.code}" /><br>
-      	</c:forEach>
-    	</font>
- 			</spring:hasBindErrors>
  			<h1>회원가입</h1>
  			<table>
    			<tr>
    				<td>아이디</td>
    				<td>
-   					<form:input path="user_id"/>
+   					<form:input path="user_id" />
    					<input type="hidden" id="hidden_user_id" name="user_id"/>
    					<button class="w3-button w3-white w3-border" type="button" id="id-Check-Btn">중복검사</button>
-        		<font color="red">
-        			<form:errors path="user_id"/>
-        		</font>
+   					<span id="user_id_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>비밀번호</td>
    				<td>
    					<form:password path="user_pass" />
-       			<font color="red">
-       				<form:errors path="user_pass" />
-       			</font>
+   					<span id="user_pass_error"></span>
        		</td>
        	</tr>
    			<tr>
    				<td>이름</td>
    				<td>
    					<form:input path="user_name" />
-        		<font color="red">
-        			<form:errors path="user_name" />
-        		</font>
+   					<span id="user_name_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>나이</td>
    				<td>
    					<form:input path="user_age" />
-        		<font color="red">
-        			<form:errors path="user_age" />
-        		</font>
+   					<span id="user_age_error"></span>
         	</td>
         </tr>        
   			<tr>
@@ -182,18 +286,14 @@ $(document).on('keyup', '.mail-check-input', function() {
   						<form:option value="남성">남성</form:option>
   						<form:option value="여성">여성</form:option>
   					</form:select>
-  					<font color="red">
-        			<form:errors path="user_gender" />
-        		</font>
+  					<span id="user_gender_error"></span>
   				</td>
   			</tr>
    			<tr>
    				<td>전화번호</td>
    				<td>
    					<form:input path="user_tel" />
-   					<font color="red">
-        			<form:errors path="user_tel" />
-        		</font>
+   					<span id="user_tel_error"></span>
    				</td>
    			</tr>
 				<tr>
@@ -224,9 +324,7 @@ $(document).on('keyup', '.mail-check-input', function() {
    				<td>에버점수</td>
    				<td>
    					<form:input path="user_avg" />
-        		<font color="red">
-        			<form:errors path="user_avg" />
-        		</font>
+   					<span id="user_avg_error"></span>
         	</td>
         </tr>
    			<tr>
