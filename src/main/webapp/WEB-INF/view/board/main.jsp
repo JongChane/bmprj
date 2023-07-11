@@ -55,54 +55,55 @@
 
 <script>
 $(document).ready(function() {
-  $(".lane-btn").click(function() {
-    var laneNumbers = $(this).text();
+	  $(".lane-btn").click(function() {
+	    var laneNumbers = $(this).text();
 
-    $(".ul_mclass li").removeClass("reserved");
-    $(".lane-btn").removeClass("click");
-    $(this).addClass("click");
+	    $(".ul_mclass li").removeClass("reserved");
+	    $(".lane-btn").removeClass("click");
+	    $(this).addClass("click");
 
-    $.ajax({
-      url: '../reservation/getLaneStatus',
-      type: 'GET',
-      data: { 'laneNumbers': laneNumbers },
-      traditional: true,
-      dataType: 'json',
-      success: function(response) {
-        console.log(response);
+	    $.ajax({
+	      url: '../reservation/getLaneStatus',
+	      type: 'GET',
+	      data: { 'laneNumbers': laneNumbers },
+	      traditional: true,
+	      dataType: 'json',
+	      success: function(response) {
+	        console.log(response);
 
-        response.reservations.forEach(function(reservation) {
-          var rv_start = reservation.rv_start;
-          var rv_end = reservation.rv_end;
+	        $(".ul_mclass li").each(function() {
+	          var li = $(this);
+	          var li_time = li.find('input').val().split(":");
+	          var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
 
-          var start_time = rv_start.split(":");
-          var end_time = rv_end.split(":");
+	          var currentHour = new Date().getHours();
+	          var currentMinute = new Date().getMinutes();
+	          var currentMinutes = currentHour * 60 + currentMinute;
 
-          var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
-          var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
+	          if (currentMinutes >= li_minutes) {
+	            li.addClass("reserved");
+	          }
 
-          $(".ul_mclass li").each(function() {
-            var li = $(this);
-            var li_time = li.find('input').val().split(":");
-            var li_minutes = parseInt(li_time[0]) * 60 + parseInt(li_time[1]);
+	          response.reservations.forEach(function(reservation) {
+	            var rv_start = reservation.rv_start;
+	            var rv_end = reservation.rv_end;
 
-            if (li_minutes >= start_minutes && li_minutes < end_minutes) {
-              li.addClass("reserved");
-            } else {
-              var currentHour = new Date().getHours();
-              var currentMinute = new Date().getMinutes();
-              var currentMinutes = currentHour * 60 + currentMinute;
+	            var start_time = rv_start.split(":");
+	            var end_time = rv_end.split(":");
 
-              if (currentMinutes >= li_minutes) {
-                li.addClass("reserved");
-              }
-            }
-          });
-        });
-      }
-    });
-  });
-});
+	            var start_minutes = parseInt(start_time[0]) * 60 + parseInt(start_time[1]);
+	            var end_minutes = parseInt(end_time[0]) * 60 + parseInt(end_time[1]);
+
+	            if (li_minutes >= start_minutes && li_minutes < end_minutes) {
+	              li.addClass("reserved");
+	            }
+	          });
+	        });
+	      }
+	    });
+	  });
+	});
+
 </script>
 
 </head>
