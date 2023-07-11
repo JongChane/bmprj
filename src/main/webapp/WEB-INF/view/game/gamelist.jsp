@@ -15,7 +15,7 @@
 <style>
 	.table-container{
 		margin : 0 auto;
-		margin-top : 50px;
+		margin-top : 100px;
 	}
 	.w3-table {
 	width: 60%;
@@ -33,9 +33,8 @@
 </style>
 </head>
 <body>
-<h1 style="text-align: center;">매치 목록</h1>
 <div class="container mt-5" >
-
+<h1 style="text-align: center; margin-top: 70px;">소셜 매치</h1>
 <form action="gamelist" method="post" name="searchform">
 	<div class="text-end" style="margin-left: 30%; margin-right: 15%;">
 		<table class="table">

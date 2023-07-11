@@ -7,7 +7,7 @@
 <style>
 .container {
    width: 35%;
-   margin: 200px auto;
+   margin: 100px auto;
    text-align: center;
 }
 input.valid {
@@ -16,6 +16,38 @@ input.valid {
 
 input.invalid {
   border: 2px solid red;
+}
+
+.table-with-shadow {
+   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 500px;
+    height: 600px;
+}
+.search-input {
+   border: none;
+   width: 300px;
+   height : 30px;'
+   padding: 10px 20px;
+   border-radius: 10px;
+   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+   outline: none;
+   transition: box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+.w3-table td {
+  padding: 5px; 
+   text-align: left;
+}
+.w3-table tr {
+  margin-bottom: 5px; 
+   height: 10px;
+}
+.user-id-label {
+  font-size: 30px;
 }
 </style>
 <meta charset="UTF-8">
@@ -242,46 +274,48 @@ $(document).ready(function() {
 	}
 
 </script>
+
 </head>
 <body>
+<div class="container">
+
 	<h2>볼링매니아 회원가입</h2>
 		<form:form modelAttribute="user" method="post" action="join">
- 			<h1>회원가입</h1>
- 			<table>
+ 			<table class="w3-table table-with-shadow">
    			<tr>
    				<td>아이디</td>
    				<td>
-   					<form:input path="user_id" />
+   					<form:input path="user_id" class="search-input"/>
    					<input type="hidden" id="hidden_user_id" name="user_id"/>
-   					<button class="w3-button w3-white w3-border" type="button" id="id-Check-Btn">중복검사</button>
+   						<button class="btn btn-success" type="button" id="id-Check-Btn">중복검사</button>
    					<span id="user_id_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>비밀번호</td>
    				<td>
-   					<form:password path="user_pass" />
+   					<form:password path="user_pass" class="search-input"/>
    					<span id="user_pass_error"></span>
        		</td>
        	</tr>
    			<tr>
    				<td>이름</td>
    				<td>
-   					<form:input path="user_name" />
+   					<form:input path="user_name" class="search-input"/>
    					<span id="user_name_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>나이</td>
    				<td>
-   					<form:input path="user_age" />
+   					<form:input path="user_age" class="search-input"/>
    					<span id="user_age_error"></span>
         	</td>
         </tr>        
   			<tr>
   				<td>성별</td>
   				<td>
-  					<form:select path="user_gender">
+  					<form:select path="user_gender" class="search-input" >
   						<form:option value="">성별 선택</form:option>
   						<form:option value="남성">남성</form:option>
   						<form:option value="여성">여성</form:option>
@@ -292,7 +326,7 @@ $(document).ready(function() {
    			<tr>
    				<td>전화번호</td>
    				<td>
-   					<form:input path="user_tel" />
+   					<form:input path="user_tel"  class="search-input"/>
    					<span id="user_tel_error"></span>
    				</td>
    			</tr>
@@ -309,11 +343,12 @@ $(document).ready(function() {
                     <option value="@hanmail.com">@hanmail.com</option>
                 </select>
             </div>
-            <div class="input-group-addon">
-            <button class="w3-button w3-white w3-border" type="button" id="mail-Check-Btn">메일인증</button>
-            </div>
+            
             <div class="mail-check-box">
                 <input class="form-control mail-check-input" placeholder="인증번호 6자리 입력" disabled="disabled" maxlength="6">
+            </div>
+            <div class="input-group-addon">
+            	<button class="btn btn-success" type="button" id="mail-Check-Btn">메일인증</button>
             </div>
             <span id="mail-check-warn"></span>
                 <input type="hidden" class="form-control" name="user_email" id="hidden_user_email">
@@ -328,12 +363,13 @@ $(document).ready(function() {
         	</td>
         </tr>
    			<tr>
-   				<td>
-   					<input type="submit" value="회원가입">
-            <input type="reset" value="초기화">
+   				<td colspan="2">
+   					<input type="submit" value="회원가입" class="btn btn-success">
+           			 <input type="reset" value="초기화" class="btn btn-success">
   				</td>
   			</tr>
   		</table>
   	</form:form>
+  	</div>
   </body>
 </html>

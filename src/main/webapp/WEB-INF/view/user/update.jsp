@@ -98,8 +98,8 @@
 	       </tr>
 			 	<tr>
 			 		<td class="w3-center" colspan="2">
-	      		<input type="submit" value="회원수정" class="w3-btn w3-blue">
-	        	<input type="reset" value="초기화" class="w3-btn w3-blue">
+	      		<input type="submit" value="회원수정" class="btn btn-success">
+	        	<input type="reset" value="초기화" class="btn btn-success">
 	   			</td>
 	   		</tr>
 	  	</table>
