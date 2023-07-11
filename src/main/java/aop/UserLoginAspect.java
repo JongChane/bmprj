@@ -40,7 +40,7 @@ public class UserLoginAspect {
 	   User loginUser = (User)session.getAttribute("loginUser");	
 			Admin admin = (Admin) session.getAttribute("admin");
 			if (loginUser == null && admin == null) {
-		   throw new LoginException("[loginCheck]로그인이 필요합니다.","login");
+		   throw new LoginException("로그인이 필요합니다.","login");
 			}
 			if (admin != null) { // 관리자(admin)인 경우
 				return joinPoint.proceed(); // 모든 정보를 확인할 수 있도록 진행

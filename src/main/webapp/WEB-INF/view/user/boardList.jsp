@@ -63,9 +63,15 @@ function listpage(page, board_anser){
 		<div style="flex-basis : 80%;">
 			<h2>건의 내역</h2>
 			<div style="margin-bottom : 10px;">
+<<<<<<< HEAD
 				<a href="boardList" class="btn  ${board_anser eq null? 'btn-success' : '' }">전체</a>
 				<a href="boardList?board_anser=0" class="btn  ${board_anser eq 0? 'btn-success' : '' }">답변대기</a>
 				<a href="boardList?board_anser=1" class="btn  ${board_anser eq 1? 'btn-success' : '' }">답변완료</a>
+=======
+				<a href="boardList" class="btn btn-outline-dark ${board_anser eq null? 'active' : '' }">전체</a>
+				<a href="boardList?board_anser=0&user_id=${user_id}" class="btn btn-outline-dark ${board_anser eq 0? 'active' : '' }">답변대기</a>
+				<a href="boardList?board_anser=1&user_id=${user_id}" class="btn btn-outline-dark ${board_anser eq 1? 'active' : '' }">답변완료</a>
+>>>>>>> branch 'master' of https://github.com/JongChane/bmprj.git
 			</div>
 		<table>
 				<tr>

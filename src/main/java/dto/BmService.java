@@ -112,3 +112,4 @@ public class BmService {
 		return gamedao.getmpGame(gmnum,user_id);
 	}
 }
+
