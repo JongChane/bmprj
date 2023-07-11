@@ -63,6 +63,9 @@ public interface GameMapper {
 
 	@Update("update gamelist set game_people=game_people-1 where game_num=#{value}")
 	boolean gamepeople(Integer gmnum);
+
+	@Select("select * from gamelist where game_num=#{gmnum} and user_id=#{user_id}")
+	Game getmpGame(Integer gmnum, String user_id);
 	
 	
 	
