@@ -155,6 +155,9 @@ public class UserController {
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
+		if (dbUser == null) {
+			throw new LoginException("회원정보가 없습니다.", "login");
+		}
 		user.setUser_pass(passHash(user.getUser_pass()));
 		if(user.getUser_pass().equals(dbUser.getUser_pass())) { //정상 로그인
 		 	 session.setAttribute("loginUser", dbUser);
@@ -245,7 +248,7 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("password") 
-	public ModelAndView idCheckPasswordRtn
+	public ModelAndView loginCheckPasswordRtn
 	(String user_pass, String chgpass, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
@@ -259,7 +262,7 @@ public class UserController {
 			  throw new LoginException
 			  ("비밀번호 수정시 db 오류 입니다.","password");
 		}
-		mav.setViewName("mypage?user_id="+loginUser.getUser_id());
+		mav.setViewName("redirect:mypage?user_id=" + loginUser.getUser_id());
 		return mav;
 	}
 	@PostMapping("idsearch")
