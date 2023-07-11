@@ -18,7 +18,7 @@
 	}
 
 	th{
-		background-color : black;
+		background-color : green;
 		color : white;
 		height :45px;
 		text-align : center;
@@ -63,9 +63,9 @@ function listpage(page, board_anser){
 		<div style="flex-basis : 80%;">
 			<h2>건의 내역</h2>
 			<div style="margin-bottom : 10px;">
-				<a href="boardList" class="btn btn-outline-dark ${board_anser eq null? 'active' : '' }">전체</a>
-				<a href="boardList?board_anser=0" class="btn btn-outline-dark ${board_anser eq 0? 'active' : '' }">답변대기</a>
-				<a href="boardList?board_anser=1" class="btn btn-outline-dark ${board_anser eq 1? 'active' : '' }">답변완료</a>
+				<a href="boardList" class="btn btn-success  ${board_anser eq null? 'active' : '' }">전체</a>
+				<a href="boardList?board_anser=0" class="btn btn-success  ${board_anser eq 0? 'active' : '' }">답변대기</a>
+				<a href="boardList?board_anser=1" class="btn btn-success  ${board_anser eq 1? 'active' : '' }">답변완료</a>
 			</div>
 		<table>
 				<tr>
@@ -88,7 +88,7 @@ function listpage(page, board_anser){
 						</c:if>
 					</td>
 					<td><fmt:formatDate value="${board.board_date}" pattern="yyyy-MM-dd" /></td>
-					<td><button type="button" class="w3-button w3-black" onclick="detailDelete('${board.board_num}')">삭제</button></td>
+					<td><button type="button" class="btn btn-success " onclick="detailDelete('${board.board_num}')">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</table>

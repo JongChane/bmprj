@@ -10,11 +10,13 @@
 .mypage_table  {
    width:400px;
    margin-top : 30px;
+   text-align: center;
 }
+
 </style>
 </head>
 <body>
-<div class="container" style="margin-top : 55px;">
+<div class="container" style="margin-top : 60px;">
    <div style="display : flex; justify-content : space-between;">   
       <div style="flex-basis : 20%;">
          <%@ include file="mypageSideBar2.jsp" %>

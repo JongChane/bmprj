@@ -78,6 +78,13 @@ $(document).on('keyup', '.mail-check-input', function() {
     }
 });
 </script>
+<style>
+.container {
+   width: 35%;
+   margin: 200px auto;
+   text-align: center;
+}
+</style>
 </head>
 <body>
 	<h2>볼링매니아 회원가입</h2>

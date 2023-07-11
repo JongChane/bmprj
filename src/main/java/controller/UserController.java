@@ -291,7 +291,7 @@ public class UserController {
 		return mav;
 	}
 	@RequestMapping("mpgameList")
-	public ModelAndView gamelist(String user_id, HttpSession session) {
+	public ModelAndView loginCheckgamelist(String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		List<Game> glist = service.gList(user_id);
 		Map<Game, List<User>> map = new LinkedHashMap<>();
