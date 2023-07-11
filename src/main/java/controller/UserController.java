@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
@@ -72,24 +71,11 @@ public class UserController {
 	}
 
 	@PostMapping("join")
-	public ModelAndView userAdd(@Valid User user, BindingResult bresult) {
+	public ModelAndView userAdd(User user, BindingResult bresult) {
 		ModelAndView mav = new ModelAndView();
-		if (bresult.hasErrors()) {
-			mav.getModel().putAll(bresult.getModel());
-			bresult.reject("error.input.user");
-			bresult.reject("error.input.check");
-			return mav;
-		}
-		try {
-			user.setUser_pass(passHash(user.getUser_pass()));
-			service.userInsert(user);
-			mav.addObject("user", user);
-		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-			bresult.reject("error.duplicate.user"); // 중복된 아이디 오류
-			mav.getModel().putAll(bresult.getModel());
-			return mav;
-		}
+		user.setUser_pass(passHash(user.getUser_pass()));
+		service.userInsert(user);
+		mav.addObject("user", user);
 		mav.setViewName("redirect:login");
 		return mav;
 	}
