@@ -113,4 +113,8 @@ public class BmService {
 		return user != null;
 	}
 
+	public Game getmpGame(Integer gmnum, String user_id) {
+		return gamedao.getmpGame(gmnum,user_id);
+	}
 }
+
