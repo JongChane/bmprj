@@ -65,7 +65,8 @@ public interface GameMapper {
 	boolean gamepeople(Integer gmnum);
 
 	@Select("select * from gamelist where game_num=#{gmnum} and user_id=#{user_id}")
-	Game getmpGame(Integer gmnum, String user_id);
+	Game getmpGame(Map<String, Object> param);
+
 	
 	
 	

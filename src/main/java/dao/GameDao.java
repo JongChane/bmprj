@@ -93,6 +93,9 @@ public class GameDao {
 	}
 
 	public Game getmpGame(Integer gmnum, String user_id) {
-		return template.getMapper(cls).getmpGame(gmnum,user_id);
+		param.clear();
+		param.put("gmnum",gmnum);
+		param.put("user_id", user_id);
+		return template.getMapper(cls).getmpGame(param);
 	}
 }

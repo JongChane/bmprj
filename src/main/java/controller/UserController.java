@@ -306,6 +306,9 @@ public class UserController {
 		List<Game> glist = service.gList(user_id);
 		Map<Game, List<User>> map = new LinkedHashMap<>();
 		for(Game g : glist) {
+			String game_userid = g.getUser_id();
+			User dbuser = service.getUser(game_userid);
+			if(dbuser == null) continue;
 			List<Gamer> gamerList = service.getGmList(g.getGame_num());
 			List<User> userList = new ArrayList<>();
 			for(Gamer gm : gamerList) {
@@ -339,7 +342,7 @@ public class UserController {
 	@RequestMapping("mpudelete") 
 	public ModelAndView idCheckmpudelete(Integer gmnum, String user_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		Game game = service.getmpGame(gmnum,user_id);
+		Game game = service.getGame(gmnum);
 		if(game == null) {
 			throw new LoginException("없는 게임 번호입니다.","mpgameList?user_id="+user_id);
 		}

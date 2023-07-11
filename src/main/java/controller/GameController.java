@@ -122,17 +122,29 @@ public class GameController {
 		ModelAndView mav = new ModelAndView();
 		Game game = service.getGame(game_num);
 		if(game ==  null) {
-			throw new LoginException("없는 게입니다.", "gamelist");
+			throw new LoginException("없는 게임입니다.", "gamelist");
+		}
+		String userid = game.getUser_id();
+		User user = bmservice.getUser(userid);
+		if(user == null) {
+			throw new LoginException("탈퇴한 회원의 매치입니다.","gamelist");
 		}
 		mav.addObject("game",game);
 		return mav;
 	}
 	@RequestMapping("apply")
-	public ModelAndView apply( Integer game_num,  HttpSession session) {
+	public ModelAndView apply( Integer game_num, String userid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-
+		User user = (User)session.getAttribute("loginUser"); //로그인 되어있는 유저의 모든 정보		
 		Game game = service.getGame(game_num);
-		User user = (User)session.getAttribute("loginUser"); //로그인 되어있는 유저의 모든 정보
+		if(game == null) {
+			throw new LoginException("없는 게임 번호입니다.","gamelist");
+		}
+		String game_userid = game.getUser_id();
+		User dbuser = bmservice.getUser(game_userid);
+		if(dbuser == null) {
+			throw new LoginException("탈퇴한 회원의 매치입니다. 신청 불가합니다.","gamelist");
+		}
 		Gamer gamer = service.getGamer(user.getUser_id(),game_num);
 		int userAge = user.getUser_age();  // 유저의 나이
 		int gameAge = game.getGame_age();  // 게임의 제한 나이
@@ -170,9 +182,18 @@ public class GameController {
 		return mav;
 	}
 	@GetMapping("update")
-	public ModelAndView getupdate(Integer game_num) {
+	public ModelAndView idgetupdate(Integer game_num,String userid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		User user = (User)session.getAttribute("loginUser"); //로그인 되어있는 유저의 모든 정보
+		
 		Game game = service.getGame(game_num);
+		
+		if(game == null) {
+			throw new LoginException("없는 게임 번호입니다.","gamelist");
+		}
+		if(!game.getUser_id().equals(userid)) {
+			throw new LoginException("본인만 수정 가능합니다.","gamelist");
+		}
 		List<Gamer> gamerlist = service.getGamer(game_num);
 		if(gamerlist.size() >= 2 ) {
 			throw new LoginException(" 이미 참여인원 있어서 수정이 불가합니다.", "gameinfo?game_num=" + game_num);

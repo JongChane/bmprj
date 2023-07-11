@@ -11,7 +11,7 @@
 <h2>매치 상세보기</h2>
 <hr>
 <div class="mx-auto mt-5" style="width: 70%;">
-  <table class="table table-bordered border-success" style="text-align:center;"  >
+  <table class="table table" style="text-align:center;"  >
 <tr>
 	<td>
 		제목 : ${game.game_title}
@@ -38,7 +38,7 @@
 	</td>
 </tr>
 <tr >
-	<td>
+	<td colspan="2">
 		경기날짜 : 
 		<fmt:formatDate value="${game.game_date}" pattern="yyyy년MM월dd일"/>
 	</td>
@@ -46,7 +46,7 @@
 	</td>
 </tr>
 </table>
-<table class="table table-bordered border-success" style="text-align:center;">
+<table class="table table" style="text-align:center;">
 <tr>
 	<td>
 		제한사항
@@ -67,7 +67,7 @@
 			<button type="button" class="btn btn-success" onclick="javascript:alert('마감되었습니다.')">마감</button>
 		</c:if>
 		<c:if test="${sessionScope.loginUser.user_id == game.user_id }">
-			<a href="update?game_num=${game.game_num}">
+			<a href="update?game_num=${game.game_num}&userid=${sessionScope.loginUser.user_id}">
 				<button type="button" class="btn btn-success">매치 수정하기</button>
 			</a>
 		</c:if>

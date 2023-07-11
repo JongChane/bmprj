@@ -62,7 +62,7 @@ table {
 						<th>작성자</th>
 						<th>내용</th>
 						<th>매칭날짜</th>
-						<th>신청인원</th>
+						<th>신청인원<br>(정원/현재인원)</th>
 						<th></th>
 					</tr>
 					<c:forEach var="g" items="${gmuser}" varStatus="stat">
