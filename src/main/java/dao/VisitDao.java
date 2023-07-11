@@ -53,4 +53,7 @@ public class VisitDao {
 		return template.getMapper(cls).getAvg(param);
 	}
 
+	public List<Map<String, Object>> getData(String id) {
+		return template.getMapper(cls).graph1(id);
+	}
 }
