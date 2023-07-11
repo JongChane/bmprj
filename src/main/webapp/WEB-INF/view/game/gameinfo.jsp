@@ -45,13 +45,13 @@
 	<td>
 	</td>
 </tr>
-</table>
-<table class="table table" style="text-align:center;">
 <tr>
-	<td>
+	<td colspan="2">
 		제한사항
 	</td>
 </tr>
+</table>
+<table class="table table" style="text-align:center; height:500px;">
 <tr>
 	<td>
 		${game.game_content}
