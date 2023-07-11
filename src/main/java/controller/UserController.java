@@ -71,7 +71,8 @@ public class UserController {
 	}
 
 	@PostMapping("join")
-	public ModelAndView userAdd(User user, BindingResult bresult) {
+	public ModelAndView userAdd(User user) {
+		System.out.println(user);
 		ModelAndView mav = new ModelAndView();
 		user.setUser_pass(passHash(user.getUser_pass()));
 		service.userInsert(user);

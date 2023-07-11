@@ -197,7 +197,6 @@ $(document).on('click', '#mail-Check-Btn', function() {
     
     const fullEmail = email + emailDomain; // 이메일과 도메인을 합쳐 전체 이메일 주소 생성
     // 이메일 값을 hidden 필드에 저장
-    $('#hidden_user_email').val(fullEmail);
     $.ajax({
         type: 'get',
         url: '<c:url value="/user/mailCheck?email="/>' + fullEmail,
@@ -225,7 +224,8 @@ $(document).on('keyup', '.mail-check-input', function() {
     if (inputCode.length === 6) {
         if (inputCode === code) {
             warnSpan.text('인증번호가 일치합니다.').css('color', 'green');
-            isCodeValid = true; // 인증번호 유효함을 표시
+            isCodeValid = true;
+            $('#mail-Check-Btn').prop('disabled', true);// 인증번호 유효함을 표시
         } else {
             warnSpan.text('인증번호가 다릅니다.').css('color', 'red');
             isCodeValid = false; // 인증번호 유효하지 않음을 표시
@@ -351,7 +351,6 @@ $(document).ready(function() {
             	<button class="btn btn-success" type="button" id="mail-Check-Btn">메일인증</button>
             </div>
             <span id="mail-check-warn"></span>
-                <input type="hidden" class="form-control" name="user_email" id="hidden_user_email">
         		</div>
   			  </td>
 				</tr>
