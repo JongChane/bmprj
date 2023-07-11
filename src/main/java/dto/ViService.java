@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,12 @@ public class ViService {
 	public int getAvg(Integer rv_num, String vi_id) {
 		return viDao.getAvg(rv_num, vi_id);
 	}
+
+	public List<Map<String, Object>> data(String id) {
+		List<Map<String, Object>> list = viDao.getData(id);		
+		return list;
+	}
+
 
 	/*
 	 * public void update(String vi_id, int vi_total, int vi_avg, int vi_game) {
