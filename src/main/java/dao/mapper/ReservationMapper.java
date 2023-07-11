@@ -20,18 +20,20 @@ public interface ReservationMapper {
 	void insert(Reservation reservation);
 
 	@Select({
-	    "<script>",
-	    "SELECT rv_start, rv_end",
-	    "FROM reservation",
-	    "WHERE rv_date = #{date} and lane_num IN",
-	    "<foreach item='item' index='index' collection='laneNumbers' open='(' separator=',' close=')'>",
-	    "#{item}",
-	    "</foreach>",
-	    "</script>"
-	})
-	List<Map<String, Object>> rvCheck(@Param("date")String date, @Param("laneNumbers")List<String> laneNumbers);
+    "<script>",
+    "SELECT rv_start, rv_end",
+    "FROM reservation",
+			"WHERE rv_date = #{date} AND (",
+    "<foreach item='item' index='index' collection='laneNumbers' separator='OR'>",
+    "FIND_IN_SET(#{item}, lane_num) > 0",
+    "</foreach>",
+			")",
+    "</script>"
+})
+List<Map<String, Object>> rvCheck(@Param("date")String date, @Param("laneNumbers")List<String> laneNumbers);
+
 	
-	@Select("SELECT * FROM reservation r LEFT JOIN visit v ON r.rv_num = v.rv_num")
+	@Select("SELECT * FROM reservation")
 	List<Reservation> rvList();
 	
 	@Select("select ifnull(max(rv_num),0) from reservation")

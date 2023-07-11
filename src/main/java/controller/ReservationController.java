@@ -57,13 +57,9 @@ public class ReservationController {
 	@PostMapping("reservation")
 	public ModelAndView reservation(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String[] lane_nums = (String[]) session.getAttribute("lane_nums");
 		String[] vi_id = (String[]) session.getAttribute("vi_id");
 		Reservation reservation = (Reservation) session.getAttribute("reservation");
-		for(int i=0 ;i<lane_nums.length; i++) {
-			reservation.setLane_num(lane_nums[i]);
 			rvService.insert(reservation);
-		}
 		if(vi_id !=null) {
 			for(int i = 0 ; i < vi_id.length ; i++) {
 				vis.insert(vi_id[i], reservation.getRv_num(), reservation.getRv_game());
