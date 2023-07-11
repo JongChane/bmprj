@@ -33,7 +33,7 @@ public interface ReservationMapper {
 List<Map<String, Object>> rvCheck(@Param("date")String date, @Param("laneNumbers")List<String> laneNumbers);
 
 	
-	@Select("SELECT * FROM reservation")
+@Select("SELECT * FROM rv_view")
 	List<Reservation> rvList();
 	
 	@Select("select ifnull(max(rv_num),0) from reservation")

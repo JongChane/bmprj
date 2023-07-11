@@ -65,11 +65,10 @@ public class ReservationController {
 				vis.insert(vi_id[i], reservation.getRv_num(), reservation.getRv_game());
 			}
 		}
-		String user_id = (String) session.getAttribute("login");
 		session.removeAttribute("lane_nums");
 		session.removeAttribute("vi_id");
 		session.removeAttribute("reservation");
-		mav.setViewName("redirect:../user/reserveList?user_id=" + user_id);
+		mav.addObject("sessionCleared", true);
 		return mav;
 	}
 
