@@ -20,9 +20,10 @@
          <%@ include file="mypageSideBar2.jsp" %>
       </div>
       
-      <div style="flex-basis : 80%;">
+      <div style="flex-basis : 80%;" >
       <h1 class="mb-3">회원정보</h1>
-      <div class="mypageInfo" style="width : 40%;">
+      <div class="row">
+      <div class="mypageInfo" >
          <table class="mypage_table w3-table w3-bordered">
               <tr>
                   <td>아이디</td>
@@ -49,6 +50,7 @@
                   <td>${user.user_avg}</td>
                </tr>            
          </table>
+      </div>
       </div>
       </div>
    </div>   
