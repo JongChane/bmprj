@@ -54,13 +54,13 @@ function listpage(page){
       	<table>
       		<tr>
       			<th style="width:20%">예약시간</th>
-      			<th style="width:20%">방문날짜</th>
-      			<th style="width:20%">방문시간</th>
+      			<th style="width:15%">방문날짜</th>
+      			<th style="width:15%">방문시간</th>
       			<th style="width:6%">게임수</th>
 	      		<th style="width:6%">인원수</th>
       			<th style="width:6%">레인</th>
-      			<th style="width:6%">에버</th>
-      			<th style="width:20%">결제가격</th>
+      			<th style="width:12%">에버</th>
+      			<th style="width:15%">결제가격</th>
       		</tr>
       		<c:forEach items="${reserve}" var="reserve">
       		<tr>
@@ -72,7 +72,9 @@ function listpage(page){
 						<td>${reserve.rv_game}</td>
   					<td>${reserve.rv_people}</td>
 						<td>${reserve.lane_num}</td>
-						<td>${reserve.vi_avg}</td>
+						<td>
+						<c:if test="${reserve.vi_avg==0}">등록대기</c:if>
+						<c:if test="${reserve.vi_avg!=0}">${reserve.vi_avg}</c:if></td>
 						<td><fmt:formatNumber value="${reserve.rv_price}" pattern="#,###" />원</td>						
       		</c:forEach>
       	</table>

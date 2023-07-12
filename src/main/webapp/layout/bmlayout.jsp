@@ -182,6 +182,8 @@ label {
 </div>
 <footer class="w3-center w3-black w3-padding-16" style="margin-top: 70px; fixed; bottom: 0; width: 100%; height: 50px;">
   <strong>Powered by 볼링매니아</strong>
+  <a href="${path}/admin/login"><i class="fas fa-user-cog"></i></a>
+  
 </footer>
 
 </body>

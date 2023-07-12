@@ -244,7 +244,7 @@ public class UserController {
 		}
 		try {
 			service.userChgpass(loginUser.getUser_id(),passHash(chgpass));
-			loginUser.setUser_pass(chgpass); //로그인 정보에 비밀번호 수정
+			loginUser.setUser_pass(passHash(chgpass)); // 로그인 정보에 비밀번호 수정
 		} catch(Exception e) {
 			  throw new LoginException
 			  ("비밀번호 수정시 db 오류 입니다.","password");
