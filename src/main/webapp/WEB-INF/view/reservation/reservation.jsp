@@ -5,6 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	.form-select{
+		width: 60%;
+		
+		height: 60px;
+	}
+</style>
     <title>날짜 선택</title>
     <link rel="stylesheet" type="text/css" href="reservation.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -157,7 +164,7 @@ $(function() {
    </div><!-- 예약날짜 -->
    <div>
       <h1>게임 수</h1>
-      <select name="rv_game">
+      <select name="rv_game" class="form-select">
          <option value="3">3게임</option>
          <option value="4">4게임</option>
          <option value="5">5게임</option>
@@ -167,7 +174,7 @@ $(function() {
    <div>
       <h1>인원선택</h1>
       <h5>4명 이상부터 레인을 두 개 선택할 수 있습니다.</h5>
-      <select name="rv_people" id="personSelect">
+      <select name="rv_people" id="personSelect" class="form-select">
          <option value="1">1명</option>
          <option value="2">2명</option>
          <option value="3">3명</option>
@@ -181,7 +188,7 @@ $(function() {
    <div>
    		<h1>회원 아이디 입력</h1>
    		<h5>방문 회원의 아이디를 입력하세요. 게임 종료 후 에버점수를 업데이트 합니다.</h5>
-   		<select id="memberCount" name="memberCount">
+   		<select id="memberCount" name="memberCount" class="form-select">
 				 <option value="">선택</option>
          <option value="1">1명</option>
          <option value="2">2명</option>
@@ -192,7 +199,7 @@ $(function() {
          <option value="7">7명</option>
          <option value="8">8명</option>
        </select>
-       <table id="memberTable"></table>
+       <table id="memberTable" class="w3-table"></table>
    </div><!-- 회원 점수등록 -->
    <script type="text/javascript">
    $(document).ready(function() {
@@ -243,7 +250,7 @@ $(function() {
      <ul class="rain_ul">
    <li class="rain_li">
       <label>
-         <input type="checkbox" name="lane_num[]" value="1">
+         <input type="checkbox" name="lane_num[]" value="1" >
          1번레인
       </label>
    </li>
@@ -450,8 +457,8 @@ $(function() {
   </script>   
    </div><!-- 예약시간 -->
    <div>
-      <button type="button" onclick="window.history.back()">취소</button>
-      <button type="submit">예약</button>
+      <button type="button" onclick="window.history.back()" class="btn btn-outline-success">취소</button>
+      <button type="submit" class="btn btn-outline-success">예약</button>
    </div>
 </form:form>
 </body>
