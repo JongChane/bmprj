@@ -309,6 +309,9 @@ $(function() {
   
   rainItems.forEach(item => {
      item.addEventListener('click', function() {
+    	    if (event.target.tagName === 'LABEL' || event.target.tagName === 'INPUT') {
+    	        event.preventDefault();
+    	      }
        if (parseInt(personSelect.value) >= 4) {
          // 선택된 li 태그의 색상 변경 (두 개 선택)
          if (selectedItems.length < 2) {
