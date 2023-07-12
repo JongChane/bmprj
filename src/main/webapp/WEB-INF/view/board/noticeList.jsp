@@ -57,21 +57,21 @@ function openDetail(idx) {
 	
 			<div style="margin : 10px auto; width:200px;">
 			<c:if test="${pageNum > 1 }">
-			  <a href="javascript:listpage('${pageNum - 1 }')">[이전]</a>
+			  <a href="javascript:listpage('${pageNum - 1 }')"><button type="button" class="btn btn-success">이전</button></a>
 			</c:if>
-			<c:if test="${pageNum <= 1}">[이전]</c:if>
+			<c:if test="${pageNum <= 1}"><button type="button" class="btn btn-outline-success">이전</button></c:if>
 			
 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
-			  <c:if test="${a == pageNum}">[${a}]</c:if>
+			  <c:if test="${a == pageNum}"><button type="button" class="btn btn-success">${a}</button></c:if>
 			  <c:if test="${a != pageNum}">
-			     <a href="javascript:listpage('${a}')">[${a}]</a>
+			     <a href="javascript:listpage('${a}')"><button type="button" class="btn btn-outline-success">${a}</button></a>
 			  </c:if>
 			</c:forEach>
 			
 			<c:if test="${pageNum < maxpage}">
-			  <a href="javascript:listpage('${pageNum + 1}')">[다음]</a>
+			  <a href="javascript:listpage('${pageNum + 1}')"><button type="button" class="btn btn-success">다음</button></a>
 			</c:if>   
-			<c:if test="${pageNum >= maxpage}">[다음]</c:if>
+			<c:if test="${pageNum >= maxpage}"><button type="button" class="btn btn-outline-success">다음</button></c:if>
 			</div>
 	<script>
 		function listpage(page){

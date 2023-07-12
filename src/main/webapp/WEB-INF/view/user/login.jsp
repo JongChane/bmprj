@@ -41,6 +41,8 @@ function win_open(page) {
 .w3-table td {
   padding: 5px; 
    text-align: center;
+  
+    width: 60px;
 }
 .w3-table tr {
   margin-bottom: 5px; 
@@ -75,6 +77,7 @@ function win_open(page) {
             <td>아이디</td>
             <td>
                <form:input path="user_id"  class="search-input" />
+               <br>
                  <font color="red">
                     <form:errors path="user_id" />
                  </font>
@@ -84,6 +87,7 @@ function win_open(page) {
             <td>비밀번호</td>
             <td>
                <form:password path="user_pass"  class="search-input" />
+               <br>
             <font color="red">
                <form:errors path="user_pass" />
             </font>
