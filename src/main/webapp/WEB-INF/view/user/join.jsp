@@ -287,28 +287,28 @@ $(document).ready(function() {
    				<td>
    					<form:input path="user_id" class="search-input"/>
    					<input type="hidden" id="hidden_user_id" name="user_id"/>
-   						<button class="btn btn-success" type="button" id="id-Check-Btn">중복검사</button>
+   						<button class="btn btn-success" type="button" id="id-Check-Btn">중복검사</button><br>
    					<span id="user_id_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>비밀번호</td>
    				<td>
-   					<form:password path="user_pass" class="search-input"/>
+   					<form:password path="user_pass" class="search-input"/><br>
    					<span id="user_pass_error"></span>
        		</td>
        	</tr>
    			<tr>
    				<td>이름</td>
    				<td>
-   					<form:input path="user_name" class="search-input"/>
+   					<form:input path="user_name" class="search-input"/><br>
    					<span id="user_name_error"></span>
         	</td>
         </tr>
    			<tr>
    				<td>나이</td>
    				<td>
-   					<form:input path="user_age" class="search-input"/>
+   					<form:input path="user_age" class="search-input"/><br>
    					<span id="user_age_error"></span>
         	</td>
         </tr>        
@@ -319,14 +319,14 @@ $(document).ready(function() {
   						<form:option value="">성별 선택</form:option>
   						<form:option value="남성">남성</form:option>
   						<form:option value="여성">여성</form:option>
-  					</form:select>
+  					</form:select><br>
   					<span id="user_gender_error"></span>
   				</td>
   			</tr>
    			<tr>
    				<td>전화번호</td>
    				<td>
-   					<form:input path="user_tel"  class="search-input"/>
+   					<form:input path="user_tel"  class="search-input"/><br>
    					<span id="user_tel_error"></span>
    				</td>
    			</tr>
@@ -357,7 +357,7 @@ $(document).ready(function() {
    			<tr>
    				<td>에버점수</td>
    				<td>
-   					<form:input path="user_avg" />
+   					<form:input path="user_avg" /><br>
    					<span id="user_avg_error"></span>
         	</td>
         </tr>

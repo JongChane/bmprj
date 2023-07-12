@@ -247,7 +247,7 @@ $(function() {
    </script> 
    <div>
       <h1>레인선택</h1>
-     <ul class="rain_ul">
+   <ul class="rain_ul">
    <li class="rain_li">
       <label>
          <input type="checkbox" name="lane_num[]" value="1" >
@@ -272,6 +272,10 @@ $(function() {
          4번레인
       </label>
    </li>
+   </ul>
+   </div>
+   <div>
+   <ul class="rain_ul">
    <li class="rain_li">
       <label>
          <input type="checkbox" name="lane_num[]" value="5">
@@ -296,6 +300,10 @@ $(function() {
          8번레인
       </label>
    </li>
+   </ul>
+   </div>
+   <div>
+   <ul class="rain_ul">
    <li class="rain_li">
       <label>
          <input type="checkbox" name="lane_num[]" value="9">
