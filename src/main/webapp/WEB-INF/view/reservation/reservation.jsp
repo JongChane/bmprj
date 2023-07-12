@@ -204,7 +204,7 @@ $(function() {
          <option value="7">7명</option>
          <option value="8">8명</option>
        </select>
-       <table id="memberTable" class="w3-table"></table>
+       <table id="memberTable" ></table>
    </div><!-- 회원 점수등록 -->
    <script type="text/javascript">
    $(document).ready(function() {
