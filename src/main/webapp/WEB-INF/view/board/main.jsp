@@ -50,6 +50,29 @@
   .reserved {
     background-color: gray;
   }
+  
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  ul li {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  ul li i {
+    margin-bottom: 5px;
+  }
+  P{
+  	color : #ad5c38 !important;
+  	font-size : 26px;
+  }
 </style>
 
 
@@ -231,20 +254,68 @@ $(document).ready(function() {
 		<h3><img src="${path}/image/bollpin.png" style="width:40px; height:40px;"> 오시는길</h3>
 		<!-- 지도를 표시할 div 입니다 -->
 		<div id="map" style="width:100%;height:350px;"></div>
+		<div style="margin :30px 30px;">
+			<h5>볼링매니아</h5>
+			<p>서울특별시 금천구 가산디지털2로 95 KM타워 3층 305호 볼링매니아</p>
+		</div>
+		
+		<hr>
+		
+		<div style="margin :30px 30px;">
+			<i class="fa-solid fa-phone"></i>
+			<span style="margin-right:50px;">전화번호</span>
+			<span>02-123-4567</span>
+		</div>
+		
+		<hr>
+		
+		<div style="margin :30px 30px;">
+			<i class="fa-solid fa-clock"></i>
+			<span style="margin-right:50px;">이용시간</span>
+			<span>매일 09:00 ~ 24:00</span>
+		</div>
+		
+		<hr>
+		
+		<div style="margin: 30px 30px;">
+		  <div style="display: flex; align-items: center;">
+		    <i class="fa-solid fa-circle-info"></i>
+		    <span style="margin-left: 5px; margin-right:50px;" >이용안내</span>
+		  <ul>
+		    <li>
+		      <i class="fa-regular fa-calendar-check fa-2xl" style="margin-bottom : 20px;"></i>
+		      <span>예약</span>		
+		    </li>
+		    <li>
+		      <i class="fa-solid fa-square-parking fa-2xl" style="margin-bottom : 20px;"></i>
+		      <span>주차</span>					
+		    </li>
+		    <li>
+		      <i class="fa-solid fa-wifi fa-2xl" style="margin-bottom : 20px;"></i>
+		      <span>무선 인터넷</span>			
+		    </li>
+		    <li>
+		      <i class="fa-solid fa-restroom fa-2xl" style="margin-bottom : 20px;"></i>
+		      <span>남/녀화장실 구분</span>			
+		    </li>
+		  </ul>
+		  </div>
+		</div>
+		
 		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ebdf41bcbf7f9f26d534e2bb8a0094ff"></script>
 		<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = { 
-		        center: new kakao.maps.LatLng(37.48450202986353, 126.81144938527626), // 지도의 중심좌표
-		        level: 1 // 지도의 확대 레벨
+		        center: new kakao.maps.LatLng(37.47635390347122, 126.87985893857008), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
 		    };
 		
 		// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
 		
 		// 마커가 표시될 위치입니다 
-		var markerPosition  = new kakao.maps.LatLng(37.48433952425129, 126.81124627512985); 
+		var markerPosition  = new kakao.maps.LatLng(37.4764508278954, 126.87990121117487); 
 
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({

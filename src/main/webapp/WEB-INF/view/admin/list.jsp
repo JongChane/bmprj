@@ -36,7 +36,6 @@
   	<td>${user.user_email}</td>
   	<td>
  			<a href="../user/delete?user_id=${user.user_id}">강제탈퇴</a>
-  		<a href="../user/mypage?user_id=${user.user_id}">회원정보</a>
   	</td>
   </tr>
   </c:forEach>

@@ -78,10 +78,6 @@ a{color:black};
     class="w3-bar-item w3-button w3-padding
     	<c:if test='${url == "board" && boardid=="2"}'>w3-blue</c:if>">
     <i class="fa fa-eye fa-fw"></i>&nbsp; 건의답변</a>
-    <a href="${path}/board/list?boardid=3" 
-    class="w3-bar-item w3-button w3-padding
-    <c:if test='${url == "board" && boardid=="3"}'>w3-blue</c:if>">
-    <i class="fa fa-eye fa-fw"></i>&nbsp; 메인수정</a>
   </div>
   <%-- 수출입은행 환율 정보 표시 영역 --%>
   <div style="width:100%;">
