@@ -162,7 +162,7 @@ public class GameController {
 		if(!game.getGame_gender().equals("성별무관") && !user.getUser_gender().equals(game.getGame_gender())) {
 			throw new LoginException("성별 맞지않습니다.","gameinfo?game_num="+game_num);
 		}
-		if (userAvg < gameAvg - 50 || userAvg > gameAvg + 50) {
+		if (userAvg < gameAvg - 15 || userAvg > gameAvg + 15) {
 		    throw new LoginException("에버리지가 맞지않습니다.", "gameinfo?game_num=" + game_num);
 		}
 		if(gamePeople == gameMax) {
