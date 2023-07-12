@@ -78,7 +78,7 @@
 	  <tr>
 	   		<td>경기날짜</td>
 	          <td>
-		       <form:input path="game_date" class="form-control" type="date"  id="game_date_input" />
+		       <form:input path="game_date" class="form-control" type="date"  id="game_date_input"/>
 	            <font color="red">
 	               <form:errors path="game_date"/>
 	            </font>
