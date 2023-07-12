@@ -9,7 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 <meta charset="UTF-8">
-<title>메인화면</title>
+<title>메인화면</title> 
 <style>
   .ul_mclass {
     margin: 8px 0 0;
@@ -254,7 +254,6 @@ $(document).ready(function() {
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 		</script>
-	</div>
 </div>
 </body>
 </html>
