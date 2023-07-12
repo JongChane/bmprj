@@ -30,6 +30,7 @@
     border: 1px solid #c8e1af;
     color: #333;
     cursor: pointer;
+    margin-right: 3px;
   }
 
   .lane-btn {
@@ -69,9 +70,15 @@
   ul li i {
     margin-bottom: 5px;
   }
+  
   P{
   	color : #ad5c38 !important;
   	font-size : 26px;
+  }
+  
+   #map {
+    position: relative;
+    z-index: 0;
   }
 </style>
 
