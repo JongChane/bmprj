@@ -27,7 +27,7 @@ public interface VisitMapper {
 	@Select("select ifnull(vi_avg,0) from visit where rv_num=#{rv_num} and vi_id=#{vi_id}")
 	int getAvg(Map<String, Object> param);
 	
-	@Select("SELECT rv_num, rv_date, vi_avg FROM rv_view WHERE vi_id = #{value} ORDER BY rv_num asc")
+	@Select("SELECT rv_num,date_format(rv_date,'%m월%d일') rv_date, vi_avg,lane_num,rv_game FROM rv_view WHERE vi_id = #{value} ORDER BY rv_now asc")
 	List<Map<String, Object>> graph1(String id);
 
 
