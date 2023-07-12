@@ -8,9 +8,14 @@
 <style type="text/css">
 	.form-select{
 		width: 60%;
-		
-		height: 60px;
+		height: 50px;
 	}
+	.form-control{
+	width: 60%;
+	height: 50px;
+	background : white;
+	}
+	
 </style>
     <title>날짜 선택</title>
     <link rel="stylesheet" type="text/css" href="reservation.css">
@@ -160,7 +165,7 @@ $(function() {
     <input type="hidden" name="user_id" value="${sessionScope.login}">
    <div style="margin-top: 70px">
       <h1>예약날짜</h1>
-          <input type="text" name="rv_date" class="datepicker" readonly/>
+          <input type="text" name="rv_date" class="datepicker form-control" readonly/>
    </div><!-- 예약날짜 -->
    <div>
       <h1>게임 수</h1>
